@@ -88,9 +88,7 @@
 		"pnpm": ">=8"
 	},
 	"publishConfig": {
-		"provenance": true,
-		"access": "public",
-		"registry": "https://npm.pkg.github.com"
+		"access": "public"
 	},
 	"private": false
 }
