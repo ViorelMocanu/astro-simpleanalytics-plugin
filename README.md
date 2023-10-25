@@ -90,7 +90,7 @@ Simple Analytics should be ready to go with zero config.
 
 It exposes some of the advanced tracking options you can find below as component props, and optionally stubs in a console logger + an inline HTML hidden div when analytics are disabled for easy debugging (if you [include the `debug={true}` prop](#-option-debugging-)).
 
-By default, it will only run in non-`local` and non-`development` environments, with native integration inside `@astrojs/partytown` and start tracking the currently visible domain inside the visitor browsers' address bar. It honors [Do Not Track](https://en.wikipedia.org/wiki/Do_Not_Track) and it also does gets blocked by some ad blockers. It gets embedded wherever you put it (ideally on all website pages, at the bottom of all your layouts, just before the closing `</body>` tag).
+By default, it will only run in non-`local` and non-`development` environments and start tracking the currently visible domain inside the visitor browsers' address bar. It honors [Do Not Track](https://en.wikipedia.org/wiki/Do_Not_Track) and it also does gets blocked by some ad blockers. It gets embedded wherever you put it (ideally on all website pages, at the bottom of all your layouts, just before the closing `</body>` tag).
 
 If you'd like to change that behaviour, please browse through the various configuration options below:
 
@@ -116,7 +116,7 @@ By default, the Astro Simple Analytics Plugin attempts to load its client script
 
 [Partytown](https://partytown.builder.io/) is a lazy-loaded library to help relocate resource intensive scripts into a [web worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API), and off of the [main thread](https://developer.mozilla.org/en-US/docs/Glossary/Main_thread). If you're using third-party scripts for things like analytics or ads, Partytown is a great way to make sure that they don't slow down your site.
 
-This plugin automatically integrates with [@astrojs/partytown](https://github.com/withastro/astro/tree/main/packages/integrations/partytown). For more details about `@astrojs/partytown`, read the [official Astro integration documentation](https://docs.astro.build/en/guides/integrations-guide/partytown/).
+This plugin can optionally integrate with [@astrojs/partytown](https://github.com/withastro/astro/tree/main/packages/integrations/partytown). For more details about `@astrojs/partytown`, read the [official Astro integration documentation](https://docs.astro.build/en/guides/integrations-guide/partytown/).
 
 In order for Partytown to expose debug features for implementation and forward window events from the service worker back to the main thread, make sure that, at a minimum, you set these configuration flags in your Partytown integration inside `astro.config.*` file:
 
@@ -135,10 +135,10 @@ export default defineConfig({
 });
 ```
 
-If you want to disable this plugin integratoin for your specific use case and load the scripts directly, use this component property when rendering your Analytics in your `Layout.astro`:
+If you want to enable this plugin integration, use this component property when rendering your Analytics in your `Layout.astro`:
 
 ```Astro
-<SimpleAnalytics partytown={false} />
+<SimpleAnalytics partytown={true} />
 ```
 
 ### ✅ Option: Light version script 🪶
@@ -219,7 +219,7 @@ These are all the available options for this plugin inside your `astro.config.mj
   ignorePages={undefined}        {/* (undefined | string) */}
   light={false}                  {/* (false | true) */}
   nonUniqueHostnames={undefined} {/* (undefined | string) */}
-  partytown={true}               {/* (true | false) */}
+  partytown={false}              {/* (false | true) */}
   debug={false}                  {/* (false | true) */}
 />
 ```
@@ -228,7 +228,7 @@ The rendered static HTML for the code above would be:
 
 ```html
 <!-- Simple Analytics - 100% privacy-first analytics -->
-<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js" type="text/partytown"></script>
+<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js" type="text/javascript"></script>
 <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 ```
 

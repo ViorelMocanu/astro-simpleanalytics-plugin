@@ -21,7 +21,7 @@ const {
 	ignorePages = undefined,
 	light = false,
 	nonUniqueHostnames = undefined,
-	partytown = true,
+	partytown = false,
 	debug = false
 } = Astro.props;
 
@@ -118,7 +118,7 @@ if (sanitizedDebug) {
 {showScripts && (
 	<div class="SimpleAnalytics">
 		<script is:inline async defer src={scriptSrc} {...attrs}></script>
-		<noscript><img src={imageSrc} alt="" referrerpolicy="no-referrer-when-downgrade" {...attrs} /></noscript>
+		<noscript><img src={imageSrc} alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 	</div>
 )}
 {sanitizedDebug && (
