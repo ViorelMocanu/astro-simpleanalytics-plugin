@@ -92,6 +92,10 @@ const imageSrc = `https://queue.simpleanalyticscdn.com/${imagefile}${specificHos
 // render boolean calculation
 const showScripts = sanitizedAllEnvironments ? true : (import.meta.env.DEV ? false : true);
 
+if (!showScripts) {
+	console.info("SimpleAnalytics loaded with the following parameters:", Astro.props, scriptSrc, imageSrc, attrs);
+}
+
 ---
 
 <!-- Simple Analytics - 100% privacy-first analytics -->

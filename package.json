@@ -1,6 +1,6 @@
 {
 	"name": "astro-simpleanalytics-plugin",
-	"description": "Use Simple Analytics Astro Plugin to integrate Simple Analytics in your Astro project",
+	"description": "Use the Astro Simple Analytics Plugin to quickly integrate Simple Analytics in your Astro project with parameter control over several features.",
 	"version": "0.0.1",
 	"type": "module",
 	"main": "index.ts",
@@ -48,6 +48,7 @@
 		"prepare": "husky install",
 		"typecheck": "pnpm tsc --project tsconfig.json --noEmit --pretty",
 		"verify": "pnpm lint && pnpm typecheck && pnpm format",
+		"verify:fix": "pnpm lint:fix && pnpm typecheck && pnpm format:fix",
 		"release:patch": "pnpm --workspaces --git-tag-version false version patch && pnpm --git-tag-version false version patch",
 		"release:minor": "pnpm --workspaces --git-tag-version false version minor && pnpm --git-tag-version false version minor",
 		"release:major": "pnpm --workspaces --git-tag-version false version major && pnpm --git-tag-version false version major",
