@@ -27,7 +27,7 @@ This is a [Simple Analytics](https://github.com/simpleanalytics) plugin for [Ast
         - [✅ Option: Ignore pages ➖](#-option-ignore-pages-)
         - [✅ Option: Non-unique hostnames 🔗](#-option-non-unique-hostnames-)
         - [📃 Complete configuration reference](#-complete-configuration-reference)
-    - [Troubleshooting](#troubleshooting)
+    - [🐞 Troubleshooting](#-troubleshooting)
     - [💡 Examples](#-examples)
     - [🙏 Contributing](#-contributing)
         - [ℹ️ Code of Conduct](#ℹ️-code-of-conduct)
@@ -90,7 +90,7 @@ Simple Analytics should be ready to go with zero config.
 
 It exposes some of the advanced tracking options you can find below as component props, and optionally stubs in a console logger + an inline HTML hidden div when analytics are disabled for easy debugging (if you [include the `debug={true}` prop](#-option-debugging-)).
 
-By default, it will only run in non-`local` and non-`development` environments, with native integration inside `@astrojs/partytown` and start tracking the currently visible domain inside the visitor browsers' address bar. It honors **Do Not Track** and gets blocked by some ad blockers. It runs for all website pages.
+By default, it will only run in non-`local` and non-`development` environments, with native integration inside `@astrojs/partytown` and start tracking the currently visible domain inside the visitor browsers' address bar. It honors [Do Not Track](https://en.wikipedia.org/wiki/Do_Not_Track) and it also does gets blocked by some ad blockers. It gets embedded wherever you put it (ideally on all website pages, at the bottom of all your layouts, just before the closing `</body>` tag).
 
 If you'd like to change that behaviour, please browse through the various configuration options below:
 
@@ -101,6 +101,8 @@ By default, the Astro Simple Analytics Plugin does not pollute the console with 
 ```Astro
 <SimpleAnalytics debug={true} />
 ```
+
+If you have issues or can't seem to make the plugin work, please refer to the [Troubleshooting section](#troubleshooting).
 
 ### ✅ Option: Loading Analytics in all environments ♾️
 
@@ -201,6 +203,7 @@ These are all the available options for this plugin inside your `astro.config.mj
   light={false}                  {/* (false | true) */}
   nonUniqueHostnames={undefined} {/* (undefined | string) */}
   partytown={true}               {/* (true | false) */}
+  debug={false}                  {/* (false | true) */}
 />
 ```
 
@@ -212,7 +215,7 @@ The rendered static HTML for the code above would be:
 <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 ```
 
-## Troubleshooting
+## 🐞 Troubleshooting
 
 If your Simple Analytics fails to render or load properly, or fails to send data into your dashboard, make sure you:
 
@@ -228,15 +231,15 @@ If your Simple Analytics fails to render or load properly, or fails to send data
 
 ## 🙏 Contributing
 
-Bug reports and pull requests are welcome on GitHub at <https://github.com/ViorelMocanu/astro-simpleanalytics-plugin> .
+Bug reports and pull requests [are welcome on our GitHub](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/issues/new/choose).
 
 ### ℹ️ Code of Conduct
 
-Everyone interacting in the `astro-simpleanalytics-plugin` project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/ViorelMocanu/simpleanalytics-plugin/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the `astro-simpleanalytics-plugin` project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](CODE_OF_CONDUCT.md).
 
 ### 🎯 Coding Standards
 
-This project uses [ESLint](https://github.com/eslint/eslint), Prettier and Commitlint for standardizing the look and feel of the source files when committing.
+This project uses [ESLint](https://github.com/eslint/eslint), [Prettier](https://github.com/prettier/prettier) and [Commitlint](https://github.com/conventional-changelog/commitlint) for standardizing the look and feel of the source files when committing.
 
 Please run `pnpm verify:fix` prior to submitting pull requests.
 
@@ -266,7 +269,7 @@ All commands can be ran from the plugin root folder using your terminal of choic
 
 ## 📝 License
 
-This package is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+This package is available as open source under the terms of the [ISC License](https://opensource.org/license/isc-license-txt/).
 
 ## 🏺 Changelog
 
