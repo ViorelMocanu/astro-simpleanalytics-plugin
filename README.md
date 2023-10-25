@@ -17,6 +17,7 @@ This is a [Simple Analytics](https://github.com/simpleanalytics) plugin for [Ast
         - [⚡ Quick installation](#-quick-installation)
         - [🏗️ Manual install](#️-manual-install)
     - [✨ Usage](#-usage)
+        - [✅ Option: Debugging 🚧](#-option-debugging-)
         - [✅ Option: Loading Analytics in all environments ♾️](#-option-loading-analytics-in-all-environments-️)
         - [✅ Option: Integrate with `@astrojs/partytown` 🎉](#-option-integrate-with-astrojspartytown-)
         - [✅ Option: Light version script 🪶](#-option-light-version-script-)
@@ -86,15 +87,23 @@ You then need to import `astro-simpleanalytics-plugin` and then use the `<Simple
 
 Simple Analytics should be ready to go with zero config.
 
-It exposes some of the advanced tracking options you can find below as component props, and stubs in a console logger + an inline HTML hidden div when analytics are disabled for easy debugging.
+It exposes some of the advanced tracking options you can find below as component props, and optionally stubs in a console logger + an inline HTML hidden div when analytics are disabled for easy debugging (if you [include the `debug={true}` prop](#-option-debugging-)).
 
 By default, it will only run in non-`local` and non-`development` environments, with native integration inside `@astrojs/partytown` and start tracking the currently visible domain inside the visitor browsers' address bar. It honors **Do Not Track** and gets blocked by some ad blockers. It runs for all website pages.
 
 If you'd like to change that behaviour, please browse through the various configuration options below:
 
+### ✅ Option: Debugging 🚧
+
+By default, the Simple Analytics plugin does not pollute the console with any logs, nor does it load extraneous DOM elements. However, you can trigger both in a debugging mode to verify whether the scripts are working correctly or not by adding this parameter to the component:
+
+```Astro
+<SimpleAnalytics debug={true} />
+```
+
 ### ✅ Option: Loading Analytics in all environments ♾️
 
-By default, the Simple Analytics plugin attempts to load its client script exclusively on non-`local` and non-`development` environments by using [Vite's](https://vitejs.dev/guide/env-and-mode.html) `import.meta.env.DEV` boolean (since Vite is automatically bundled with Astro). If it's true, it doesn't load the script, but stubs the options with a console log and a hidden `<div />` element in HTML for easy debugging. If `import.meta.env.DEV` is somehow unavailable or unset, it defaults to showing the script everywhere. If you'd like to force showing the script on all environments (including `local` / `development`, `staging` / `preview`, `production`, etc.), you need to add the following component property:
+By default, the Simple Analytics plugin attempts to load its client script exclusively on non-`local` and non-`development` environments by using [Vite's](https://vitejs.dev/guide/env-and-mode.html) `import.meta.env.DEV` boolean (since Vite is automatically bundled with Astro). If it's true, it doesn't load the script, but stubs the options with a `console.log()` and a hidden `<div />` element in HTML for easy debugging if you also [include the `debug={true}` prop](#-option-debugging-). If `import.meta.env.DEV` is somehow unavailable or unset, it defaults to showing the script everywhere. If you'd like to force showing the script on all environments (including `local` / `development`, `staging` / `preview`, `production`, etc.), you need to add the following component property:
 
 ```Astro
 <SimpleAnalytics allEnvironments={true} />

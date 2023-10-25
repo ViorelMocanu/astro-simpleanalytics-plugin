@@ -10,6 +10,7 @@ export interface Props {
 	light?: boolean;
 	nonUniqueHostnames?: string;
 	partytown?: boolean;
+	debug?: boolean;
 }
 
 const {
@@ -20,7 +21,8 @@ const {
 	ignorePages = undefined,
 	light = false,
 	nonUniqueHostnames = undefined,
-	partytown = true
+	partytown = true,
+	debug = false
 } = Astro.props;
 
 // sanitization functions
@@ -64,6 +66,7 @@ const sanitizedCustomHostname = sanitizeURL(customHostname);
 const sanitizedIgnorePages = sanitizeSlugs(ignorePages);
 const sanitizedNonUniqueHostnames = sanitizeURLList(nonUniqueHostnames);
 const sanitizedPartytown = sanitizeBoolean(partytown);
+const sanitizedDebug = sanitizeBoolean(debug);
 
 // attribute generation
 const attrCollectDNT = sanitizedCollectDNT ? { "data-collect-dnt": "true" } : false;
@@ -92,23 +95,25 @@ const imageSrc = `https://queue.simpleanalyticscdn.com/${imagefile}${specificHos
 // render boolean calculation
 const showScripts = sanitizedAllEnvironments ? true : (import.meta.env.DEV ? false : true);
 
-if (!showScripts) {
+if (sanitizedDebug) {
 	/* eslint-disable no-console */
-	console.info("SimpleAnalytics loaded with the following parameters:", Astro.props, scriptSrc, imageSrc, attrs);
+	console.info("Astro Simple Analytics Plugin loaded with the following debug parameters:", Astro.props, scriptSrc, imageSrc, attrs);
 	/* eslint-enable no-console */
 }
 
 ---
 
 <!-- Simple Analytics - 100% privacy-first analytics -->
-{showScripts ? (
+{showScripts && (
 	<div class="SimpleAnalytics">
 		<script is:inline async defer src={scriptSrc} {...attrs}></script>
 		<noscript><img src={imageSrc} alt="" referrerpolicy="no-referrer-when-downgrade" {...attrs} /></noscript>
 	</div>
-) : (
+)}
+{sanitizedDebug && (
 	<div class="SimpleAnalytics" style="display:none;">
-		<p>Analytics has not loaded scripts so it won't pollute the data with local development environment activity. You can see all the parameters used here:</p>
+		<p>The Astro Simple Analytics Plugin component finished loading. You can see all the parameters used here and in the console:</p>
 		<pre>{JSON.stringify(Astro.props, null, 2)}</pre>
+		<p>Remember to have a look at our documentation for options regarding <a href="https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/#-option-bypass-ad-blockers-" target="_blank" rel="external nofollow noreferrer">circumventing adblocking</a> and <a href="https://docs.simpleanalytics.com/csp" target="_blank" rel="external nofollow noreferrer">using a correct CSP (Content Security Policy)</a> so your scripts don't trigger console errors.</p>
 	</div>
 )}

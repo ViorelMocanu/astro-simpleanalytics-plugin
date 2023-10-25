@@ -36,7 +36,9 @@
 		"analytics",
 		"simpleanalytics",
 		"simple-analytics",
-		"simple analytics"
+		"simple analytics",
+		"stats",
+		"tracking"
 	],
 	"bugs": "https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/issues",
 	"homepage": "https://simpleanalytics.com/",
