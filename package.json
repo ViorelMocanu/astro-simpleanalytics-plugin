@@ -55,7 +55,7 @@
 		"release:minor": "pnpm --workspaces --git-tag-version false version minor && pnpm --git-tag-version false version minor",
 		"release:major": "pnpm --workspaces --git-tag-version false version major && pnpm --git-tag-version false version major",
 		"release:publish": "pnpm --workspaces publish --access public",
-		"release:test": "pnpm run release-it --dry-run",
+		"release:test": "pnpm run release --dry-run",
 		"release": "release-it --verbose",
 		"astro": "astro",
 		"dev": "astro dev",

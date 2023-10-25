@@ -1,9 +1,5 @@
 # Astro Simple Analytics Plugin: Changelog
 
-## 0.1.0
+## [Unreleased]
 
-- NPM Package published.
-
-## 0.0.1
-
-- Initial commit.
+### Added
