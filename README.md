@@ -4,7 +4,7 @@
 
 # Astro Simple Analytics Plugin
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ViorelMocanu/astro-simpleanalytics-plugin/static.yml)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/actions) [![NPM Package Version](https://img.shields.io/npm/v/%40viorelmocanu%2Fastro-simpleanalytics-plugin)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/releases) [![GitHub contributors](https://img.shields.io/github/contributors/ViorelMocanu/astro-simpleanalytics-plugin.svg)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/graphs/contributors) [![GitHub Sponsors](https://img.shields.io/github/sponsors/ViorelMocanu)](https://github.com/sponsors/ViorelMocanu/) [![ISC license](https://img.shields.io/badge/License-ISC-blue.svg?style=flat)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/LICENSE) ![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/ViorelMocanu/astro-simpleanalytics-plugin) [![Downloads of NPM package](https://img.shields.io/npm/dt/astro-simpleanalytics-plugin/%40viorelmocanu%2Fastro-simpleanalytics-plugin)](https://www.npmjs.com/package/astro-simpleanalytics-plugin)
+[![NPM Package Version](https://img.shields.io/npm/v/astro-simpleanalytics-plugin)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/releases) [![GitHub contributors](https://img.shields.io/github/contributors/ViorelMocanu/astro-simpleanalytics-plugin.svg)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/graphs/contributors) [![GitHub Sponsors](https://img.shields.io/github/sponsors/ViorelMocanu)](https://github.com/sponsors/ViorelMocanu/) [![ISC license](https://img.shields.io/badge/License-ISC-blue.svg?style=flat)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/LICENSE) [![Downloads of NPM package](https://img.shields.io/npm/dt/astro-simpleanalytics-plugin)](https://www.npmjs.com/package/astro-simpleanalytics-plugin)
 
 [Simple Analytics](https://simpleanalytics.com) is a clean, simple, and privacy friendly analytics tool. Actionable data in a beautiful dashboard. It does not use cookies and you can bypass ad blockers. Make sure to signup to get most value out of this plugin.
 
@@ -266,17 +266,17 @@ All commands can be ran from the plugin root folder using your terminal of choic
 
 | Command                | Action                                                                                     |
 | :--------------------- | :----------------------------------------------------------------------------------------- |
-| <td colspan="2">*Dependencies*</td>                                                                                 |
+| *Dependencies*         |                                                                                            |
 | `pnpm install`         | Install dependencies                                                                       |
 | `pnpm update`          | Update and install dependencies                                                            |
-| *Astro server actions*                                                                                              |
+| *Astro server actions* |                                                                                            |
 | `pnpm dev`             | Start the local Astro development server at: `localhost:4321`                              |
 | `pnpm start`           | Start the local Astro development server at: `localhost:4321`                              |
 | `pnpm build`           | Build the production-ready deliverables at: `./dist/`                                      |
 | `pnpm preview`         | Render a preview before deploy, push or publish                                            |
 | `pnpm astro ...`       | Run CLI commands such as `astro add`, `astro check`                                        |
 | `pnpm astro -- --help` | Show help on available CLI commands available in Astro                                     |
-| *Code quality actions*                                                                                              |
+| *Code quality actions* |                                                                                            |
 | `pnpm format`          | Validate local code using `Prettier` and `prettier-plugin-astro`                           |
 | `pnpm format:fix`      | Validate **and fix** local code using `Prettier` (watch out: this can be disruptive)       |
 | `pnpm lint`            | Validate JavaScript, TypeScript and Astro local files using `ESLint` + plugins             |
