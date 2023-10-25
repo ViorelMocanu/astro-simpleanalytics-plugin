@@ -4,7 +4,7 @@
 
 # Simple Analytics Astro plugin
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ViorelMocanu/astro-simpleanalytics-plugin/static.yml)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/actions) [![GitHub Pages Deploy Status](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/actions/workflows/static.yml/badge.svg)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/deployments) [![GitHub contributors](https://img.shields.io/github/contributors/ViorelMocanu/astro-simpleanalytics-plugin.svg)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/graphs/contributors) [![GitHub Sponsors](https://img.shields.io/github/sponsors/ViorelMocanu)](https://github.com/sponsors/ViorelMocanu/) [![ISC license](https://img.shields.io/badge/License-ISC-blue.svg?style=flat)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/LICENSE) ![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/ViorelMocanu/astro-simpleanalytics-plugin)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ViorelMocanu/astro-simpleanalytics-plugin/static.yml)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/actions) [![NPM Package Version](https://img.shields.io/npm/v/%40viorelmocanu%2Fastro-simpleanalytics-plugin)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/releases) [![GitHub contributors](https://img.shields.io/github/contributors/ViorelMocanu/astro-simpleanalytics-plugin.svg)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/graphs/contributors) [![GitHub Sponsors](https://img.shields.io/github/sponsors/ViorelMocanu)](https://github.com/sponsors/ViorelMocanu/) [![ISC license](https://img.shields.io/badge/License-ISC-blue.svg?style=flat)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/LICENSE) ![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/ViorelMocanu/astro-simpleanalytics-plugin) [![Downloads of NPM package](https://img.shields.io/npm/dt/astro-simpleanalytics-plugin/%40viorelmocanu%2Fastro-simpleanalytics-plugin)](https://www.npmjs.com/package/astro-simpleanalytics-plugin)
 
 [Simple Analytics](https://simpleanalytics.com) is a clean, simple, and privacy friendly analytics tool. Actionable data in a beautiful dashboard. It does not use cookies and you can bypass ad blockers. Make sure to signup to get most value out of this plugin.
 
@@ -96,13 +96,17 @@ export default defineConfig({
 });
 ```
 
-Simple Analytics should be ready to go with zero config. By default, it will only run in `production` environments, with native integration inside `@astrojs/partytown` and start tracking the currently visible domain inside the visitor browsers' address bar. It honors **Do Not Track** and gets blocked by some ad blockers. It runs for all website pages.
+Simple Analytics should be ready to go with zero config.
+
+It exposes some of the advanced tracking options you can find below as integration config flags and stubs in a console logger when analytics are disabled for easy debugging.
+
+By default, it will only run in `production` environments, with native integration inside `@astrojs/partytown` and start tracking the currently visible domain inside the visitor browsers' address bar. It honors **Do Not Track** and gets blocked by some ad blockers. It runs for all website pages.
 
 If you'd like to change that behaviour, please browse through the various configuration options below:
 
 ### ✅ Option: Loading Analytics in all environments ♾️
 
-By default, the Simple Analytics plugin attempts to load its client script exclusively on `production` by using [Vite's](https://vitejs.dev/guide/env-and-mode.html) `import.meta.env.PROD` boolean (since Vite is automatically bundled with Astro). If it's somehow unavailable or unset, it defaults to showing the script everywhere. If you'd like to force showing the script on all environments (including `local` / `development`, `staging` / `preview`, `production`, etc.), you need to add the following configuration flag:
+By default, the Simple Analytics plugin attempts to load its client script exclusively on `production` by using [Vite's](https://vitejs.dev/guide/env-and-mode.html) `import.meta.env.DEV` boolean (since Vite is automatically bundled with Astro). If it's true, it doesn't load the script, but stubs the options with a console log. If it's somehow unavailable or unset, it defaults to showing the script everywhere. If you'd like to force showing the script on all environments (including `local` / `development`, `staging` / `preview`, `production`, etc.), you need to add the following configuration flag:
 
 ```typescript
 export default defineConfig({
@@ -294,24 +298,25 @@ Please run `pnpm verify --fix` prior to submitting pull requests.
 
 All commands can be ran from the plugin root folder using your terminal of choice:
 
-@TODO
-
 | Command                | Action                                                                                     |
 | :--------------------- | :----------------------------------------------------------------------------------------- |
+| *Dependencies*                                                                                                      |
 | `pnpm install`         | Install dependencies                                                                       |
-| `pnpm dev`             | Pornește serverul local de Astro la `localhost:4321`                                       |
-| `pnpm start`           | Pornește serverul local de Astro la `localhost:4321`                                       |
-| `pnpm build`           | Construiește site-ul de producție la `./dist/`                                             |
-| `pnpm preview`         | Fă un preview al site-ului local înainte de deploy                                         |
-| `pnpm astro ...`       | Rulează comenzi CLI cum ar fi `astro add`, `astro check`                                   |
-| `pnpm astro -- --help` | Afișează comenzile disponibile în Astro CLI                                                |
-| `pnpm format`          | Validează codul local folosind `Prettier` și `prettier-plugin-astro`                       |
-| `pnpm format:fix`      | Validează și **corectează** codul folosind `Prettier` (atenție: poate fi distructiv)       |
-| `pnpm lint:js`         | Validează fișierele JavaScript, TypeScript și Astro locale folosind `ESLint`               |
-| `pnpm lint:md`         | Validează fișierele Markdown locale folosind `MarkdownLint`                                |
-| `pnpm lint:fix`        | Validează și **corectează** fișierele JavaScript, TypeScript și Markdown locale            |
-| `pnpm lint`            | Validează fișierele JavaScript, TypeScript, Astro și Markdown cu `ESLint` / `MarkdownLint` |
-| `pnpm typecheck`       | Validează type-urile de TypeScript folosind TSC și `tsconfig.json`                         |
+| `pnpm update`          | Update and install dependencies                                                            |
+| *Astro server actions*                                                                                              |
+| `pnpm dev`             | Start the local Astro development server at: `localhost:4321`                              |
+| `pnpm start`           | Start the local Astro development server at: `localhost:4321`                              |
+| `pnpm build`           | Build the production-ready deliverables at: `./dist/`                                      |
+| `pnpm preview`         | Render a preview before deploy, push or publish                                            |
+| `pnpm astro ...`       | Run CLI commands such as `astro add`, `astro check`                                        |
+| `pnpm astro -- --help` | Show help on available CLI commands available in Astro                                     |
+| *Code quality actions*                                                                                              |
+| `pnpm format`          | Validate local code using `Prettier` and `prettier-plugin-astro`                           |
+| `pnpm format:fix`      | Validate **and fix** local code using `Prettier` (watch out: this can be disruptive)       |
+| `pnpm lint`            | Validate JavaScript, TypeScript and Astro local files using `ESLint` + plugins             |
+| `pnpm lint:fix`        | Validate **and fix** JavaScript, TypeScript and Astro local files using `ESLint` + plugins |
+| `pnpm typecheck`       | Validate TypeScript types using TSC and `tsconfig.json`                                    |
+| `pnpm validate`        | Validate TypeScript types, JavaScript, TypeScript and Astro local files, and code styling  |
 
 ## 📝 License
 
@@ -321,23 +326,7 @@ This package is available as open source under the terms of the [MIT License](ht
 
 See [CHANGELOG.md](CHANGELOG.md) for a history of changes to this integration.
 
-Made by @ViorelMocanu after [a challenge](https://github.com/simpleanalytics/roadmap/issues/708) from @adriaanvanrossum
+Made by [Viorel Mocanu](https://github.com/ViorelMocanu) after [a challenge](https://github.com/simpleanalytics/roadmap/issues/708) from [Adriaan van Rossum](https://github.com/adriaanvanrossum).
 
--   @TODO docs for integration <https://docs.astro.build/en/reference/integrations-reference/>
 -   @TODO get inspiration <https://github.com/search?q=%22AstroIntegration%22&type=code> + <https://github.com/search?q=%22astro-integration%22+language%3ATypeScript&type=code>
--   @TODO plugin template <https://github.com/astro-community/plugin-template>
--   @TODO view inspiration <https://github.com/pilcrowOnPaper/siena/blob/fd8233596a0e275ece7295ff72fa92c43bce0c1d/src/index.ts#L200>
--   @TODO view inspiration <https://github.com/logaretm/vee-validate/blob/b2c1234c3d3606cc522bd47d17bbd07bcd2bc993/docs/src/integrations/svgSprite.ts#L2>
--   @TODO view inspiration <https://github.com/withastro/astro/blob/main/packages/integrations/tailwind/src/index.ts>
--   @TODO view inspiration <https://github.com/astro-community/config-to-alias/blob/5e1d651ef81f5cb3c79911144f374f764e563527/lib/config-to-alias-astro-integration.js>
--   @TODO view inspiration <https://github.com/withastro/astro/blob/main/packages/integrations/partytown/src/index.ts>
--   @TODO view inspiration <https://github.com/logaretm/vee-validate/blob/b2c1234c3d3606cc522bd47d17bbd07bcd2bc993/docs/src/integrations/svgSprite.ts#L2>
--   @TODO view inspiration <https://github.com/vite-pwa/astro/blob/62ca78a2822aa35b291f7a2d5e7be224517af253/src/index.ts>
--   @TODO view inspiration <https://github.com/lloydjatkinson/astro-integration-demo/tree/master/packages/astro-integration-demo-components/src>
--   @TODO analytics inspiration <https://github.com/simpleanalytics/gatsby-plugin/blob/master/index.js>
--   @TODO analytics inspiration <https://github.com/simpleanalytics/docusaurus-plugin>
--   @TODO analytics inspiration <https://github.com/simpleanalytics/vue-plugin>
--   @TODO first npm package <https://www.freecodecamp.org/news/how-to-create-and-publish-your-first-npm-package/>
--   @TODO read publish to NPM doc <https://docs.astro.build/en/reference/publish-to-npm/>
--   @TODO publish to NPM <https://docs.npmjs.com/cli/v8/commands/npm-publish> + <https://docs.npmjs.com/creating-and-publishing-scoped-public-packages>
--   @TODO register the NPM Package <https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry>
+

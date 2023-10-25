@@ -1,0 +1,7 @@
+# Astro Simple Analytics Plugin: Roadmap
+
+- [x] Analyze existing Astro integrations (e.g. [1](https://github.com/withastro/astro/blob/main/packages/integrations/tailwind), [2](https://github.com/withastro/astro/blob/main/packages/integrations/partytown), [3](https://github.com/pilcrowOnPaper/siena/), [4](https://github.com/logaretm/vee-validate), [5](https://github.com/vite-pwa/astro), [6](https://github.com/lloydjatkinson/astro-integration-demo), [7](https://github.com/kremalicious/astro-redirect-from)) and plugins (e.g. [1](https://github.com/JulianCataldo/web-garden/blob/develop/app/GoogleAnalytics), 2) and Simple Analytics plugins (e.g. [1](https://github.com/simpleanalytics/vue-plugin), [2](https://github.com/simpleanalytics/docusaurus-plugin), [3](https://github.com/simpleanalytics/gatsby-plugin)).
+- [ ] Implement a simple [plugin](https://github.com/astro-community/plugin-template).
+- [ ] Publish NPM package publicly. Documentation: [1](https://www.freecodecamp.org/news/how-to-create-and-publish-your-first-npm-package/), [2](https://docs.astro.build/en/reference/publish-to-npm/), [3](https://docs.npmjs.com/cli/v8/commands/npm-publish), [4](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages), [5](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry).
+- [ ] Prove it works in production.
+- [ ] Upgrade to an Astro [Integration](https://docs.astro.build/en/reference/integrations-reference/).

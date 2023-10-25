@@ -1,6 +1,4 @@
-<!-- @format -->
-
-# Security Policy
+# Astro Simple Analytics Plugin: Security Policy
 
 ## Supported Versions
 

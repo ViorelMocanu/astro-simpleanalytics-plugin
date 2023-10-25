@@ -1,70 +1,87 @@
 {
 	"name": "astro-simpleanalytics-plugin",
-	"description": "Use Simple Analytics Astro Plugin to integrate AstroAnalytics in your Astro project",
-	"main": "index.ts",
+	"description": "Use Simple Analytics Astro Plugin to integrate Simple Analytics in your Astro project",
 	"version": "0.0.1",
 	"type": "module",
-	"types": "./dist/index.d.ts",
-	"author": "ViorelMocanu",
+	"main": "index.ts",
+	"types": "./dist/env.d.ts",
+	"exports": {
+		".": "./index.ts"
+	},
+	"files": [
+		"./src",
+		"index.ts"
+	],
+	"author": {
+		"name": "Viorel Mocanu",
+		"email": "github@viorelmocanu.ro",
+		"url": "https://www.viorelmocanu.ro"
+	},
 	"license": "ISC",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ViorelMocanu/astro-simpleanalytics-plugin.git"
 	},
 	"keywords": [
-		"analytics",
+		"astro",
+		"astrolib",
 		"astro-component",
 		"astro-integration",
 		"astro-plugin",
+		"withastro",
 		"plugin",
 		"privacy",
 		"privacy-tools",
 		"privacy friendly",
+		"analytics",
 		"simpleanalytics",
 		"simple-analytics",
 		"simple analytics"
 	],
 	"bugs": "https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/issues",
 	"homepage": "https://simpleanalytics.com/",
-	"exports": {
-		".": "./dist/index.ts",
-		"./package.json": "./package.json"
-	},
-	"files": [
-		"dist"
-	],
 	"scripts": {
-		"bump:patch": "pnpm --workspaces --git-tag-version false version patch && pnpm --git-tag-version false version patch",
-		"bump:minor": "pnpm --workspaces --git-tag-version false version minor && pnpm --git-tag-version false version minor",
-		"bump:major": "pnpm --workspaces --git-tag-version false version major && pnpm --git-tag-version false version major",
 		"format": "prettier --check ./**/*.{html,css,js,cjs,ts,astro,md,json,yaml} --plugin=prettier-plugin-astro",
 		"format:fix": "prettier --write ./**/*.{html,css,js,cjs,ts,astro,md,json,yaml} --plugin=prettier-plugin-astro",
-		"lint": "eslint ./**/*.js ./**/*.ts",
+		"lint": "eslint ./**/*.js ./**/*.ts ./**/*.astro",
+		"lint:fix": "eslint ./**/*.js ./**/*.ts ./**/*.astro --fix",
 		"prepare": "husky install",
-		"typecheck": "pnpm tsc --project tsconfig.json --noEmit",
+		"typecheck": "pnpm tsc --project tsconfig.json --noEmit --pretty",
 		"verify": "pnpm lint && pnpm typecheck && pnpm format",
+		"release:patch": "pnpm --workspaces --git-tag-version false version patch && pnpm --git-tag-version false version patch",
+		"release:minor": "pnpm --workspaces --git-tag-version false version minor && pnpm --git-tag-version false version minor",
+		"release:major": "pnpm --workspaces --git-tag-version false version major && pnpm --git-tag-version false version major",
+		"release:publish": "pnpm --workspaces publish --access public",
+		"release:test": "pnpm run release-it --dry-run",
+		"release": "release-it --verbose",
 		"astro": "astro",
 		"dev": "astro dev",
 		"start": "astro dev",
 		"build": "astro build",
-		"preview": "astro preview",
-		"release": "pnpm --workspaces publish --access public"
+		"preview": "astro preview"
 	},
 	"dependencies": {
-		"@builder.io/partytown": "^0.8.1",
-		"mrmime": "^1.0.1"
+		"astro": "^3.3.4"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^18.0.0",
-		"@commitlint/config-conventional": "^18.0.0",
+		"@commitlint/cli": "^18.1.0",
+		"@commitlint/config-conventional": "^18.1.0",
+		"@release-it/keep-a-changelog": "^4.0.0",
 		"@typescript-eslint/eslint-plugin": "^6.9.0",
 		"@typescript-eslint/parser": "^6.9.0",
 		"astro": "^3.3.4",
 		"eslint": "^8.52.0",
+		"eslint-plugin-astro": "^0.29.1",
+		"eslint-plugin-jsx-a11y": "^6.7.1",
 		"husky": "^8.0.3",
 		"prettier": "^3.0.3",
 		"prettier-plugin-astro": "^0.12.0",
+		"release-it": "^16.2.1",
 		"typescript": "^5.2.2"
+	},
+	"engines": {
+		"node": ">=18",
+		"pnpm": ">=8"
 	},
 	"publishConfig": {
 		"provenance": true,

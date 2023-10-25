@@ -1,0 +1,108 @@
+---
+import { z } from 'astro:content';
+
+export interface Props {
+	allEnvironments?: boolean;
+	collectDNT?: boolean;
+	customDomain?: string;
+	customHostname?: string;
+	ignorePages?: string;
+	light?: boolean;
+	nonUniqueHostnames?: string;
+	partytown?: boolean;
+}
+
+const {
+	allEnvironments = false,
+	collectDNT = false,
+	customDomain = undefined,
+	customHostname = undefined,
+	ignorePages = undefined,
+	light = false,
+	nonUniqueHostnames = undefined,
+	partytown = true
+} = Astro.props;
+
+// sanitization functions
+function sanitizeBoolean (wannabeBoolean: boolean) {
+	return (
+		typeof wannabeBoolean === 'boolean'
+		&& z.boolean().safeParse(wannabeBoolean)
+		&& wannabeBoolean === true
+	) ? true : false;
+}
+function sanitizeURL (wannabeURL?: string) {
+	return (
+		typeof wannabeURL === 'string'
+		&& z.string().url().safeParse((new URL(wannabeURL).toString()))
+		&& wannabeURL.split('.').length > 1
+	) ? wannabeURL : false;
+}
+function sanitizeSlugs (wannabeSlugs?: string) {
+	return (
+		typeof wannabeSlugs === 'string'
+		&& z.string().safeParse(wannabeSlugs)
+		&& (wannabeSlugs.indexOf(',') >= 0 ? wannabeSlugs.split(',').length > 1 : true)
+	) ? wannabeSlugs : false;
+}
+function sanitizeURLList (wannabeURLList?: string) {
+	if (typeof wannabeURLList !== 'string') return false;
+	const urlList = wannabeURLList.split(',');
+	let allUrlsAreValid = true;
+	urlList.forEach((url?: string) => {
+		allUrlsAreValid = allUrlsAreValid && !!sanitizeURL(url);
+	});
+	return allUrlsAreValid ? wannabeURLList : false;
+}
+
+// prop sanitization
+const sanitizedAllEnvironments = sanitizeBoolean(allEnvironments);
+const sanitizedCollectDNT = sanitizeBoolean(collectDNT);
+const sanitizedCustomDomain = sanitizeURL(customDomain);
+const sanitizedLight = sanitizeBoolean(light);
+const sanitizedCustomHostname = sanitizeURL(customHostname);
+const sanitizedIgnorePages = sanitizeSlugs(ignorePages);
+const sanitizedNonUniqueHostnames = sanitizeURLList(nonUniqueHostnames);
+const sanitizedPartytown = sanitizeBoolean(partytown);
+
+// attribute generation
+const attrCollectDNT = sanitizedCollectDNT ? { "data-collect-dnt": "true" } : false;
+const attrCustomHostname = sanitizedCustomHostname ? { "data-hostname": sanitizedCustomHostname } : false;
+const attrIgnorePages = sanitizedIgnorePages ? { "data-ignore-pages": sanitizedIgnorePages } : false;
+const attrNonUniqueHostnames = sanitizedNonUniqueHostnames ? { "data-non-unique-hostnames": sanitizedNonUniqueHostnames } : false;
+const attrPartytown = sanitizedPartytown ? { type: "text/partytown" } : { type: "text/javascript" };
+const attrs = {
+	...(attrCollectDNT ? { attrCollectDNT } : {}),
+	...(attrCustomHostname ? { attrCustomHostname } : {}),
+	...(attrIgnorePages ? { attrIgnorePages } : {}),
+	...(attrNonUniqueHostnames ? { attrNonUniqueHostnames } : {}),
+	...(attrPartytown ? { attrPartytown } : {}),
+};
+
+// string parameter generation
+const domain = sanitizedCustomDomain ? sanitizedCustomDomain : "scripts.simpleanalyticscdn.com";
+const scriptfile = sanitizedLight ? "light.js" : "latest.js";
+const imagefile = sanitizedCollectDNT ? "hello.gif" : "noscript.gif";
+const specificHostname = sanitizedCustomHostname ? `?hostname=${sanitizedCustomHostname}` : "";
+
+// injectable string variable concatenation
+const scriptSrc = `https://${domain}/${scriptfile}`;
+const imageSrc = `https://queue.simpleanalyticscdn.com/${imagefile}${specificHostname}`;
+
+// render boolean calculation
+const showScripts = sanitizedAllEnvironments ? true : (import.meta.env.DEV ? false : true);
+
+---
+
+<!-- Simple Analytics - 100% privacy-first analytics -->
+{showScripts ? (
+	<div class="SimpleAnalytics">
+		<script is:inline async defer src={scriptSrc} {...attrs}></script>
+		<noscript><img src={imageSrc} alt="" referrerpolicy="no-referrer-when-downgrade" {...attrs} /></noscript>
+	</div>
+) : (
+	<div class="SimpleAnalytics" style="display:none;">
+		<p>Analytics has not loaded scripts so it won't pollute the data with local development environment activity. You can see all the parameters used here:</p>
+		<pre>{JSON.stringify(Astro.props, null, 2)}</pre>
+	</div>
+)}
