@@ -13,28 +13,28 @@
 This is a [Simple Analytics](https://github.com/simpleanalytics) plugin for [Astro](https://github.com/withastro/astro).
 
 - [Astro Simple Analytics Plugin](#astro-simple-analytics-plugin)
-    - [🚀 Installation](#-installation)
-        - [⚡ Quick installation](#-quick-installation)
-        - [🏗️ Manual install](#️-manual-install)
-    - [✨ Usage](#-usage)
-        - [✅ Option: Debugging 🚧](#-option-debugging-)
-        - [✅ Option: Loading Analytics in all environments ♾️](#-option-loading-analytics-in-all-environments-️)
-        - [✅ Option: Integrate with `@astrojs/partytown` 🎉](#-option-integrate-with-astrojspartytown-)
-        - [✅ Option: Light version script 🪶](#-option-light-version-script-)
-        - [✅ Option: Group multiple domains 🥪](#-option-group-multiple-domains-)
-        - [✅ Option: Do Not Track (DNT) 🛑](#-option-do-not-track-dnt-)
-        - [✅ Option: Bypass Ad Blockers 🪙](#-option-bypass-ad-blockers-)
-        - [✅ Option: Ignore pages ➖](#-option-ignore-pages-)
-        - [✅ Option: Non-unique hostnames 🔗](#-option-non-unique-hostnames-)
-        - [📃 Complete configuration reference](#-complete-configuration-reference)
-    - [🐞 Troubleshooting](#-troubleshooting)
-    - [💡 Examples](#-examples)
-    - [🙏 Contributing](#-contributing)
-        - [ℹ️ Code of Conduct](#ℹ️-code-of-conduct)
-        - [🎯 Coding Standards](#-coding-standards)
-        - [🧞 Available commands](#-available-commands)
-    - [📝 License](#-license)
-    - [🏺 Changelog](#-changelog)
+  - [🚀 Installation](#-installation)
+    - [⚡ Quick installation](#-quick-installation)
+    - [🏗️ Manual install](#️-manual-install)
+  - [✨ Usage](#-usage)
+    - [✅ Option: Debugging 🚧](#-option-debugging-)
+    - [✅ Option: Loading Analytics in all environments ♾️](#-option-loading-analytics-in-all-environments-️)
+    - [✅ Option: Integrate with `@astrojs/partytown` 🎉](#-option-integrate-with-astrojspartytown-)
+    - [✅ Option: Light version script 🪶](#-option-light-version-script-)
+    - [✅ Option: Group multiple domains 🥪](#-option-group-multiple-domains-)
+    - [✅ Option: Do Not Track (DNT) 🛑](#-option-do-not-track-dnt-)
+    - [✅ Option: Bypass Ad Blockers 🪙](#-option-bypass-ad-blockers-)
+    - [✅ Option: Ignore pages ➖](#-option-ignore-pages-)
+    - [✅ Option: Non-unique hostnames 🔗](#-option-non-unique-hostnames-)
+    - [📃 Complete configuration reference](#-complete-configuration-reference)
+  - [🐞 Troubleshooting](#-troubleshooting)
+  - [💡 Examples](#-examples)
+  - [🙏 Contributing](#-contributing)
+    - [ℹ️ Code of Conduct](#ℹ️-code-of-conduct)
+    - [🎯 Coding Standards](#-coding-standards)
+    - [🧞 Available commands](#-available-commands)
+  - [📝 License](#-license)
+  - [🏺 Changelog](#-changelog)
 
 ## 🚀 Installation
 
@@ -274,5 +274,7 @@ This package is available as open source under the terms of the [ISC License](ht
 ## 🏺 Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for a history of changes to this integration.
+
+___
 
 Made by [Viorel Mocanu](https://github.com/ViorelMocanu) after [a challenge](https://github.com/simpleanalytics/roadmap/issues/708) from [Adriaan van Rossum](https://github.com/adriaanvanrossum).
