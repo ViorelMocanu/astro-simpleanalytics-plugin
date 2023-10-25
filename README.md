@@ -96,7 +96,7 @@ If you'd like to change that behaviour, please browse through the various config
 
 ### ✅ Option: Debugging 🚧
 
-By default, the Simple Analytics plugin does not pollute the console with any logs, nor does it load extraneous DOM elements. However, you can trigger both in a debugging mode to verify whether the scripts are working correctly or not by adding this parameter to the component:
+By default, the Astro Simple Analytics Plugin does not pollute the console with any logs, nor does it load extraneous DOM elements. However, you can trigger both in a debugging mode to verify whether the scripts are working correctly or not by adding this parameter to the component:
 
 ```Astro
 <SimpleAnalytics debug={true} />
@@ -104,7 +104,7 @@ By default, the Simple Analytics plugin does not pollute the console with any lo
 
 ### ✅ Option: Loading Analytics in all environments ♾️
 
-By default, the Simple Analytics plugin attempts to load its client script exclusively on non-`local` and non-`development` environments by using [Vite's](https://vitejs.dev/guide/env-and-mode.html) `import.meta.env.DEV` boolean (since Vite is automatically bundled with Astro). If it's true, it doesn't load the script, but stubs the options with a `console.log()` and a hidden `<div />` element in HTML for easy debugging if you also [include the `debug={true}` prop](#-option-debugging-). If `import.meta.env.DEV` is somehow unavailable or unset, it defaults to showing the script everywhere. If you'd like to force showing the script on all environments (including `local` / `development`, `staging` / `preview`, `production`, etc.), you need to add the following component property:
+By default, the Astro Simple Analytics Plugin attempts to load its client script exclusively on non-`local` and non-`development` environments by using [Vite's](https://vitejs.dev/guide/env-and-mode.html) `import.meta.env.DEV` boolean (since Vite is automatically bundled with Astro). If it's true, it doesn't load the script, but stubs the options with a `console.log()` and a hidden `<div />` element in HTML for easy debugging if you also [include the `debug={true}` prop](#-option-debugging-). If `import.meta.env.DEV` is somehow unavailable or unset, it defaults to showing the script everywhere. If you'd like to force showing the script on all environments (including `local` / `development`, `staging` / `preview`, `production`, etc.), you need to add the following component property:
 
 ```Astro
 <SimpleAnalytics allEnvironments={true} />
