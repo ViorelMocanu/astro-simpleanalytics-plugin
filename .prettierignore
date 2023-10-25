@@ -16,6 +16,9 @@ build/
 # dependencies
 node_modules/
 
+# demo content
+/demo
+
 # generated types
 .astro/
 

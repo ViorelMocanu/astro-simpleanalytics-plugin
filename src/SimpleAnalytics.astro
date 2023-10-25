@@ -93,7 +93,9 @@ const imageSrc = `https://queue.simpleanalyticscdn.com/${imagefile}${specificHos
 const showScripts = sanitizedAllEnvironments ? true : (import.meta.env.DEV ? false : true);
 
 if (!showScripts) {
+	/* eslint-disable no-console */
 	console.info("SimpleAnalytics loaded with the following parameters:", Astro.props, scriptSrc, imageSrc, attrs);
+	/* eslint-enable no-console */
 }
 
 ---
