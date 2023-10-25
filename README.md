@@ -118,7 +118,24 @@ By default, the Astro Simple Analytics Plugin attempts to load its client script
 
 This plugin automatically integrates with [@astrojs/partytown](https://github.com/withastro/astro/tree/main/packages/integrations/partytown). For more details about `@astrojs/partytown`, read the [official Astro integration documentation](https://docs.astro.build/en/guides/integrations-guide/partytown/).
 
-If you want to disable this plugin for your specific use case, use this component property when rendering your Analytics in your `Layout.astro`:
+In order for Partytown to expose debug features for implementation and forward window events from the service worker back to the main thread, make sure that, at a minimum, you set these configuration flags in your Partytown integration inside `astro.config.*` file:
+
+```typescript
+// astro.config.mjs
+// ...
+export default defineConfig({
+  integrations: [
+    partytown({
+      config: {
+        debug: true,
+        forward: ['dataLayer.push']
+      }
+    }),
+  ],
+});
+```
+
+If you want to disable this plugin integratoin for your specific use case and load the scripts directly, use this component property when rendering your Analytics in your `Layout.astro`:
 
 ```Astro
 <SimpleAnalytics partytown={false} />

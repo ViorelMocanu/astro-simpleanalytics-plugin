@@ -57,6 +57,7 @@ function sanitizeURLList (wannabeURLList?: string) {
 	return allUrlsAreValid ? wannabeURLList : false;
 }
 
+
 // prop sanitization
 const sanitizedAllEnvironments = sanitizeBoolean(allEnvironments);
 const sanitizedCollectDNT = sanitizeBoolean(collectDNT);
@@ -69,35 +70,45 @@ const sanitizedPartytown = sanitizeBoolean(partytown);
 const sanitizedDebug = sanitizeBoolean(debug);
 
 // attribute generation
-const attrCollectDNT = sanitizedCollectDNT ? { "data-collect-dnt": "true" } : false;
-const attrCustomHostname = sanitizedCustomHostname ? { "data-hostname": sanitizedCustomHostname } : false;
-const attrIgnorePages = sanitizedIgnorePages ? { "data-ignore-pages": sanitizedIgnorePages } : false;
-const attrNonUniqueHostnames = sanitizedNonUniqueHostnames ? { "data-non-unique-hostnames": sanitizedNonUniqueHostnames } : false;
-const attrPartytown = sanitizedPartytown ? { type: "text/partytown" } : { type: "text/javascript" };
+const realURL = new URL(Astro.url.origin);
+const realHostname = `${realURL.hostname}${realURL.port ? ':'+realURL.port : ''}`;
+const desiredHostname = import.meta.env.SITE ? (new URL(import.meta.env.SITE)).hostname : realHostname;
+const attrCollectDNT = sanitizedCollectDNT ? { 'data-collect-dnt': 'true' } : false;
+const attrCustomHostname = sanitizedCustomHostname ? { 'data-hostname': sanitizedCustomHostname } : (sanitizedAllEnvironments ? { 'data-hostname': desiredHostname } : false);
+const attrIgnorePages = sanitizedIgnorePages ? { 'data-ignore-pages': sanitizedIgnorePages } : false;
+const attrNonUniqueHostnames = sanitizedNonUniqueHostnames ? { 'data-non-unique-hostnames': sanitizedNonUniqueHostnames } : false;
+const attrPartytown = sanitizedPartytown ? { 'type': 'text/partytown' } : { 'type': 'text/javascript' };
 const attrs = {
-	...(attrCollectDNT ? { attrCollectDNT } : {}),
-	...(attrCustomHostname ? { attrCustomHostname } : {}),
-	...(attrIgnorePages ? { attrIgnorePages } : {}),
-	...(attrNonUniqueHostnames ? { attrNonUniqueHostnames } : {}),
-	...(attrPartytown ? { attrPartytown } : {}),
+	...(attrCollectDNT ? attrCollectDNT : {}),
+	...(attrCustomHostname ? attrCustomHostname : {}),
+	...(attrIgnorePages ? attrIgnorePages : {}),
+	...(attrNonUniqueHostnames ? attrNonUniqueHostnames : {}),
+	...(attrPartytown ? attrPartytown : {}),
 };
 
 // string parameter generation
-const domain = sanitizedCustomDomain ? sanitizedCustomDomain : "scripts.simpleanalyticscdn.com";
-const scriptfile = sanitizedLight ? "light.js" : "latest.js";
-const imagefile = sanitizedCollectDNT ? "hello.gif" : "noscript.gif";
-const specificHostname = sanitizedCustomHostname ? `?hostname=${sanitizedCustomHostname}` : "";
+const domain = sanitizedCustomDomain ? sanitizedCustomDomain : 'scripts.simpleanalyticscdn.com';
+const scriptfile = sanitizedLight ? 'light.js' : 'latest.js';
+const imagefile = sanitizedCollectDNT ? 'hello.gif' : 'noscript.gif';
+const specificHostname = sanitizedCustomHostname ? `?hostname=${sanitizedCustomHostname}` : (sanitizedAllEnvironments ? `?hostname=${desiredHostname}` : '');
 
 // injectable string variable concatenation
 const scriptSrc = `https://${domain}/${scriptfile}`;
 const imageSrc = `https://queue.simpleanalyticscdn.com/${imagefile}${specificHostname}`;
 
 // render boolean calculation
-const showScripts = sanitizedAllEnvironments ? true : (import.meta.env.DEV ? false : true);
+const showScripts = sanitizedAllEnvironments ? true : import.meta.env.DEV ? false : true;
 
 if (sanitizedDebug) {
 	/* eslint-disable no-console */
-	console.info("Astro Simple Analytics Plugin loaded with the following debug parameters:", Astro.props, scriptSrc, imageSrc, attrs);
+	console.log(
+		'\n\n%cAstro Simple Analytics Plugin%c', 'font-weight:bold;background-color:yellow;color:black', 'background-color:transparent',
+		'\n=============================',
+		'\nLoaded with the following debug parameters:', Astro.props,
+		'\nLoaded scripts from:', scriptSrc,
+		'\nLoaded image from:', imageSrc,
+		'\nAttributes:', attrs
+	);
 	/* eslint-enable no-console */
 }
 
