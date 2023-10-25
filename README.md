@@ -340,3 +340,4 @@ Made by @ViorelMocanu after [a challenge](https://github.com/simpleanalytics/roa
 -   @TODO first npm package <https://www.freecodecamp.org/news/how-to-create-and-publish-your-first-npm-package/>
 -   @TODO read publish to NPM doc <https://docs.astro.build/en/reference/publish-to-npm/>
 -   @TODO publish to NPM <https://docs.npmjs.com/cli/v8/commands/npm-publish> + <https://docs.npmjs.com/creating-and-publishing-scoped-public-packages>
+-   @TODO register the NPM Package <https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry>

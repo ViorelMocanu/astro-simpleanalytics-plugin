@@ -1,5 +1,5 @@
 {
-	"name": "simpleanalytics-astro-plugin",
+	"name": "astro-simpleanalytics-plugin",
 	"description": "Use Simple Analytics Astro Plugin to integrate AstroAnalytics in your Astro project",
 	"main": "index.ts",
 	"version": "0.0.1",

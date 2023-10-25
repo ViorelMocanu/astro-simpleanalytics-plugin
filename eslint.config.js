@@ -1,12 +1,26 @@
-/** @format */
-
 import ts from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
+
+const ignoreArray = [
+	'.astro/**',
+	'.cache/**',
+	'.github/**',
+	'.idea/**',
+	'.netlify/**',
+	'.vercel/**',
+	'build/**',
+	'coverage/**',
+	'demo/**',
+	'dev-dist/**',
+	'dist/**',
+	'node_modules/**',
+	'static/**'
+];
 
 export default [
 	{
 		files: ['**/*.js'],
-		ignores: ['.astro/**', '.cache/**', '.github/**', '.idea/**', '.netlify/**', '.vercel/**', 'build/**', 'coverage/**', 'dev-dist/**', 'dist/**', 'node_modules/**', 'static/**'],
+		ignores: ignoreArray,
 		languageOptions: {
 			parser: tsParser,
 			parserOptions: {
@@ -45,7 +59,7 @@ export default [
 	},
 	{
 		files: ['**/*.ts'],
-		ignores: ['.astro/**', '.cache/**', '.github/**', '.idea/**', '.netlify/**', '.vercel/**', 'build/**', 'coverage/**', 'dist/**', 'dev-dist/**', 'node_modules/**', 'src/env.d.ts'],
+		ignores: ignoreArray,
 		languageOptions: {
 			parser: tsParser,
 			parserOptions: {
