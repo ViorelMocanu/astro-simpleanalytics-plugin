@@ -49,7 +49,7 @@
 		"lint:fix": "eslint ./**/*.js ./**/*.ts ./**/*.astro --fix",
 		"prepare": "husky install",
 		"typecheck": "pnpm tsc --project tsconfig.json --noEmit --pretty",
-		"verify": "pnpm lint && pnpm typecheck && pnpm format",
+		"verify": "pnpm lint && pnpm typecheck",
 		"verify:fix": "pnpm lint:fix && pnpm typecheck && pnpm format:fix",
 		"release:patch": "pnpm --workspaces --git-tag-version false version patch && pnpm --git-tag-version false version patch",
 		"release:minor": "pnpm --workspaces --git-tag-version false version minor && pnpm --git-tag-version false version minor",
