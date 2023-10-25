@@ -1,5 +1,3 @@
-<!-- @format -->
-
 <a href="https://simpleanalytics.com/?ref=github.com/ViorelMocanu/simpleanalytics-astro-plugin">
   <img src="https://assets.simpleanalytics.com/images/logos/logo-github-readme.png" alt="Simple Analytics logo" align="right" height="62" />
 </a>
@@ -14,27 +12,27 @@
 
 This is a [Simple Analytics](https://github.com/simpleanalytics) plugin for [Astro](https://github.com/withastro/astro).
 
--   [Simple Analytics Astro plugin](#simple-analytics-astro-plugin)
-    -   [🚀 Installation](#-installation)
-        -   [⚡ Quick installation](#-quick-installation)
-        -   [🏗️ Manual install](#️-manual-install)
-    -   [✨ Usage](#-usage)
-        -   [✅ Option: Loading Analytics in all environments ♾️](#-option-loading-analytics-in-all-environments-️)
-        -   [✅ Option: Integrate with `@astrojs/partytown` 🎉](#-option-integrate-with-astrojspartytown-)
-        -   [✅ Option: Light version script 🪶](#-option-light-version-script-)
-        -   [✅ Option: Group multiple domains 🥪](#-option-group-multiple-domains-)
-        -   [✅ Option: Do Not Track (DNT) 🛑](#-option-do-not-track-dnt-)
-        -   [✅ Option: Bypass Ad Blockers 🪙](#-option-bypass-ad-blockers-)
-        -   [✅ Option: Ignore pages ➖](#-option-ignore-pages-)
-        -   [✅ Option: Non-unique hostnames 🔗](#-option-non-unique-hostnames-)
-        -   [📃 Complete configuration reference](#-complete-configuration-reference)
-    -   [💡 Examples](#-examples)
-    -   [🙏 Contributing](#-contributing)
-        -   [ℹ️ Code of Conduct](#ℹ️-code-of-conduct)
-        -   [🎯 Coding Standards](#-coding-standards)
-        -   [🧞 Available commands](#-available-commands)
-    -   [📝 License](#-license)
-    -   [🏺 Changelog](#-changelog)
+- [Simple Analytics Astro plugin](#simple-analytics-astro-plugin)
+    - [🚀 Installation](#-installation)
+        - [⚡ Quick installation](#-quick-installation)
+        - [🏗️ Manual install](#️-manual-install)
+    - [✨ Usage](#-usage)
+        - [✅ Option: Loading Analytics in all environments ♾️](#-option-loading-analytics-in-all-environments-️)
+        - [✅ Option: Integrate with `@astrojs/partytown` 🎉](#-option-integrate-with-astrojspartytown-)
+        - [✅ Option: Light version script 🪶](#-option-light-version-script-)
+        - [✅ Option: Group multiple domains 🥪](#-option-group-multiple-domains-)
+        - [✅ Option: Do Not Track (DNT) 🛑](#-option-do-not-track-dnt-)
+        - [✅ Option: Bypass Ad Blockers 🪙](#-option-bypass-ad-blockers-)
+        - [✅ Option: Ignore pages ➖](#-option-ignore-pages-)
+        - [✅ Option: Non-unique hostnames 🔗](#-option-non-unique-hostnames-)
+        - [📃 Complete configuration reference](#-complete-configuration-reference)
+    - [💡 Examples](#-examples)
+    - [🙏 Contributing](#-contributing)
+        - [ℹ️ Code of Conduct](#ℹ️-code-of-conduct)
+        - [🎯 Coding Standards](#-coding-standards)
+        - [🧞 Available commands](#-available-commands)
+    - [📝 License](#-license)
+    - [🏺 Changelog](#-changelog)
 
 ## 🚀 Installation
 
@@ -92,9 +90,9 @@ import simpleanalytics from 'simpleanalytics-astro-plugin';
 //     ^^^^^^^^^^^^^^^
 
 export default defineConfig({
-	// ...
-	integrations: [simpleanalytics()],
-	//             ^^^^^^^^^^^^^^^^^
+  // ...
+  integrations: [simpleanalytics()],
+  //             ^^^^^^^^^^^^^^^^^
 });
 ```
 
@@ -108,13 +106,13 @@ By default, the Simple Analytics plugin attempts to load its client script exclu
 
 ```typescript
 export default defineConfig({
-	// ...
-	integrations: [
-		simpleanalytics({
-			allEnvironments: true,
-		}),
-	],
-	// ...
+  // ...
+  integrations: [
+    simpleanalytics({
+      allEnvironments: true,
+    }),
+  ],
+  // ...
 });
 ```
 
@@ -128,13 +126,13 @@ If you want to disable this plugin for your specific use case, use this configur
 
 ```typescript
 export default defineConfig({
-	// ...
-	integrations: [
-		simpleanalytics({
-			partytown: false,
-		}),
-	],
-	// ...
+  // ...
+  integrations: [
+    simpleanalytics({
+      partytown: false,
+    }),
+  ],
+  // ...
 });
 ```
 
@@ -144,26 +142,26 @@ The Simple Analytics script is already very light, but in exchange for some miss
 
 ```typescript
 export default defineConfig({
-	// ...
-	integrations: [
-		simpleanalytics({
-			light: true,
-		}),
-	],
-	// ...
+  // ...
+  integrations: [
+    simpleanalytics({
+      light: true,
+    }),
+  ],
+  // ...
 });
 ```
 
 The features missing from the **lighter** script are:
 
--   ❌ Time on page
--   ❌ Hash navigation
--   ❌ Scroll depth
--   ❌ SPA
--   ❌ Screen sizes
--   ❌ Ignore pages
--   ❌ Overwrite domain name
--   ❌ Ignore DNT
+- ❌ Time on page
+- ❌ Hash navigation
+- ❌ Scroll depth
+- ❌ SPA
+- ❌ Screen sizes
+- ❌ Ignore pages
+- ❌ Overwrite domain name
+- ❌ Ignore DNT
 
 Read more details about this feature in the [official documentation](https://docs.simpleanalytics.com/light).
 
@@ -173,13 +171,13 @@ By default, the Simple Analytics uses the domain shown to users in the browser's
 
 ```typescript
 export default defineConfig({
-	// ...
-	integrations: [
-		simpleanalytics({
-			customHostname: 'example.com',
-		}),
-	],
-	// ...
+  // ...
+  integrations: [
+    simpleanalytics({
+      customHostname: 'example.com',
+    }),
+  ],
+  // ...
 });
 ```
 
@@ -189,13 +187,13 @@ By default, the Simple Analytics [supports the Do Not Track setting](https://doc
 
 ```typescript
 export default defineConfig({
-	// ...
-	integrations: [
-		simpleanalytics({
-			collectDNT: true,
-		}),
-	],
-	// ...
+  // ...
+  integrations: [
+    simpleanalytics({
+      collectDNT: true,
+    }),
+  ],
+  // ...
 });
 ```
 
@@ -205,13 +203,13 @@ By default, the Simple Analytics JavaScript file loads from the `scripts.simplea
 
 ```typescript
 export default defineConfig({
-	// ...
-	integrations: [
-		simpleanalytics({
-			customDomain: 'custom.domain.com',
-		}),
-	],
-	// ...
+  // ...
+  integrations: [
+    simpleanalytics({
+      customDomain: 'custom.domain.com',
+    }),
+  ],
+  // ...
 });
 ```
 
@@ -223,13 +221,13 @@ By default, the Simple Analytics JavaScript file loads in the site footer on all
 
 ```typescript
 export default defineConfig({
-	// ...
-	integrations: [
-		simpleanalytics({
-			ignorePages: '/search/*,/accounts/*,/vouchers',
-		}),
-	],
-	// ...
+  // ...
+  integrations: [
+    simpleanalytics({
+      ignorePages: '/search/*,/accounts/*,/vouchers',
+    }),
+  ],
+  // ...
 });
 ```
 
@@ -241,13 +239,13 @@ You can [specify a list of hostnames](https://docs.simpleanalytics.com/non-uniqu
 
 ```typescript
 export default defineConfig({
-	// ...
-	integrations: [
-		simpleanalytics({
-			nonUniqueHostnames: 'checkout.stripe.com,checkout.adyen.com,checkout.mollie.com',
-		}),
-	],
-	// ...
+  // ...
+  integrations: [
+    simpleanalytics({
+      nonUniqueHostnames: 'checkout.stripe.com,checkout.adyen.com,checkout.mollie.com',
+    }),
+  ],
+  // ...
 });
 ```
 
@@ -257,20 +255,20 @@ These are all the available options for this plugin inside your `astro.config.mj
 
 ```typescript
 export default defineConfig({
-	// ...
-	integrations: [
-		simpleanalytics({
-			allEnvironments: false, // options: false | true
-			collectDNT: false, // options: false | true
-			customDomain: undefined, // options: undefined | string
-			customHostname: undefined, // options: undefined | string
-			ignorePages: undefined, // options: undefined | string
-			light: false, // options: false | true
-			nonUniqueHostnames: undefined, // options: undefined | string
-			partytown: true, // options: true | false
-		}),
-	],
-	// ...
+  // ...
+  integrations: [
+    simpleanalytics({
+      allEnvironments: false, // options: false | true
+      collectDNT: false, // options: false | true
+      customDomain: undefined, // options: undefined | string
+      customHostname: undefined, // options: undefined | string
+      ignorePages: undefined, // options: undefined | string
+      light: false, // options: false | true
+      nonUniqueHostnames: undefined, // options: undefined | string
+      partytown: true, // options: true | false
+    }),
+  ],
+  // ...
 });
 ```
 
