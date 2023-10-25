@@ -27,6 +27,7 @@ This is a [Simple Analytics](https://github.com/simpleanalytics) plugin for [Ast
         - [✅ Option: Ignore pages ➖](#-option-ignore-pages-)
         - [✅ Option: Non-unique hostnames 🔗](#-option-non-unique-hostnames-)
         - [📃 Complete configuration reference](#-complete-configuration-reference)
+    - [Troubleshooting](#troubleshooting)
     - [💡 Examples](#-examples)
     - [🙏 Contributing](#-contributing)
         - [ℹ️ Code of Conduct](#ℹ️-code-of-conduct)
@@ -211,9 +212,19 @@ The rendered static HTML for the code above would be:
 <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 ```
 
+## Troubleshooting
+
+If your Simple Analytics fails to render or load properly, or fails to send data into your dashboard, make sure you:
+
+- [activate debugging mode](#-option-debugging-);
+- deactivate your Ad Blocker or read about your options for [circumventing ad blocking](#-option-bypass-ad-blockers-);
+- read about [setting your CSP (Content Security Policy) correctly](https://docs.simpleanalytics.com/csp);
+- if nothing works, [send us an issue](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/issues/new/choose) or [seek support from Simple Analytics directly](https://docs.simpleanalytics.com/support).
+
 ## 💡 Examples
 
--   [Browse projects with Astro Simple Analytics Plugin on GitHub](https://github.com/search?q=%22astro-simpleanalytics-plugin%22+path%3A**%2Fpackage.json&type=code) for more examples!
+- Check out the [embedded `./demo` project](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/tree/main/demo) (derived from the [Astro 3.0 `create-astro` starter scaffolding](https://www.npmjs.com/package/create-astro), using the blog template).
+- [Browse projects with Astro Simple Analytics Plugin on GitHub](https://github.com/search?q=%22astro-simpleanalytics-plugin%22+path%3A**%2Fpackage.json&type=code) for more examples!
 
 ## 🙏 Contributing
 
@@ -235,7 +246,7 @@ All commands can be ran from the plugin root folder using your terminal of choic
 
 | Command                | Action                                                                                     |
 | :--------------------- | :----------------------------------------------------------------------------------------- |
-| *Dependencies*                                                                                                      |
+| <td colspan="2">*Dependencies*</td>                                                                                 |
 | `pnpm install`         | Install dependencies                                                                       |
 | `pnpm update`          | Update and install dependencies                                                            |
 | *Astro server actions*                                                                                              |
@@ -262,6 +273,3 @@ This package is available as open source under the terms of the [MIT License](ht
 See [CHANGELOG.md](CHANGELOG.md) for a history of changes to this integration.
 
 Made by [Viorel Mocanu](https://github.com/ViorelMocanu) after [a challenge](https://github.com/simpleanalytics/roadmap/issues/708) from [Adriaan van Rossum](https://github.com/adriaanvanrossum).
-
--   @TODO get inspiration <https://github.com/search?q=%22AstroIntegration%22&type=code> + <https://github.com/search?q=%22astro-integration%22+language%3ATypeScript&type=code>
-
