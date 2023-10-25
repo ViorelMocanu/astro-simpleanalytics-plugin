@@ -1,0 +1,74 @@
+{
+	"name": "simpleanalytics-astro-plugin",
+	"description": "Use Simple Analytics Astro Plugin to integrate AstroAnalytics in your Astro project",
+	"main": "index.ts",
+	"version": "0.0.1",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"author": "ViorelMocanu",
+	"license": "ISC",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ViorelMocanu/simpleanalytics-astro-plugin.git"
+	},
+	"keywords": [
+		"analytics",
+		"astro-component",
+		"astro-integration",
+		"astro-plugin",
+		"plugin",
+		"privacy",
+		"privacy-tools",
+		"privacy friendly",
+		"simpleanalytics",
+		"simple-analytics",
+		"simple analytics"
+	],
+	"bugs": "https://github.com/ViorelMocanu/simpleanalytics-astro-plugin/issues",
+	"homepage": "https://simpleanalytics.com/",
+	"exports": {
+		".": "./dist/index.ts",
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"bump:patch": "pnpm --workspaces --git-tag-version false version patch && pnpm --git-tag-version false version patch",
+		"bump:minor": "pnpm --workspaces --git-tag-version false version minor && pnpm --git-tag-version false version minor",
+		"bump:major": "pnpm --workspaces --git-tag-version false version major && pnpm --git-tag-version false version major",
+		"format": "prettier --check ./**/*.{html,css,js,cjs,ts,astro,md,json,yaml} --plugin=prettier-plugin-astro",
+		"format:fix": "prettier --write ./**/*.{html,css,js,cjs,ts,astro,md,json,yaml} --plugin=prettier-plugin-astro",
+		"lint": "eslint ./**/*.js ./**/*.ts",
+		"prepare": "husky install",
+		"typecheck": "pnpm tsc --project tsconfig.json --noEmit",
+		"verify": "pnpm lint && pnpm typecheck && pnpm format",
+		"astro": "astro",
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"release": "pnpm --workspaces publish --access public"
+	},
+	"dependencies": {
+		"@builder.io/partytown": "^0.8.1",
+		"mrmime": "^1.0.1"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^18.0.0",
+		"@commitlint/config-conventional": "^18.0.0",
+		"@typescript-eslint/eslint-plugin": "^6.9.0",
+		"@typescript-eslint/parser": "^6.9.0",
+		"astro": "^3.3.4",
+		"eslint": "^8.52.0",
+		"husky": "^8.0.3",
+		"prettier": "^3.0.3",
+		"prettier-plugin-astro": "^0.12.0",
+		"typescript": "^5.2.2"
+	},
+	"publishConfig": {
+		"provenance": true,
+		"access": "public"
+	},
+	"private": false
+}
