@@ -39,7 +39,7 @@ export default function createPlugin(options?: SimpleAnalyticsOptions): AstroInt
 	// const simpleAnalyticsEntrypoint = resolve('@builder.io/simpleAnalytics/package.json');
 	// const simpleAnalyticsLibDirectory = path.resolve(simpleAnalyticsEntrypoint, '../lib');
 	return {
-		name: 'simpleanalytics-astro-plugin',
+		name: 'astro-simpleanalytics-plugin',
 		hooks: {
 			'astro:config:setup': ({ config: _config, command, injectScript }) => {
 				/*

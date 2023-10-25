@@ -1,6 +1,6 @@
 <!-- @format -->
 
-# simpleanalytics-astro-plugin
+# astro-simpleanalytics-plugin
 
 ## 0.0.1
 

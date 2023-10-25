@@ -9,7 +9,7 @@
 	"license": "ISC",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/ViorelMocanu/simpleanalytics-astro-plugin.git"
+		"url": "https://github.com/ViorelMocanu/astro-simpleanalytics-plugin.git"
 	},
 	"keywords": [
 		"analytics",
@@ -24,7 +24,7 @@
 		"simple-analytics",
 		"simple analytics"
 	],
-	"bugs": "https://github.com/ViorelMocanu/simpleanalytics-astro-plugin/issues",
+	"bugs": "https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/issues",
 	"homepage": "https://simpleanalytics.com/",
 	"exports": {
 		".": "./dist/index.ts",

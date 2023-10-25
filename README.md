@@ -1,10 +1,10 @@
-<a href="https://simpleanalytics.com/?ref=github.com/ViorelMocanu/simpleanalytics-astro-plugin">
+<a href="https://simpleanalytics.com/?ref=github.com/ViorelMocanu/astro-simpleanalytics-plugin">
   <img src="https://assets.simpleanalytics.com/images/logos/logo-github-readme.png" alt="Simple Analytics logo" align="right" height="62" />
 </a>
 
 # Simple Analytics Astro plugin
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ViorelMocanu/simpleanalytics-astro-plugin/static.yml)](https://github.com/ViorelMocanu/simpleanalytics-astro-plugin/actions) [![GitHub Pages Deploy Status](https://github.com/ViorelMocanu/simpleanalytics-astro-plugin/actions/workflows/static.yml/badge.svg)](https://github.com/ViorelMocanu/simpleanalytics-astro-plugin/deployments) [![GitHub contributors](https://img.shields.io/github/contributors/ViorelMocanu/simpleanalytics-astro-plugin.svg)](https://github.com/ViorelMocanu/simpleanalytics-astro-plugin/graphs/contributors) [![GitHub Sponsors](https://img.shields.io/github/sponsors/ViorelMocanu)](https://github.com/sponsors/ViorelMocanu/) [![ISC license](https://img.shields.io/badge/License-ISC-blue.svg?style=flat)](https://github.com/ViorelMocanu/simpleanalytics-astro-plugin/blob/main/LICENSE) ![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/ViorelMocanu/simpleanalytics-astro-plugin)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ViorelMocanu/astro-simpleanalytics-plugin/static.yml)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/actions) [![GitHub Pages Deploy Status](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/actions/workflows/static.yml/badge.svg)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/deployments) [![GitHub contributors](https://img.shields.io/github/contributors/ViorelMocanu/astro-simpleanalytics-plugin.svg)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/graphs/contributors) [![GitHub Sponsors](https://img.shields.io/github/sponsors/ViorelMocanu)](https://github.com/sponsors/ViorelMocanu/) [![ISC license](https://img.shields.io/badge/License-ISC-blue.svg?style=flat)](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/LICENSE) ![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/ViorelMocanu/astro-simpleanalytics-plugin)
 
 [Simple Analytics](https://simpleanalytics.com) is a clean, simple, and privacy friendly analytics tool. Actionable data in a beautiful dashboard. It does not use cookies and you can bypass ad blockers. Make sure to signup to get most value out of this plugin.
 
@@ -42,26 +42,26 @@ The `astro add` command-line tool automates the installation for you. Run one of
 
 ```sh
 # using PNPM
-pnpm astro add simpleanalytics-astro-plugin
+pnpm astro add astro-simpleanalytics-plugin
 # Using Yarn
-yarn astro add simpleanalytics-astro-plugin
+yarn astro add astro-simpleanalytics-plugin
 # Using NPM
-npm astro add simpleanalytics-astro-plugin
+npm astro add astro-simpleanalytics-plugin
 ```
 
-If you run into any issues, [feel free to report them to us on GitHub](https://github.com/ViorelMocanu/simpleanalytics-astro-plugin/issues) and try the manual installation steps below.
+If you run into any issues, [feel free to report them to us on GitHub](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/issues) and try the manual installation steps below.
 
 ### 🏗️ Manual install
 
-First, install the `simpleanalytics-astro-plugin` package using your package manager. Run this in the terminal:
+First, install the `astro-simpleanalytics-plugin` package using your package manager. Run this in the terminal:
 
 ```sh
 # using PNPM
-pnpm install simpleanalytics-astro-plugin
+pnpm install astro-simpleanalytics-plugin
 # Using Yarn
-yarn add simpleanalytics-astro-plugin
+yarn add astro-simpleanalytics-plugin
 # Using NPM
-npm install simpleanalytics-astro-plugin
+npm install astro-simpleanalytics-plugin
 ```
 
 We'll assume you're using `pnpm` from now on, but the commands are nearly identical for all package managers.
@@ -71,7 +71,7 @@ Then, apply this integration to your `astro.config.*` file using the `integratio
 ```diff lang="js" "partytown()"
   // astro.config.mjs
   import { defineConfig } from 'astro/config';
-+ import simpleanalytics from 'simpleanalytics-astro-plugin';
++ import simpleanalytics from 'astro-simpleanalytics-plugin';
 
   export default defineConfig({
     // ...
@@ -86,7 +86,7 @@ In your `astro.config.mjs` file, make sure you have the appropriate integrations
 
 ```typescript
 import { defineConfig } from 'astro/config';
-import simpleanalytics from 'simpleanalytics-astro-plugin';
+import simpleanalytics from 'astro-simpleanalytics-plugin';
 //     ^^^^^^^^^^^^^^^
 
 export default defineConfig({
@@ -274,15 +274,15 @@ export default defineConfig({
 
 ## 💡 Examples
 
--   [Browse projects with SimpleAnalytics Astro Plugin on GitHub](https://github.com/search?q=%22simpleanalytics-astro-plugin%22+path%3A**%2Fpackage.json&type=code) for more examples!
+-   [Browse projects with SimpleAnalytics Astro Plugin on GitHub](https://github.com/search?q=%22astro-simpleanalytics-plugin%22+path%3A**%2Fpackage.json&type=code) for more examples!
 
 ## 🙏 Contributing
 
-Bug reports and pull requests are welcome on GitHub at <https://github.com/ViorelMocanu/simpleanalytics-astro-plugin> .
+Bug reports and pull requests are welcome on GitHub at <https://github.com/ViorelMocanu/astro-simpleanalytics-plugin> .
 
 ### ℹ️ Code of Conduct
 
-Everyone interacting in the `simpleanalytics-astro-plugin` project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/ViorelMocanu/simpleanalytics-plugin/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the `astro-simpleanalytics-plugin` project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/ViorelMocanu/simpleanalytics-plugin/blob/main/CODE_OF_CONDUCT.md).
 
 ### 🎯 Coding Standards
 
