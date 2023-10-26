@@ -17,16 +17,16 @@ This is a [Simple Analytics](https://github.com/simpleanalytics) plugin for [Ast
     - [⚡ Quick installation](#-quick-installation)
     - [🏗️ Manual install](#️-manual-install)
   - [✨ Usage](#-usage)
+    - [📃 Complete parameter configuration reference](#-complete-parameter-configuration-reference)
     - [✅ Option: Debugging 🚧](#-option-debugging-)
     - [✅ Option: Loading Analytics in all environments ♾️](#-option-loading-analytics-in-all-environments-️)
     - [✅ Option: Integrate with `@astrojs/partytown` 🎉](#-option-integrate-with-astrojspartytown-)
     - [✅ Option: Light version script 🪶](#-option-light-version-script-)
-    - [✅ Option: Group multiple domains 🥪](#-option-group-multiple-domains-)
     - [✅ Option: Do Not Track (DNT) 🛑](#-option-do-not-track-dnt-)
+    - [✅ Option: Group multiple domains 🥪](#-option-group-multiple-domains-)
     - [✅ Option: Bypass Ad Blockers 🪙](#-option-bypass-ad-blockers-)
     - [✅ Option: Ignore pages ➖](#-option-ignore-pages-)
     - [✅ Option: Non-unique hostnames 🔗](#-option-non-unique-hostnames-)
-    - [📃 Complete configuration reference](#-complete-configuration-reference)
   - [🐞 Troubleshooting](#-troubleshooting)
   - [💡 Examples](#-examples)
   - [🙏 Contributing](#-contributing)
@@ -92,7 +92,33 @@ It exposes some of the advanced tracking options you can find below as component
 
 By default, it will only run in non-`local` and non-`development` environments and start tracking the currently visible domain inside the visitor browsers' address bar. It honors [Do Not Track](https://en.wikipedia.org/wiki/Do_Not_Track) and it also does gets blocked by some ad blockers. It gets embedded wherever you put it (ideally on all website pages, at the bottom of all your layouts, just before the closing `</body>` tag).
 
-If you'd like to change that behaviour, please browse through the various configuration options below:
+### 📃 Complete parameter configuration reference
+
+These are all the available parameter options for this plugin where you choose to embed it, alongside the default values for each parameter:
+
+```Astro
+<SimpleAnalytics
+  debug={false}                  {/* (false | true) */}
+  allEnvironments={false}        {/* (false | true) */}
+  partytown={false}              {/* (false | true) */}
+  light={false}                  {/* (false | true) */}
+  collectDNT={false}             {/* (false | true) */}
+  customHostname={undefined}     {/* (undefined | string) */}
+  customDomain={undefined}       {/* (undefined | string) */}
+  ignorePages={undefined}        {/* (undefined | string) */}
+  nonUniqueHostnames={undefined} {/* (undefined | string) */}
+/>
+```
+
+The rendered static HTML for the code above would be:
+
+```html
+<!-- Simple Analytics - 100% privacy-first analytics -->
+<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js" type="text/javascript"></script>
+<noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
+```
+
+If you'd like to change the default behaviour, please browse through the various parameter configuration options below:
 
 ### ✅ Option: Debugging 🚧
 
@@ -162,20 +188,20 @@ The features missing from the **lighter** script are:
 
 Read more details about this feature in the [official documentation](https://docs.simpleanalytics.com/light).
 
-### ✅ Option: Group multiple domains 🥪
-
-By default, the Simple Analytics uses the domain shown to users in the browser's address bar. If you want to [link multiple domains into one domain](https://docs.simpleanalytics.com/overwrite-domain-name) in your dashboard, or you want to use a different domain than people see in their browser address bar, you need to enable the following component property:
-
-```Astro
-<SimpleAnalytics customHostname="example.com" />
-```
-
 ### ✅ Option: Do Not Track (DNT) 🛑
 
 By default, the Simple Analytics [supports the Do Not Track setting](https://docs.simpleanalytics.com/dnt) and supports the feature of not tracking users that have chosen this option in their browsers. If you would like to enable tracking devices irrespective of this option, you need to enable the following component property:
 
 ```Astro
 <SimpleAnalytics collectDNT={true} />
+```
+
+### ✅ Option: Group multiple domains 🥪
+
+By default, the Simple Analytics uses the domain shown to users in the browser's address bar. If you want to [link multiple domains into one domain](https://docs.simpleanalytics.com/overwrite-domain-name) in your dashboard, or you want to use a different domain than people see in their browser address bar, you need to enable the following component property:
+
+```Astro
+<SimpleAnalytics customHostname="example.com" />
 ```
 
 ### ✅ Option: Bypass Ad Blockers 🪙
@@ -204,32 +230,6 @@ You can [specify a list of hostnames](https://docs.simpleanalytics.com/non-uniqu
 
 ```Astro
 <SimpleAnalytics nonUniqueHostnames="checkout.stripe.com,checkout.adyen.com,checkout.mollie.com" />
-```
-
-### 📃 Complete configuration reference
-
-These are all the available options for this plugin inside your `astro.config.mjs` file, alongside their default values:
-
-```Astro
-<SimpleAnalytics
-  allEnvironments={false}        {/* (false | true) */}
-  collectDNT={false}             {/* (false | true) */}
-  customDomain={undefined}       {/* (undefined | string) */}
-  customHostname={undefined}     {/* (undefined | string) */}
-  ignorePages={undefined}        {/* (undefined | string) */}
-  light={false}                  {/* (false | true) */}
-  nonUniqueHostnames={undefined} {/* (undefined | string) */}
-  partytown={false}              {/* (false | true) */}
-  debug={false}                  {/* (false | true) */}
-/>
-```
-
-The rendered static HTML for the code above would be:
-
-```html
-<!-- Simple Analytics - 100% privacy-first analytics -->
-<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js" type="text/javascript"></script>
-<noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 ```
 
 ## 🐞 Troubleshooting
@@ -277,12 +277,13 @@ All commands can be ran from the plugin root folder using your terminal of choic
 | `pnpm astro ...`       | Run CLI commands such as `astro add`, `astro check`                                        |
 | `pnpm astro -- --help` | Show help on available CLI commands available in Astro                                     |
 | *Code quality actions* |                                                                                            |
+| `pnpm typecheck`       | Validate TypeScript types using TSC and `tsconfig.json`                                    |
 | `pnpm format`          | Validate local code using `Prettier` and `prettier-plugin-astro`                           |
 | `pnpm format:fix`      | Validate **and fix** local code using `Prettier` (watch out: this can be disruptive)       |
 | `pnpm lint`            | Validate JavaScript, TypeScript and Astro local files using `ESLint` + plugins             |
 | `pnpm lint:fix`        | Validate **and fix** JavaScript, TypeScript and Astro local files using `ESLint` + plugins |
-| `pnpm typecheck`       | Validate TypeScript types using TSC and `tsconfig.json`                                    |
-| `pnpm validate`        | Validate TypeScript types, JavaScript, TypeScript and Astro local files, and code styling  |
+| `pnpm validate`        | Validate TypeScript types, JavaScript, TypeScript and Astro local files.                   |
+| `pnpm validate:fix`    | Validate **and fix** TypeScript types, JavaScript, TypeScript and Astro local files.       |
 
 ## 📝 License
 

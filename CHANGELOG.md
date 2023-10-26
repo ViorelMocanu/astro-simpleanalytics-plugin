@@ -12,6 +12,8 @@
 
 ## [0.1.4] - 2023-10-25
 
+## [Unreleased]
+
 ### Added
 
 [unreleased]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/compare/v0.1.4...main
