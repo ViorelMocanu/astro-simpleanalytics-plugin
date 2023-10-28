@@ -1,16 +1,21 @@
 {
-	"useTabs": true,
+	"useTabs": false,
 	"semi": true,
-	"quoteProps": "consistent",
-	"trailingComma": "es5",
+	"singleQuote": false,
+	"quoteProps": "as-needed",
+	"jsxSingleQuote": false,
+	"trailingComma": "all",
 	"bracketSpacing": true,
 	"bracketSameLine": false,
 	"arrowParens": "always",
-	"insertPragma": true,
-	"proseWrap": "never",
-	"singleQuote": true,
+	"embeddedLanguageFormatting": "auto",
+	"endOfLine": "lf",
+	"requirePragma": false,
+	"insertPragma": false,
+	"proseWrap": "preserve",
 	"singleAttributePerLine": false,
-	"plugins": [
-		"prettier-plugin-astro"
-	]
+	"printWidth": 80,
+	"tabWidth": 2,
+	"htmlWhitespaceSensitivity": "css",
+	"plugins": ["prettier-plugin-astro"]
 }

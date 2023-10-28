@@ -22,17 +22,17 @@ All commands can be ran from the plugin root folder using your terminal of choic
 
 | Command                | Action                                                                                     |
 | :--------------------- | :----------------------------------------------------------------------------------------- |
-| *Dependencies*         |                                                                                            |
+| _Dependencies_         |                                                                                            |
 | `pnpm install`         | Install dependencies                                                                       |
 | `pnpm update`          | Update and install dependencies                                                            |
-| *Astro server actions* |                                                                                            |
+| _Astro server actions_ |                                                                                            |
 | `pnpm dev`             | Start the local Astro development server at: `localhost:4321`                              |
 | `pnpm start`           | Start the local Astro development server at: `localhost:4321`                              |
 | `pnpm build`           | Build the production-ready deliverables at: `./dist/`                                      |
 | `pnpm preview`         | Render a preview before deploy, push or publish                                            |
 | `pnpm astro ...`       | Run CLI commands such as `astro add`, `astro check`                                        |
 | `pnpm astro -- --help` | Show help on available CLI commands available in Astro                                     |
-| *Code quality actions* |                                                                                            |
+| _Code quality actions_ |                                                                                            |
 | `pnpm typecheck`       | Validate TypeScript types using TSC and `tsconfig.json`                                    |
 | `pnpm format`          | Validate local code using `Prettier` and `prettier-plugin-astro`                           |
 | `pnpm format:fix`      | Validate **and fix** local code using `Prettier` (watch out: this can be disruptive)       |
