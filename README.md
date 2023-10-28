@@ -12,48 +12,17 @@
 
 This is a [Simple Analytics](https://github.com/simpleanalytics) plugin for [Astro](https://github.com/withastro/astro).
 
-- [Astro Simple Analytics Plugin](#astro-simple-analytics-plugin)
-  - [🚀 Installation](#-installation)
-    - [⚡ Quick installation](#-quick-installation)
-    - [🏗️ Manual install](#️-manual-install)
-  - [✨ Usage](#-usage)
-    - [📃 Complete parameter configuration reference](#-complete-parameter-configuration-reference)
-    - [✅ Option: Debugging 🚧](#-option-debugging-)
-    - [✅ Option: Loading Analytics in all environments ♾️](#-option-loading-analytics-in-all-environments-️)
-    - [✅ Option: Integrate with `@astrojs/partytown` 🎉](#-option-integrate-with-astrojspartytown-)
-    - [✅ Option: Light version script 🪶](#-option-light-version-script-)
-    - [✅ Option: Do Not Track (DNT) 🛑](#-option-do-not-track-dnt-)
-    - [✅ Option: Group multiple domains 🥪](#-option-group-multiple-domains-)
-    - [✅ Option: Bypass Ad Blockers 🪙](#-option-bypass-ad-blockers-)
-    - [✅ Option: Ignore pages ➖](#-option-ignore-pages-)
-    - [✅ Option: Non-unique hostnames 🔗](#-option-non-unique-hostnames-)
-  - [🐞 Troubleshooting](#-troubleshooting)
-  - [💡 Examples](#-examples)
-  - [🙏 Contributing](#-contributing)
-    - [ℹ️ Code of Conduct](#ℹ️-code-of-conduct)
-    - [🎯 Coding Standards](#-coding-standards)
-    - [🧞 Available commands](#-available-commands)
-  - [📝 License](#-license)
-  - [🏺 Changelog](#-changelog)
+- Astro Simple Analytics Plugin
+  - [🚀 Installation](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin#user-content--installation)
+  - [✨ Usage](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin#user-content--usage)
+    - [📃 Complete parameter configuration reference](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin#user-content--complete-parameter-configuration-reference)
+    - [✅ All features](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content-all-the-astro-simpleanalytics-plugin-features)
+  - [🐞 Troubleshooting](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin#user-content--troubleshooting)
+  - [💡 Examples](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin#user-content--examples)
+  - [🙏 Contributing](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin#user-content--contributing)
+  - [📝 Other details](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin#user-content--other-details)
 
 ## 🚀 Installation
-
-### ⚡ Quick installation
-
-The `astro add` command-line tool automates the installation for you. Run one of the following commands in a new terminal window. (If you aren't sure which package manager you're using, run the first command.) Then, follow the prompts, and type "y" in the terminal (meaning "yes") for each one.
-
-```sh
-# using PNPM
-pnpm astro add astro-simpleanalytics-plugin
-# Using Yarn
-yarn astro add astro-simpleanalytics-plugin
-# Using NPM
-npm astro add astro-simpleanalytics-plugin
-```
-
-If you run into any issues, [feel free to report them to us on GitHub](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/issues) and try the manual installation steps below.
-
-### 🏗️ Manual install
 
 First, install the `astro-simpleanalytics-plugin` package using your package manager. Run this in the terminal:
 
@@ -88,10 +57,6 @@ You then need to import `astro-simpleanalytics-plugin` and then use the `<Simple
 
 Simple Analytics should be ready to go with zero config.
 
-It exposes some of the advanced tracking options you can find below as component props, and optionally stubs in a console logger + an inline HTML hidden div when analytics are disabled for easy debugging (if you [include the `debug={true}` prop](#-option-debugging-)).
-
-By default, it will only run in non-`local` and non-`development` environments and start tracking the currently visible domain inside the visitor browsers' address bar. It honors [Do Not Track](https://en.wikipedia.org/wiki/Do_Not_Track) and it also does gets blocked by some ad blockers. It gets embedded wherever you put it (ideally on all website pages, at the bottom of all your layouts, just before the closing `</body>` tag).
-
 ### 📃 Complete parameter configuration reference
 
 These are all the available parameter options for this plugin where you choose to embed it, alongside the default values for each parameter:
@@ -110,134 +75,14 @@ These are all the available parameter options for this plugin where you choose t
 />
 ```
 
-The rendered static HTML for the code above would be:
-
-```html
-<!-- Simple Analytics - 100% privacy-first analytics -->
-<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js" type="text/javascript"></script>
-<noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
-```
-
-If you'd like to change the default behaviour, please browse through the various parameter configuration options below:
-
-### ✅ Option: Debugging 🚧
-
-By default, the Astro Simple Analytics Plugin does not pollute the console with any logs, nor does it load extraneous DOM elements. However, you can trigger both in a debugging mode to verify whether the scripts are working correctly or not by adding this parameter to the component:
-
-```Astro
-<SimpleAnalytics debug={true} />
-```
-
-If you have issues or can't seem to make the plugin work, please refer to the [Troubleshooting section](#troubleshooting).
-
-### ✅ Option: Loading Analytics in all environments ♾️
-
-By default, the Astro Simple Analytics Plugin attempts to load its client script exclusively on non-`local` and non-`development` environments by using [Vite's](https://vitejs.dev/guide/env-and-mode.html) `import.meta.env.DEV` boolean (since Vite is automatically bundled with Astro). If it's true, it doesn't load the script, but stubs the options with a `console.log()` and a hidden `<div />` element in HTML for easy debugging if you also [include the `debug={true}` prop](#-option-debugging-). If `import.meta.env.DEV` is somehow unavailable or unset, it defaults to showing the script everywhere. If you'd like to force showing the script on all environments (including `local` / `development`, `staging` / `preview`, `production`, etc.), you need to add the following component property:
-
-```Astro
-<SimpleAnalytics allEnvironments={true} />
-```
-
-### ✅ Option: Integrate with `@astrojs/partytown` 🎉
-
-[Partytown](https://partytown.builder.io/) is a lazy-loaded library to help relocate resource intensive scripts into a [web worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API), and off of the [main thread](https://developer.mozilla.org/en-US/docs/Glossary/Main_thread). If you're using third-party scripts for things like analytics or ads, Partytown is a great way to make sure that they don't slow down your site.
-
-This plugin can optionally integrate with [@astrojs/partytown](https://github.com/withastro/astro/tree/main/packages/integrations/partytown). For more details about `@astrojs/partytown`, read the [official Astro integration documentation](https://docs.astro.build/en/guides/integrations-guide/partytown/).
-
-In order for Partytown to expose debug features for implementation and forward window events from the service worker back to the main thread, make sure that, at a minimum, you set these configuration flags in your Partytown integration inside `astro.config.*` file:
-
-```typescript
-// astro.config.mjs
-// ...
-export default defineConfig({
-  integrations: [
-    partytown({
-      config: {
-        debug: true,
-        forward: ['dataLayer.push']
-      }
-    }),
-  ],
-});
-```
-
-If you want to enable this plugin integration, use this component property when rendering your Analytics in your `Layout.astro`:
-
-```Astro
-<SimpleAnalytics partytown={true} />
-```
-
-### ✅ Option: Light version script 🪶
-
-The Simple Analytics script is already very light, but in exchange for some missing features, it can be made even **lighter** by using this component property:
-
-```Astro
-<SimpleAnalytics light={true} />
-```
-
-The features missing from the **lighter** script are:
-
-- ❌ Time on page
-- ❌ Hash navigation
-- ❌ Scroll depth
-- ❌ SPA
-- ❌ Screen sizes
-- ❌ Ignore pages
-- ❌ Overwrite domain name
-- ❌ Ignore DNT
-
-Read more details about this feature in the [official documentation](https://docs.simpleanalytics.com/light).
-
-### ✅ Option: Do Not Track (DNT) 🛑
-
-By default, the Simple Analytics [supports the Do Not Track setting](https://docs.simpleanalytics.com/dnt) and supports the feature of not tracking users that have chosen this option in their browsers. If you would like to enable tracking devices irrespective of this option, you need to enable the following component property:
-
-```Astro
-<SimpleAnalytics collectDNT={true} />
-```
-
-### ✅ Option: Group multiple domains 🥪
-
-By default, the Simple Analytics uses the domain shown to users in the browser's address bar. If you want to [link multiple domains into one domain](https://docs.simpleanalytics.com/overwrite-domain-name) in your dashboard, or you want to use a different domain than people see in their browser address bar, you need to enable the following component property:
-
-```Astro
-<SimpleAnalytics customHostname="example.com" />
-```
-
-### ✅ Option: Bypass Ad Blockers 🪙
-
-By default, the Simple Analytics JavaScript file loads from the `scripts.simpleanalyticscdn.com` domain. You can also optionally specify a custom domain to **bypass ad blockers**:
-
-```Astro
-<SimpleAnalytics customDomain="custom.domain.com" />
-```
-
-Read more about this in [the Simple Analytics documentation](https://docs.simpleanalytics.com/bypass-ad-blockers).
-
-### ✅ Option: Ignore pages ➖
-
-By default, the Simple Analytics JavaScript file loads in the site footer on all your pages. If you'd like to [avoid loading the script on some pages](https://docs.simpleanalytics.com/ignore-pages) (and implicitly not tracking those pages) add this component property as a CSV string with optional wildcards:
-
-```Astro
-<SimpleAnalytics ignorePages="/search/*,/accounts/*,/vouchers" />
-```
-
-### ✅ Option: Non-unique hostnames 🔗
-
-Suppose you redirect your visitors to a payment provider, and after they complete the payment, they return to your website. Because of the nature of not tracking visitors in Simple Analytics, we count those "returning" visitors as new visitors. To prevent this from happening, you can specify the hostname of that payment provider to tell us we should register this visit as non-unique.
-
-You can [specify a list of hostnames](https://docs.simpleanalytics.com/non-unique-hostnames) as CSV values (without `https://`) in this component property:
-
-```Astro
-<SimpleAnalytics nonUniqueHostnames="checkout.stripe.com,checkout.adyen.com,checkout.mollie.com" />
-```
+Read more about the available features in the [dedicated features document](FEATURES.md).
 
 ## 🐞 Troubleshooting
 
 If your Simple Analytics fails to render or load properly, or fails to send data into your dashboard, make sure you:
 
-- [activate debugging mode](#-option-debugging-);
-- deactivate your Ad Blocker or read about your options for [circumventing ad blocking](#-option-bypass-ad-blockers-);
+- [activate debugging mode](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-debugging-);
+- deactivate your Ad Blocker or read about your options for [circumventing ad blocking](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-bypass-ad-blockers-);
 - read about [setting your CSP (Content Security Policy) correctly](https://docs.simpleanalytics.com/csp);
 - if nothing works, [send us an issue](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/issues/new/choose) or [seek support from Simple Analytics directly](https://docs.simpleanalytics.com/support).
 
@@ -248,51 +93,16 @@ If your Simple Analytics fails to render or load properly, or fails to send data
 
 ## 🙏 Contributing
 
-Bug reports and pull requests [are welcome on our GitHub](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/issues/new/choose).
+Bug reports and pull requests [are always welcome on our GitHub](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/issues/new/choose).
 
-### ℹ️ Code of Conduct
+If you'd like to contribute with code, please read our contribution guidelines in the [CONTRIBUTING.md](CONTRIBUTING.md) guide and see our [roadmap](ROADMAP.md).
 
-Everyone interacting in the `astro-simpleanalytics-plugin` project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](CODE_OF_CONDUCT.md).
+Thank you!
 
-### 🎯 Coding Standards
-
-This project uses [ESLint](https://github.com/eslint/eslint), [Prettier](https://github.com/prettier/prettier) and [Commitlint](https://github.com/conventional-changelog/commitlint) for standardizing the look and feel of the source files when committing.
-
-Please run `pnpm verify:fix` prior to submitting pull requests.
-
-### 🧞 Available commands
-
-All commands can be ran from the plugin root folder using your terminal of choice:
-
-| Command                | Action                                                                                     |
-| :--------------------- | :----------------------------------------------------------------------------------------- |
-| *Dependencies*         |                                                                                            |
-| `pnpm install`         | Install dependencies                                                                       |
-| `pnpm update`          | Update and install dependencies                                                            |
-| *Astro server actions* |                                                                                            |
-| `pnpm dev`             | Start the local Astro development server at: `localhost:4321`                              |
-| `pnpm start`           | Start the local Astro development server at: `localhost:4321`                              |
-| `pnpm build`           | Build the production-ready deliverables at: `./dist/`                                      |
-| `pnpm preview`         | Render a preview before deploy, push or publish                                            |
-| `pnpm astro ...`       | Run CLI commands such as `astro add`, `astro check`                                        |
-| `pnpm astro -- --help` | Show help on available CLI commands available in Astro                                     |
-| *Code quality actions* |                                                                                            |
-| `pnpm typecheck`       | Validate TypeScript types using TSC and `tsconfig.json`                                    |
-| `pnpm format`          | Validate local code using `Prettier` and `prettier-plugin-astro`                           |
-| `pnpm format:fix`      | Validate **and fix** local code using `Prettier` (watch out: this can be disruptive)       |
-| `pnpm lint`            | Validate JavaScript, TypeScript and Astro local files using `ESLint` + plugins             |
-| `pnpm lint:fix`        | Validate **and fix** JavaScript, TypeScript and Astro local files using `ESLint` + plugins |
-| `pnpm validate`        | Validate TypeScript types, JavaScript, TypeScript and Astro local files.                   |
-| `pnpm validate:fix`    | Validate **and fix** TypeScript types, JavaScript, TypeScript and Astro local files.       |
-
-## 📝 License
+## 📝 Other details
 
 This package is available as open source under the terms of the [ISC License](https://opensource.org/license/isc-license-txt/).
 
-## 🏺 Changelog
-
 See [CHANGELOG.md](CHANGELOG.md) for a history of changes to this integration.
-
-___
 
 Made by [Viorel Mocanu](https://github.com/ViorelMocanu) after [a challenge](https://github.com/simpleanalytics/roadmap/issues/708) from [Adriaan van Rossum](https://github.com/adriaanvanrossum).
