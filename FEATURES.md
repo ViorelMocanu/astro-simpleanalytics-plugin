@@ -40,8 +40,18 @@ The rendered static HTML for the code above would be:
 
 ```html
 <!-- Simple Analytics - 100% privacy-first analytics -->
-<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js" type="text/javascript"></script>
-<noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
+<script
+  async
+  defer
+  src="https://scripts.simpleanalyticscdn.com/latest.js"
+  type="text/javascript"
+></script>
+<noscript
+  ><img
+    src="https://queue.simpleanalyticscdn.com/noscript.gif"
+    alt=""
+    referrerpolicy="no-referrer-when-downgrade"
+/></noscript>
 ```
 
 If you'd like to change the default behaviour, please browse through the various parameter configuration options below:
@@ -80,8 +90,8 @@ export default defineConfig({
     partytown({
       config: {
         debug: true,
-        forward: ['dataLayer.push']
-      }
+        forward: ["dataLayer.push"],
+      },
     }),
   ],
 });

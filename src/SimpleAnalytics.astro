@@ -1,62 +1,61 @@
 ---
-import { z } from 'astro:content';
+import { z } from "astro:content";
 
 export interface Props {
-	allEnvironments?: boolean;
-	collectDNT?: boolean;
-	customDomain?: string;
-	customHostname?: string;
-	ignorePages?: string;
-	light?: boolean;
-	nonUniqueHostnames?: string;
-	partytown?: boolean;
-	debug?: boolean;
+  allEnvironments?: boolean;
+  collectDNT?: boolean;
+  customDomain?: string;
+  customHostname?: string;
+  ignorePages?: string;
+  light?: boolean;
+  nonUniqueHostnames?: string;
+  partytown?: boolean;
+  debug?: boolean;
 }
 
 const {
-	allEnvironments = false,
-	collectDNT = false,
-	customDomain = undefined,
-	customHostname = undefined,
-	ignorePages = undefined,
-	light = false,
-	nonUniqueHostnames = undefined,
-	partytown = false,
-	debug = false
+  allEnvironments = false,
+  collectDNT = false,
+  customDomain = undefined,
+  customHostname = undefined,
+  ignorePages = undefined,
+  light = false,
+  nonUniqueHostnames = undefined,
+  partytown = false,
+  debug = false,
 } = Astro.props;
 
 // sanitization functions
 function sanitizeBoolean (wannabeBoolean: boolean) {
-	return (
-		typeof wannabeBoolean === 'boolean'
-		&& z.boolean().safeParse(wannabeBoolean)
-		&& wannabeBoolean === true
-	) ? true : false;
+  return typeof wannabeBoolean === "boolean" &&
+    z.boolean().safeParse(wannabeBoolean) &&
+    wannabeBoolean === true
+    ? true
+    : false;
 }
 function sanitizeURL (wannabeURL?: string) {
-	return (
-		typeof wannabeURL === 'string'
-		&& z.string().url().safeParse((new URL(wannabeURL).toString()))
-		&& wannabeURL.split('.').length > 1
-	) ? wannabeURL : false;
+  return typeof wannabeURL === "string" &&
+    z.string().url().safeParse(new URL(wannabeURL).toString()) &&
+    wannabeURL.split(".").length > 1
+    ? wannabeURL
+    : false;
 }
 function sanitizeSlugs (wannabeSlugs?: string) {
-	return (
-		typeof wannabeSlugs === 'string'
-		&& z.string().safeParse(wannabeSlugs)
-		&& (wannabeSlugs.indexOf(',') >= 0 ? wannabeSlugs.split(',').length > 1 : true)
-	) ? wannabeSlugs : false;
+  return typeof wannabeSlugs === "string" &&
+    z.string().safeParse(wannabeSlugs) &&
+    (wannabeSlugs.indexOf(",") >= 0 ? wannabeSlugs.split(",").length > 1 : true)
+    ? wannabeSlugs
+    : false;
 }
 function sanitizeURLList (wannabeURLList?: string) {
-	if (typeof wannabeURLList !== 'string') return false;
-	const urlList = wannabeURLList.split(',');
-	let allUrlsAreValid = true;
-	urlList.forEach((url?: string) => {
-		allUrlsAreValid = allUrlsAreValid && !!sanitizeURL(url);
-	});
-	return allUrlsAreValid ? wannabeURLList : false;
+  if (typeof wannabeURLList !== "string") return false;
+  const urlList = wannabeURLList.split(",");
+  let allUrlsAreValid = true;
+  urlList.forEach((url?: string) => {
+    allUrlsAreValid = allUrlsAreValid && !!sanitizeURL(url);
+  });
+  return allUrlsAreValid ? wannabeURLList : false;
 }
-
 
 // prop sanitization
 const sanitizedAllEnvironments = sanitizeBoolean(allEnvironments);
@@ -71,60 +70,121 @@ const sanitizedDebug = sanitizeBoolean(debug);
 
 // attribute generation
 const realURL = new URL(Astro.url.origin);
-const realHostname = `${realURL.hostname}${realURL.port ? ':'+realURL.port : ''}`;
-const desiredHostname = import.meta.env.SITE ? (new URL(import.meta.env.SITE)).hostname : realHostname;
-const attrCollectDNT = sanitizedCollectDNT ? { 'data-collect-dnt': 'true' } : false;
-const attrCustomHostname = sanitizedCustomHostname ? { 'data-hostname': sanitizedCustomHostname } : (sanitizedAllEnvironments ? { 'data-hostname': desiredHostname } : false);
-const attrIgnorePages = sanitizedIgnorePages ? { 'data-ignore-pages': sanitizedIgnorePages } : false;
-const attrNonUniqueHostnames = sanitizedNonUniqueHostnames ? { 'data-non-unique-hostnames': sanitizedNonUniqueHostnames } : false;
-const attrPartytown = sanitizedPartytown ? { 'type': 'text/partytown' } : { 'type': 'text/javascript' };
+const realHostname = `${realURL.hostname}${
+  realURL.port ? ":" + realURL.port : ""
+}`;
+const desiredHostname = import.meta.env.SITE
+  ? new URL(import.meta.env.SITE).hostname
+  : realHostname;
+const attrCollectDNT = sanitizedCollectDNT
+  ? { "data-collect-dnt": "true" }
+  : false;
+const attrCustomHostname = sanitizedCustomHostname
+  ? { "data-hostname": sanitizedCustomHostname }
+  : sanitizedAllEnvironments
+    ? { "data-hostname": desiredHostname }
+    : false;
+const attrIgnorePages = sanitizedIgnorePages
+  ? { "data-ignore-pages": sanitizedIgnorePages }
+  : false;
+const attrNonUniqueHostnames = sanitizedNonUniqueHostnames
+  ? { "data-non-unique-hostnames": sanitizedNonUniqueHostnames }
+  : false;
+const attrPartytown = sanitizedPartytown
+  ? { type: "text/partytown" }
+  : { type: "text/javascript" };
 const attrs = {
-	...(attrCollectDNT ? attrCollectDNT : {}),
-	...(attrCustomHostname ? attrCustomHostname : {}),
-	...(attrIgnorePages ? attrIgnorePages : {}),
-	...(attrNonUniqueHostnames ? attrNonUniqueHostnames : {}),
-	...(attrPartytown ? attrPartytown : {}),
+  ...(attrCollectDNT ? attrCollectDNT : {}),
+  ...(attrCustomHostname ? attrCustomHostname : {}),
+  ...(attrIgnorePages ? attrIgnorePages : {}),
+  ...(attrNonUniqueHostnames ? attrNonUniqueHostnames : {}),
+  ...(attrPartytown ? attrPartytown : {}),
 };
 
 // string parameter generation
-const domain = sanitizedCustomDomain ? sanitizedCustomDomain : 'scripts.simpleanalyticscdn.com';
-const scriptfile = sanitizedLight ? 'light.js' : 'latest.js';
-const imagefile = sanitizedCollectDNT ? 'hello.gif' : 'noscript.gif';
-const specificHostname = sanitizedCustomHostname ? `?hostname=${sanitizedCustomHostname}` : (sanitizedAllEnvironments ? `?hostname=${desiredHostname}` : '');
+const domain = sanitizedCustomDomain
+  ? sanitizedCustomDomain
+  : "scripts.simpleanalyticscdn.com";
+const scriptfile = sanitizedLight ? "light.js" : "latest.js";
+const imagefile = sanitizedCollectDNT ? "hello.gif" : "noscript.gif";
+const specificHostname = sanitizedCustomHostname
+  ? `?hostname=${sanitizedCustomHostname}`
+  : sanitizedAllEnvironments
+    ? `?hostname=${desiredHostname}`
+    : "";
 
 // injectable string variable concatenation
 const scriptSrc = `https://${domain}/${scriptfile}`;
 const imageSrc = `https://queue.simpleanalyticscdn.com/${imagefile}${specificHostname}`;
 
 // render boolean calculation
-const showScripts = sanitizedAllEnvironments ? true : import.meta.env.DEV ? false : true;
+const showScripts = sanitizedAllEnvironments
+  ? true
+  : import.meta.env.DEV
+    ? false
+    : true;
 
 if (sanitizedDebug) {
-	/* eslint-disable no-console */
-	console.log(
-		'\n\n%cAstro Simple Analytics Plugin%c', 'font-weight:bold;background-color:yellow;color:black', 'background-color:transparent',
-		'\n=============================',
-		'\nLoaded with the following debug parameters:', Astro.props,
-		'\nLoaded scripts from:', scriptSrc,
-		'\nLoaded image from:', imageSrc,
-		'\nAttributes:', attrs
-	);
-	/* eslint-enable no-console */
+  /* eslint-disable no-console */
+  console.log(
+    "\n\n%cAstro Simple Analytics Plugin%c",
+    "font-weight:bold;background-color:yellow;color:black",
+    "background-color:transparent",
+    "\n=============================",
+    "\nLoaded with the following debug parameters:",
+    Astro.props,
+    "\nLoaded scripts from:",
+    scriptSrc,
+    "\nLoaded image from:",
+    imageSrc,
+    "\nAttributes:",
+    attrs,
+  );
+  /* eslint-enable no-console */
 }
-
 ---
 
-<!-- Simple Analytics - 100% privacy-first analytics -->
-{showScripts && (
-	<div class="SimpleAnalytics">
-		<script is:inline async defer src={scriptSrc} {...attrs}></script>
-		<noscript><img src={imageSrc} alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
-	</div>
-)}
-{sanitizedDebug && (
-	<div class="SimpleAnalytics" style="display:none;">
-		<p>The Astro Simple Analytics Plugin component finished loading. You can see all the parameters used here and in the console:</p>
-		<pre>{JSON.stringify(Astro.props, null, 2)}</pre>
-		<p>Remember to have a look at our documentation for options regarding <a href="https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/#-option-bypass-ad-blockers-" target="_blank" rel="external nofollow noreferrer">circumventing adblocking</a> and <a href="https://docs.simpleanalytics.com/csp" target="_blank" rel="external nofollow noreferrer">using a correct CSP (Content Security Policy)</a> so your scripts don't trigger console errors.</p>
-	</div>
-)}
+<!-- Simple Analytics - 100% privacy-first analytics -->{
+  showScripts && (
+    <div class="SimpleAnalytics">
+      <script is:inline async defer src={scriptSrc} {...attrs} />
+      <noscript>
+        <img
+          src={imageSrc}
+          alt=""
+          referrerpolicy="no-referrer-when-downgrade"
+        />
+      </noscript>
+    </div>
+  )
+}
+{
+  sanitizedDebug && (
+    <div class="SimpleAnalytics" style="display:none;">
+      <p>
+        The Astro Simple Analytics Plugin component finished loading. You can
+        see all the parameters used here and in the console:
+      </p>
+      <pre>{JSON.stringify(Astro.props, null, 2)}</pre>
+      <p>
+        Remember to have a look at our documentation for options regarding{" "}
+        <a
+          href="https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/#-option-bypass-ad-blockers-"
+          target="_blank"
+          rel="external nofollow noreferrer"
+        >
+          circumventing adblocking
+        </a>{" "}
+        and{" "}
+        <a
+          href="https://docs.simpleanalytics.com/csp"
+          target="_blank"
+          rel="external nofollow noreferrer"
+        >
+          using a correct CSP (Content Security Policy)
+        </a>{" "}
+        so your scripts don't trigger console errors.
+      </p>
+    </div>
+  )
+}
