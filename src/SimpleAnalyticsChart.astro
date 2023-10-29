@@ -1,0 +1,78 @@
+---
+import { sanitizeBoolean, sanitizeCSV, sanitizeSlug, sanitizeURL, sanitizeURLList } from './utilities';
+
+export interface ChartProps {
+  id: string;
+  style: string;
+  loadingText: string;
+  dataHostname?: string;
+  dataStart?: string;
+  dataEnd?: string;
+  dataTypes?: string;
+  dataPageViewsSelector?: string;
+  dataVisitorsSelector?: string;
+  dataPages?: string;
+  dataYMax?: number;
+  dataTimezone?: string;
+  dataBorderWidth?: number;
+  dataTextColor?: string;
+  dataPageViewsColor?: string;
+  dataVisitorsColor?: string;
+  dataAreaOpacity?: number;
+  dataShowLogo?: boolean;
+}
+
+export interface Props extends ChartProps {}
+
+const realURL = new URL(Astro.url.origin);
+const realHostname = `${realURL.hostname}${
+  realURL.port ? ":" + realURL.port : ""
+}`;
+const desiredHostname = import.meta.env.SITE
+  ? new URL(import.meta.env.SITE).hostname
+  : realHostname;
+
+const {
+  id = "chart",
+  style = 'aspect-ratio: 2/1',
+  dataHostname = desiredHostname,
+  loadingText = "Loading chart...",
+  dataStart,
+  dataEnd,
+  dataTypes,
+  dataPageViewsSelector,
+  dataVisitorsSelector,
+  dataPages,
+  dataYMax,
+  dataTimezone,
+  dataBorderWidth,
+  dataTextColor,
+  dataPageViewsColor,
+  dataVisitorsColor,
+  dataAreaOpacity,
+  dataShowLogo,
+} = Astro.props satisfies Props;
+
+// prop sanitization
+const sanitizedId = sanitizeSlug(id);
+const sanitizedDataHostname = sanitizeURL(dataHostname);
+const sanitizedStyle = sanitizeString(style);
+
+// attribute generation
+const attrCollectDNT = sanitizedCollectDNT
+  ? { "data-collect-dnt": "true" }
+  : false;
+const attrs = {
+  ...(attrCollectDNT ? attrCollectDNT : {}),
+};
+
+---
+
+<div id={sanitizedId} data-hostname={sanitizedDataHostname} style={sanitizedStyle} {...Astro.props}>
+  <p>{loadingText}</p>
+</div>
+<script
+  async
+  data-chart-selectors={`#${sanitizedId}`}
+  src="https://scripts.simpleanalyticscdn.com/embed.js"
+></script>

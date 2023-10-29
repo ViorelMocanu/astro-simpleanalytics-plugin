@@ -4,3 +4,4 @@
 // export * from './src/types';
 
 export { default as SimpleAnalytics } from "./src/SimpleAnalytics.astro";
+export { default as SimpleAnalyticsChart } from "./src/SimpleAnalyticsChart.astro";
