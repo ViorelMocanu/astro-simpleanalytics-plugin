@@ -9,16 +9,16 @@ import {
 export interface Props {
   allEnvironments?: boolean;
   collectDNT?: boolean;
-  customDomain?: string;
-  customHostname?: string;
-  ignorePages?: string;
+  customDomain?: string | undefined;
+  customHostname?: string | undefined;
+  ignorePages?: string | undefined;
   light?: boolean;
-  nonUniqueHostnames?: string;
+  nonUniqueHostnames?: string | undefined;
   partytown?: boolean;
   debug?: boolean;
   strictUTMs?: boolean;
-  allowParams?: string;
-  ignoreMetrics?: string;
+  allowParams?: string | undefined;
+  ignoreMetrics?: string | undefined;
 }
 
 const {
