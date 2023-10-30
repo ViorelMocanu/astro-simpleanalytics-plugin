@@ -90,10 +90,16 @@ export function sanitizeSlug(wannabeSlug: unknown) {
 }
 
 /**
- * Checks if the input string is a valid URL.
+ * Sanitizes a URL by checking if it is valid.
  * 
- * @param {unknown} wannabeURL - Optional. A string representing a URL.
- * @returns {string | unknown} The input string if it is a valid URL, otherwise false.
+ * @param {unknown} wannabeURL - The URL to be sanitized.
+ * @returns {string | unknown} The sanitized URL if it is valid; otherwise, false.
+ * @throws {Error} If the URL is invalid.
+ * 
+ * @example
+ * const input = "https://example.com";
+ * const output = sanitizeURL(input);
+ * console.log(output); // "https://example.com"
  */
 export function sanitizeURL(wannabeURL: unknown) {
   let urlString = "";
@@ -164,10 +170,36 @@ export function sanitizeColorHex(wannabeHexColor: unknown) {
   ) ? wannabeHexColor : false;
 }
 
+/**
+ * Checks if a given value is a valid number and returns it if it is greater than or equal to zero. Otherwise, it returns false.
+ * 
+ * @param {unknown} wannabeNumber - The value to be checked if it is a number.
+ * @returns {number | boolean} The sanitized number if it is valid and greater than or equal to zero. False if the input is not a valid number or less than zero.
+ * 
+ * @example
+ * const result1 = sanitizeNumber(10); // 10
+ * const result2 = sanitizeNumber(-5); // false
+ * const result3 = sanitizeNumber("abc"); // false
+ */
 export function sanitizeNumber(wannabeNumber: unknown) {
   return typeof wannabeNumber === "number" && !isNaN(wannabeNumber) && wannabeNumber >= 0 ? wannabeNumber : false;
 }
 
+/**
+ * Checks if the input is a valid URL hostname.
+ * 
+ * @param {unknown} wannabeHostname - The input to be checked if it is a valid URL hostname.
+ * @returns {string | boolean} If the input is a valid URL hostname, it returns the input itself. Otherwise, it returns false.
+ * 
+ * @example
+ * const input1 = "https://example.com";
+ * const output1 = sanitizeHostname(input1);
+ * // output1: "https://example.com"
+ * 
+ * const input2 = "example.com";
+ * const output2 = sanitizeHostname(input2);
+ * // output2: false
+ */
 export function sanitizeHostname(wannabeHostname: unknown) {
   return typeof wannabeHostname === "string" &&
     z.string().url().safeParse(new URL(wannabeHostname).toString()) &&
@@ -176,6 +208,21 @@ export function sanitizeHostname(wannabeHostname: unknown) {
     : false;
 }
 
+/**
+ * Sanitizes a list of URLs.
+ * 
+ * @param {unknown} wannabeURLList - The list of URLs to be sanitized.
+ * @returns {string | boolean} The original `wannabeURLList` string if all URLs are valid, otherwise returns `false`.
+ * 
+ * @example
+ * const input = "https://example.com,https://google.com";
+ * const output = sanitizeURLList(input);
+ * console.log(output); // "https://example.com,https://google.com"
+ * 
+ * const invalidInput = "https://example.com,invalid-url";
+ * const invalidOutput = sanitizeURLList(invalidInput);
+ * console.log(invalidOutput); // false
+ */
 export function sanitizeURLList(wannabeURLList: unknown) {
   if (typeof wannabeURLList !== "string") return false;
   const urlList = wannabeURLList.split(",");
