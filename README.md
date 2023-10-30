@@ -42,7 +42,7 @@ You then need to import `astro-simpleanalytics-plugin` and then use the `<Simple
 ```diff lang="Astro" "<SimpleAnalytics />"
   // Layout.astro
   ---
-+ import SimpleAnalytics from 'astro-simpleanalytics-plugin';
++ import { SimpleAnalytics } from 'astro-simpleanalytics-plugin';
   ---
 
   <!doctype html>

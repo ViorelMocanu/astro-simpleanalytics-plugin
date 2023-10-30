@@ -272,27 +272,35 @@ In order to do this, you need to use a secondary component in the file you want 
   </html>
 ```
 
+Another use case with default parameters:
+
+```Astro
+<SimpleAnalyticsChart id="xyz" hostname="example.com" style="aspect-ratio: 2/1;" loadingText="Chart is loading..." />
+```
+
 We are passing all customization parameters through to the element rendering the graph via the component parameters. This is how a sample component looks like with all options declared:
 
 ```Astro
 <SimpleAnalyticsChart
   id="chart"
-  style="aspect-ratio: 2/1"
-  loading-text="Loading chart..."
-  data-hostname="example.com"
-  data-start="2023-09-06"
-  data-end="2023-10-06"
-  data-types="visitors"
-  data-page-views-selector="#pageviews"
-  data-visitors-selector="#visitors"
-  data-pages="/,/contact"
-  data-y-max="60000"
-  data-timezone="Europe/Amsterdam"
-  data-border-width="1"
-  data-text-color="#ff6600"
-  data-page-views-color="#ff6600"
-  data-visitors-color="#cc2200"
-  data-area-opacity="10"
-  data-show-logo="true"
+  style="aspect-ratio: 2/1;"
+  loadingText="Loading chart..."
+  hostname="example.com"
+  start="2023-09-06"
+  end="2023-10-06"
+  types="visitors"
+  pageViewsSelector="#pageviews"
+  visitorsSelector="#visitors"
+  pages="/,/contact"
+  yMax={10000}
+  timezone="Europe/Amsterdam"
+  borderWidth={1}
+  textColor="#ff6600"
+  pageViewsColor="#ff6600"
+  visitorsColor="#cc2200"
+  areaOpacity={10}
+  showLogo={true}
 />
 ```
+
+In order to make this feature work on public pages (where you shouldn't require [header authentication](https://docs.simpleanalytics.com/api/authenticate)), make sure your website has the [Stats API](https://docs.simpleanalytics.com/api/stats) exposed by setting the `Change visibility` option on your specific website settings into `Keep stats public`, inside your website settings page (which can be found by replacing `example.com` with your domain name in the URL: `https://simpleanalytics.com/example.com/settings#visibility`).

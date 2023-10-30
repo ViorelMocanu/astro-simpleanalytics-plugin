@@ -1,25 +1,34 @@
 ---
-import { sanitizeBoolean, sanitizeCSV, sanitizeSlug, sanitizeURL, sanitizeURLList } from './utilities';
+import {
+  sanitizeBoolean,
+  sanitizeCSV,
+  sanitizeColorHex,
+  sanitizeDate,
+  sanitizeNumber,
+  sanitizeSlug,
+  sanitizeString,
+  sanitizeURL,
+} from "./utilities";
 
 export interface ChartProps {
   id: string;
   style: string;
   loadingText: string;
-  dataHostname?: string;
-  dataStart?: string;
-  dataEnd?: string;
-  dataTypes?: string;
-  dataPageViewsSelector?: string;
-  dataVisitorsSelector?: string;
-  dataPages?: string;
-  dataYMax?: number;
-  dataTimezone?: string;
-  dataBorderWidth?: number;
-  dataTextColor?: string;
-  dataPageViewsColor?: string;
-  dataVisitorsColor?: string;
-  dataAreaOpacity?: number;
-  dataShowLogo?: boolean;
+  hostname?: string;
+  start?: string;
+  end?: string;
+  types?: string;
+  pageViewsSelector?: string;
+  visitorsSelector?: string;
+  pages?: string;
+  yMax?: number;
+  timezone?: string;
+  borderWidth?: number;
+  textColor?: string;
+  pageViewsColor?: string;
+  visitorsColor?: string;
+  areaOpacity?: number;
+  showLogo?: boolean;
 }
 
 export interface Props extends ChartProps {}
@@ -34,41 +43,104 @@ const desiredHostname = import.meta.env.SITE
 
 const {
   id = "chart",
-  style = 'aspect-ratio: 2/1',
-  dataHostname = desiredHostname,
+  style = "aspect-ratio: 2/1",
+  hostname = desiredHostname,
   loadingText = "Loading chart...",
-  dataStart,
-  dataEnd,
-  dataTypes,
-  dataPageViewsSelector,
-  dataVisitorsSelector,
-  dataPages,
-  dataYMax,
-  dataTimezone,
-  dataBorderWidth,
-  dataTextColor,
-  dataPageViewsColor,
-  dataVisitorsColor,
-  dataAreaOpacity,
-  dataShowLogo,
+  start,
+  end,
+  types,
+  pageViewsSelector,
+  visitorsSelector,
+  pages,
+  yMax,
+  timezone,
+  borderWidth,
+  textColor,
+  pageViewsColor,
+  visitorsColor,
+  areaOpacity,
+  showLogo = false,
 } = Astro.props satisfies Props;
 
 // prop sanitization
 const sanitizedId = sanitizeSlug(id);
-const sanitizedDataHostname = sanitizeURL(dataHostname);
+const sanitizedHostname = sanitizeURL(hostname);
 const sanitizedStyle = sanitizeString(style);
+const sanitizedStart = sanitizeDate(start);
+const sanitizedEnd = sanitizeDate(end);
+const sanitizedTypes = sanitizeString(types);
+const sanitizedPageViewsSelector = sanitizeString(pageViewsSelector);
+const sanitizedVisitorsSelector = sanitizeString(visitorsSelector);
+const sanitizedPages = sanitizeCSV(pages);
+const sanitizedYMax = sanitizeNumber(yMax);
+const sanitizedTimezone = sanitizeString(timezone);
+const sanitizedBorderWidth = sanitizeNumber(borderWidth);
+const sanitizedTextColor = sanitizeColorHex(textColor);
+const sanitizedPageViewsColor = sanitizeColorHex(pageViewsColor);
+const sanitizedVisitorsColor = sanitizeColorHex(visitorsColor);
+const sanitizedAreaOpacity = sanitizeNumber(areaOpacity);
+const sanitizedShowLogo = sanitizeBoolean(showLogo);
 
 // attribute generation
-const attrCollectDNT = sanitizedCollectDNT
-  ? { "data-collect-dnt": "true" }
+const attrId = sanitizedId ? { id: sanitizedId } : false;
+const attrhostname = sanitizedHostname
+  ? { "data-hostname": sanitizedHostname }
+  : false;
+const attrStyle = sanitizedStyle ? { style: sanitizedStyle } : false;
+const attrDataShowLogo = sanitizedShowLogo
+  ? { "data-show-logo": sanitizedShowLogo }
+  : false;
+const attrStart = sanitizedStart ? { "data-start": sanitizedStart } : false;
+const attrEnd = sanitizedEnd ? { "data-end": sanitizedEnd } : false;
+const attrTypes = sanitizedTypes ? { "data-types": sanitizedTypes } : false;
+const attrPageViewsSelector = sanitizedPageViewsSelector
+  ? { "data-page-views-selector": sanitizedPageViewsSelector }
+  : false;
+const attrVisitorsSelector = sanitizedVisitorsSelector
+  ? { "data-visitors-selector": sanitizedVisitorsSelector }
+  : false;
+const attrPages = sanitizedPages ? { "data-pages": sanitizedPages } : false;
+const attrYMax = sanitizedYMax ? { "data-y-max": sanitizedYMax } : false;
+const attrTimezone = sanitizedTimezone
+  ? { "data-timezone": sanitizedTimezone }
+  : false;
+const attrBorderWidth = sanitizedBorderWidth
+  ? { "data-border-width": sanitizedBorderWidth }
+  : false;
+const attrTextColor = sanitizedTextColor
+  ? { "data-text-color": sanitizedTextColor }
+  : false;
+const attrPageViewsColor = sanitizedPageViewsColor
+  ? { "data-page-views-color": sanitizedPageViewsColor }
+  : false;
+const attrVisitorsColor = sanitizedVisitorsColor
+  ? { "data-visitors-color": sanitizedVisitorsColor }
+  : false;
+const attrAreaOpacity = sanitizedAreaOpacity
+  ? { "data-area-opacity": sanitizedAreaOpacity }
   : false;
 const attrs = {
-  ...(attrCollectDNT ? attrCollectDNT : {}),
+  ...(attrId ? attrId : {}),
+  ...(attrStyle ? attrStyle : {}),
+  ...(attrhostname ? attrhostname : {}),
+  ...(attrStart ? attrStart : {}),
+  ...(attrEnd ? attrEnd : {}),
+  ...(attrTypes ? attrTypes : {}),
+  ...(attrPageViewsSelector ? attrPageViewsSelector : {}),
+  ...(attrVisitorsSelector ? attrVisitorsSelector : {}),
+  ...(attrPages ? attrPages : {}),
+  ...(attrYMax ? attrYMax : {}),
+  ...(attrTimezone ? attrTimezone : {}),
+  ...(attrBorderWidth ? attrBorderWidth : {}),
+  ...(attrTextColor ? attrTextColor : {}),
+  ...(attrPageViewsColor ? attrPageViewsColor : {}),
+  ...(attrVisitorsColor ? attrVisitorsColor : {}),
+  ...(attrAreaOpacity ? attrAreaOpacity : {}),
+  ...(attrDataShowLogo ? attrDataShowLogo : {}),
 };
-
 ---
 
-<div id={sanitizedId} data-hostname={sanitizedDataHostname} style={sanitizedStyle} {...Astro.props}>
+<div {...attrs}>
   <p>{loadingText}</p>
 </div>
 <script
