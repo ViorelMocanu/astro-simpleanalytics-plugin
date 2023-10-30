@@ -2,7 +2,7 @@
 
 - [All the `astro-simpleanalytics-plugin` features](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content-all-the-astro-simpleanalytics-plugin-features)
   - [📃 Complete parameter configuration reference](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--complete-parameter-configuration-reference)
-  - [✅ Option: Debugging 🚧](#-option-debugging-)
+  - [✅ Option: Debugging 🚧](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-debugging-)
   - [✅ Option: Loading Analytics in all environments ♾️](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-loading-analytics-in-all-environments-️)
   - [✅ Option: Integrate with `@astrojs/partytown` 🎉](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-integrate-with-astrojspartytown-)
   - [✅ Option: Light version script 🪶](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-light-version-script-)
@@ -11,6 +11,10 @@
   - [✅ Option: Bypass Ad Blockers 🪙](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-bypass-ad-blockers-)
   - [✅ Option: Ignore pages ➖](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-ignore-pages-)
   - [✅ Option: Non-unique hostnames 🔗](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-non-unique-hostnames-)
+  - [✅ Option: Strict UTMs 🔒](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-strict-utms-)
+  - [✅ Option: Allow URL parameters 🔓](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-allow-url-parameters-)
+  - [✅ Option: Ignore metrics 🚫](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-ignore-metrics-)
+  - [💡 Feature: Embed chart on your site 📈](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--feature-embed-chart-on-your-site-)
 
 Once you [install it](README.md#🚀-installation), the Astro Simple Analytics Plugin should be ready to go with zero config.
 
@@ -29,10 +33,13 @@ These are all the available parameter options for this plugin where you choose t
   partytown={false}              {/* (false | true) */}
   light={false}                  {/* (false | true) */}
   collectDNT={false}             {/* (false | true) */}
+  strictUTMs={false}             {/* (false | true) */}
+  allowParams={undefined}        {/* (undefined | string) */}
   customHostname={undefined}     {/* (undefined | string) */}
   customDomain={undefined}       {/* (undefined | string) */}
   ignorePages={undefined}        {/* (undefined | string) */}
   nonUniqueHostnames={undefined} {/* (undefined | string) */}
+  ignoreMetrics={undefined}      {/* (undefined | string) */}
 />
 ```
 
@@ -167,3 +174,133 @@ You can [specify a list of hostnames](https://docs.simpleanalytics.com/non-uniqu
 ```Astro
 <SimpleAnalytics nonUniqueHostnames="checkout.stripe.com,checkout.adyen.com,checkout.mollie.com" />
 ```
+
+## ✅ Option: Strict UTMs 🔒
+
+By default, the Astro Simple Analytics Plugin allows tracking for all these combinations of UTM tags (and stripping them automatically from the tracked URLs):
+
+- `utm_source` / `source` / `ref` (in the dashboard, all three of these equivalent params are stored as `utm_source`)
+- `utm_medium` / `medium`
+- `utm_campaign` / `campaign`
+- `utm_content` / `content`
+- `utm_term` / `term`
+
+To give you control over which parameter Simple Analytics should store, you can [enable strict UTMs](https://docs.simpleanalytics.com/strict-utms):
+
+```Astro
+<SimpleAnalytics strictUTMs={true} />
+```
+
+This will exclusively allow for the following UTMs to be used and collected:
+
+- `utm_source`
+- `utm_medium`
+- `utm_campaign`
+- `utm_content`
+- `utm_term`
+
+The parameters `source`, `ref`, `medium`, `campaign`, and any other custom parameter will not be collected.
+
+## ✅ Option: Allow URL parameters 🔓
+
+By default, the Astro Simple Analytics Plugin allows tracking for all these combinations of UTM tags (and stripping them automatically from the tracked URLs):
+
+- `utm_source` / `source` / `ref` (in the dashboard, all three of these equivalent params are stored as `utm_source`)
+- `utm_medium` / `medium`
+- `utm_campaign` / `campaign`
+- `utm_content` / `content`
+- `utm_term` / `term`
+
+**WARNING:** If your use [strict UTMs](), you can only use the query parameters that start with `utm_`, so we recommend also setting that option to `false` or removing it from the settings altogether.
+
+We don't store the rest of the query parameters. But some customers have non-personal data in their query parameters, for example: `product-id` or `article-slug`. We allow collecting those parameters as long as they are specified via our script settings.
+
+If you want to capture `product-id` and `article-slug` from your website's URLs, you can specify the following setting:
+
+```Astro
+<SimpleAnalytics allowParams="product-id,article-slug" />
+```
+
+Read more about the [Allow Params setting in the official Simple Analytics documentation](https://docs.simpleanalytics.com/allow-params), and more on [how to use URL parameters can be found here](https://docs.simpleanalytics.com/how-to-use-url-parameters).
+
+## ✅ Option: Ignore metrics 🚫
+
+The Astro Simple Analytics Plugin only collects non-personal data. If you want to limit the collected metrics even more, you can reference the table below and add any of these to the list of [ignored metrics](https://docs.simpleanalytics.com/ignore-metrics):
+
+| Metric              | Slug           | Inferrered metric                                                                               |
+| :------------------ | :------------- | :---------------------------------------------------------------------------------------------- |
+| Referrer            | `referrer`     |                                                                                                 |
+| UTM codes           | `utm`          | [`ref` param](https://docs.simpleanalytics.com/how-to-use-url-parameters#using-a-url-parameter) |
+| Country / time zone | `country`      |                                                                                                 |
+| Session IDs         | `session`      |                                                                                                 |
+| Time on page        | `timeonpage`   | Data point ID, Page ID                                                                          |
+| Scrolled            | `scrolled`     | Data point ID, Page ID                                                                          |
+| User Agent          | `useragent`    |                                                                                                 |
+| Screen size         | `screensize`   |                                                                                                 |
+| Viewport size       | `viewportsize` |                                                                                                 |
+| Language            | `language`     |                                                                                                 |
+
+See [page with metric explanations](https://docs.simpleanalytics.com/metrics).
+
+So if, for example, you'd like to ignore `timeonpage` and `scrolled`, you should add the following parameter to the `<SimpleAnalytics />` component:
+
+```Astro
+<SimpleAnalytics ignoreMetrics="timeonpage,scrolled" />
+```
+
+You can add any number of metrics to this list if you want to ignore them.
+
+## 💡 Feature: Embed chart on your site 📈
+
+The Astro Simple Analytics Plugin allows you to [embed a chart of your public website statistics](https://docs.simpleanalytics.com/embed-chart-on-your-site) on your website.
+
+In order to do this, you need to use a secondary component in the file you want to get your embed working:
+
+```diff lang="Astro" "<SimpleAnalyticsChart />"
+  // page.astro
+  ---
++ import { SimpleAnalyticsChart } from 'astro-simpleanalytics-plugin';
+  ---
+
+  <!doctype html>
+  <html>
+    <head>...</head>
+    <body>
+      ...
++     <SimpleAnalyticsChart />
+    </body>
+  </html>
+```
+
+Another use case with default parameters:
+
+```Astro
+<SimpleAnalyticsChart id="xyz" hostname="example.com" style="aspect-ratio: 2/1;" loadingText="Chart is loading..." />
+```
+
+We are passing all customization parameters through to the element rendering the graph via the component parameters. This is how a sample component looks like with all options declared:
+
+```Astro
+<SimpleAnalyticsChart
+  id="chart"
+  style="aspect-ratio: 2/1;"
+  loadingText="Loading chart..."
+  hostname="example.com"
+  start="2023-09-06"
+  end="2023-10-06"
+  types="visitors"
+  pageViewsSelector="#pageviews"
+  visitorsSelector="#visitors"
+  pages="/,/contact"
+  yMax={10000}
+  timezone="Europe/Amsterdam"
+  borderWidth={1}
+  textColor="#ff6600"
+  pageViewsColor="#ff6600"
+  visitorsColor="#cc2200"
+  areaOpacity={10}
+  showLogo={true}
+/>
+```
+
+In order to make this feature work on public pages (where you shouldn't require [header authentication](https://docs.simpleanalytics.com/api/authenticate)), make sure your website has the [Stats API](https://docs.simpleanalytics.com/api/stats) exposed by setting the `Change visibility` option on your specific website settings into `Keep stats public`, inside your website settings page (which can be found by replacing `example.com` with your domain name in the URL: `https://simpleanalytics.com/example.com/settings#visibility`).

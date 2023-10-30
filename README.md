@@ -42,7 +42,7 @@ You then need to import `astro-simpleanalytics-plugin` and then use the `<Simple
 ```diff lang="Astro" "<SimpleAnalytics />"
   // Layout.astro
   ---
-+ import SimpleAnalytics from 'astro-simpleanalytics-plugin';
++ import { SimpleAnalytics } from 'astro-simpleanalytics-plugin';
   ---
 
   <!doctype html>
@@ -68,10 +68,13 @@ These are all the available parameter options for this plugin where you choose t
   partytown={false}              {/* (false | true) */}
   light={false}                  {/* (false | true) */}
   collectDNT={false}             {/* (false | true) */}
+  strictUTMs={false}             {/* (false | true) */}
+  allowParams={undefined}        {/* (undefined | string) */}
   customHostname={undefined}     {/* (undefined | string) */}
   customDomain={undefined}       {/* (undefined | string) */}
   ignorePages={undefined}        {/* (undefined | string) */}
   nonUniqueHostnames={undefined} {/* (undefined | string) */}
+  ignoreMetrics={undefined}      {/* (undefined | string) */}
 />
 ```
 

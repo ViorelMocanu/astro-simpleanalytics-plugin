@@ -1,5 +1,10 @@
 ---
-import { z } from "astro:content";
+import {
+  sanitizeBoolean,
+  sanitizeCSV,
+  sanitizeURL,
+  sanitizeURLList,
+} from "./utilities";
 
 export interface Props {
   allEnvironments?: boolean;
@@ -11,6 +16,9 @@ export interface Props {
   nonUniqueHostnames?: string;
   partytown?: boolean;
   debug?: boolean;
+  strictUTMs?: boolean;
+  allowParams?: string;
+  ignoreMetrics?: string;
 }
 
 const {
@@ -23,39 +31,10 @@ const {
   nonUniqueHostnames = undefined,
   partytown = false,
   debug = false,
+  strictUTMs = false,
+  allowParams = undefined,
+  ignoreMetrics = undefined,
 } = Astro.props;
-
-// sanitization functions
-function sanitizeBoolean (wannabeBoolean: boolean) {
-  return typeof wannabeBoolean === "boolean" &&
-    z.boolean().safeParse(wannabeBoolean) &&
-    wannabeBoolean === true
-    ? true
-    : false;
-}
-function sanitizeURL (wannabeURL?: string) {
-  return typeof wannabeURL === "string" &&
-    z.string().url().safeParse(new URL(wannabeURL).toString()) &&
-    wannabeURL.split(".").length > 1
-    ? wannabeURL
-    : false;
-}
-function sanitizeSlugs (wannabeSlugs?: string) {
-  return typeof wannabeSlugs === "string" &&
-    z.string().safeParse(wannabeSlugs) &&
-    (wannabeSlugs.indexOf(",") >= 0 ? wannabeSlugs.split(",").length > 1 : true)
-    ? wannabeSlugs
-    : false;
-}
-function sanitizeURLList (wannabeURLList?: string) {
-  if (typeof wannabeURLList !== "string") return false;
-  const urlList = wannabeURLList.split(",");
-  let allUrlsAreValid = true;
-  urlList.forEach((url?: string) => {
-    allUrlsAreValid = allUrlsAreValid && !!sanitizeURL(url);
-  });
-  return allUrlsAreValid ? wannabeURLList : false;
-}
 
 // prop sanitization
 const sanitizedAllEnvironments = sanitizeBoolean(allEnvironments);
@@ -63,10 +42,13 @@ const sanitizedCollectDNT = sanitizeBoolean(collectDNT);
 const sanitizedCustomDomain = sanitizeURL(customDomain);
 const sanitizedLight = sanitizeBoolean(light);
 const sanitizedCustomHostname = sanitizeURL(customHostname);
-const sanitizedIgnorePages = sanitizeSlugs(ignorePages);
+const sanitizedIgnorePages = sanitizeCSV(ignorePages);
 const sanitizedNonUniqueHostnames = sanitizeURLList(nonUniqueHostnames);
 const sanitizedPartytown = sanitizeBoolean(partytown);
 const sanitizedDebug = sanitizeBoolean(debug);
+const sanitizedStrictUTMs = sanitizeBoolean(strictUTMs);
+const sanitizedAllowParams = sanitizeCSV(allowParams);
+const sanitizedIgnoreMetrics = sanitizeCSV(ignoreMetrics);
 
 // attribute generation
 const realURL = new URL(Astro.url.origin);
@@ -76,14 +58,26 @@ const realHostname = `${realURL.hostname}${
 const desiredHostname = import.meta.env.SITE
   ? new URL(import.meta.env.SITE).hostname
   : realHostname;
+let host;
+if (sanitizedCustomHostname) {
+  host = { "data-hostname": sanitizedCustomHostname };
+} else if (sanitizedAllEnvironments) {
+  host = { "data-hostname": desiredHostname };
+} else {
+  host = {};
+}
+
 const attrCollectDNT = sanitizedCollectDNT
   ? { "data-collect-dnt": "true" }
   : false;
-const attrCustomHostname = sanitizedCustomHostname
-  ? { "data-hostname": sanitizedCustomHostname }
-  : sanitizedAllEnvironments
-    ? { "data-hostname": desiredHostname }
-    : false;
+const attrStrictUTMs = sanitizedStrictUTMs
+  ? { "data-strict-utm": "true" }
+  : false;
+const attrAllowParams = sanitizedAllowParams
+  ? { "data-allow-params": sanitizedAllowParams }
+  : false;
+const attrCustomHostname =
+  sanitizedCustomHostname || sanitizedAllEnvironments ? host : false;
 const attrIgnorePages = sanitizedIgnorePages
   ? { "data-ignore-pages": sanitizedIgnorePages }
   : false;
@@ -93,12 +87,18 @@ const attrNonUniqueHostnames = sanitizedNonUniqueHostnames
 const attrPartytown = sanitizedPartytown
   ? { type: "text/partytown" }
   : { type: "text/javascript" };
+const attrIgnoreMetrics = sanitizedIgnoreMetrics
+  ? { "data-ignore-metrics": sanitizedIgnoreMetrics }
+  : false;
 const attrs = {
   ...(attrCollectDNT ? attrCollectDNT : {}),
   ...(attrCustomHostname ? attrCustomHostname : {}),
   ...(attrIgnorePages ? attrIgnorePages : {}),
   ...(attrNonUniqueHostnames ? attrNonUniqueHostnames : {}),
   ...(attrPartytown ? attrPartytown : {}),
+  ...(attrStrictUTMs ? attrStrictUTMs : {}),
+  ...(attrAllowParams ? attrAllowParams : {}),
+  ...(attrIgnoreMetrics ? attrIgnoreMetrics : {}),
 };
 
 // string parameter generation
@@ -107,22 +107,30 @@ const domain = sanitizedCustomDomain
   : "scripts.simpleanalyticscdn.com";
 const scriptfile = sanitizedLight ? "light.js" : "latest.js";
 const imagefile = sanitizedCollectDNT ? "hello.gif" : "noscript.gif";
-const specificHostname = sanitizedCustomHostname
-  ? `?hostname=${sanitizedCustomHostname}`
-  : sanitizedAllEnvironments
-    ? `?hostname=${desiredHostname}`
-    : "";
+let specificHost;
+if (sanitizedCustomHostname) {
+  specificHost = `?hostname=${sanitizedCustomHostname}`;
+} else if (sanitizedAllEnvironments) {
+  specificHost = `?hostname=${desiredHostname}`;
+} else {
+  specificHost = "";
+}
+const specificHostname = specificHost;
 
 // injectable string variable concatenation
 const scriptSrc = `https://${domain}/${scriptfile}`;
 const imageSrc = `https://queue.simpleanalyticscdn.com/${imagefile}${specificHostname}`;
 
 // render boolean calculation
-const showScripts = sanitizedAllEnvironments
-  ? true
-  : import.meta.env.DEV
-    ? false
-    : true;
+let show;
+if (sanitizedAllEnvironments) {
+  show = true;
+} else if (import.meta.env.DEV) {
+  show = false;
+} else {
+  show = true;
+}
+const showScripts = show;
 
 if (sanitizedDebug) {
   /* eslint-disable no-console */

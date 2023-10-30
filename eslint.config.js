@@ -59,7 +59,6 @@ export default [
       "space-before-blocks": "error",
       "space-in-parens": ["warn", "never"],
       "template-curly-spacing": "warn",
-      "wrap-regex": "warn",
     },
   },
   {
@@ -100,7 +99,6 @@ export default [
       "space-before-blocks": "error",
       "space-in-parens": ["warn", "never"],
       "template-curly-spacing": "warn",
-      "wrap-regex": "warn",
     },
   },
   {
@@ -184,7 +182,6 @@ export default [
       "space-before-blocks": "error",
       "space-in-parens": ["warn", "never"],
       "template-curly-spacing": "warn",
-      "wrap-regex": "warn",
     },
   },
 ];
