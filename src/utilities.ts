@@ -206,18 +206,34 @@ export function sanitizeNumber(wannabeNumber: unknown) {
  * // output2: false
  */
 export function sanitizeHostname(wannabeHostname: unknown) {
+  let url;
+  let urlString = "";
+  let host = "";
+  try {
+    if (wannabeHostname && typeof wannabeHostname === "string")
+      url = new URL(`https://${wannabeHostname}`);
+    if (url) {
+      urlString = url.toString();
+      host = new URL(`https://${wannabeHostname}`).hostname;
+    }
+  } catch (err) {
+    throw new Error("Invalid URL");
+  }
   return typeof wannabeHostname === "string" &&
-    z.string().url().safeParse(new URL(wannabeHostname).toString()) &&
-    new URL(wannabeHostname).hostname === wannabeHostname
-    ? wannabeHostname
+    z.string().url().safeParse(urlString) &&
+    wannabeHostname.split(".").length > 1 &&
+    !!url &&
+    !!new URL(url).hostname &&
+    new URL(url).hostname === wannabeHostname
+    ? host
     : false;
 }
 
 /**
  * Sanitizes a list of URLs.
  *
- * @param {unknown} wannabeURLList - The list of URLs to be sanitized.
- * @returns {string | boolean} The original `wannabeURLList` string if all URLs are valid, otherwise returns `false`.
+ * @param {unknown} wannabeHostnameList - The list of URLs to be sanitized.
+ * @returns {string | boolean} The original `wannabeHostnameList` string if all URLs are valid, otherwise returns `false`.
  *
  * @example
  * const input = "https://example.com,https://google.com";
@@ -228,12 +244,12 @@ export function sanitizeHostname(wannabeHostname: unknown) {
  * const invalidOutput = sanitizeURLList(invalidInput);
  * console.log(invalidOutput); // false
  */
-export function sanitizeURLList(wannabeURLList: unknown) {
-  if (typeof wannabeURLList !== "string") return false;
-  const urlList = wannabeURLList.split(",");
+export function sanitizeHostnameList(wannabeHostnameList: unknown) {
+  if (typeof wannabeHostnameList !== "string") return false;
+  const urlList = wannabeHostnameList.split(",");
   let allUrlsAreValid = true;
   urlList.forEach((url?: string) => {
     allUrlsAreValid = allUrlsAreValid && !!sanitizeURL(url);
   });
-  return allUrlsAreValid ? wannabeURLList : false;
+  return allUrlsAreValid ? wannabeHostnameList : false;
 }

@@ -2,8 +2,8 @@
 import {
   sanitizeBoolean,
   sanitizeCSV,
-  sanitizeURL,
-  sanitizeURLList,
+  sanitizeHostname,
+  sanitizeHostnameList,
 } from "./utilities";
 
 export interface Props {
@@ -39,11 +39,11 @@ const {
 // prop sanitization
 const sanitizedAllEnvironments = sanitizeBoolean(allEnvironments);
 const sanitizedCollectDNT = sanitizeBoolean(collectDNT);
-const sanitizedCustomDomain = sanitizeURL(customDomain);
+const sanitizedCustomDomain = sanitizeHostname(customDomain);
 const sanitizedLight = sanitizeBoolean(light);
-const sanitizedCustomHostname = sanitizeURL(customHostname);
+const sanitizedCustomHostname = sanitizeHostname(customHostname);
 const sanitizedIgnorePages = sanitizeCSV(ignorePages);
-const sanitizedNonUniqueHostnames = sanitizeURLList(nonUniqueHostnames);
+const sanitizedNonUniqueHostnames = sanitizeHostnameList(nonUniqueHostnames);
 const sanitizedPartytown = sanitizeBoolean(partytown);
 const sanitizedDebug = sanitizeBoolean(debug);
 const sanitizedStrictUTMs = sanitizeBoolean(strictUTMs);

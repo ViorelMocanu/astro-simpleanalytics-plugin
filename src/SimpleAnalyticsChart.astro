@@ -4,10 +4,10 @@ import {
   sanitizeCSV,
   sanitizeColorHex,
   sanitizeDate,
+  sanitizeHostname,
   sanitizeNumber,
   sanitizeSlug,
   sanitizeString,
-  sanitizeURL,
 } from "./utilities";
 
 export interface ChartProps {
@@ -64,7 +64,7 @@ const {
 
 // prop sanitization
 const sanitizedId = sanitizeSlug(id);
-const sanitizedHostname = sanitizeURL(hostname);
+const sanitizedHostname = sanitizeHostname(hostname);
 const sanitizedStyle = sanitizeString(style);
 const sanitizedStart = sanitizeDate(start);
 const sanitizedEnd = sanitizeDate(end);
