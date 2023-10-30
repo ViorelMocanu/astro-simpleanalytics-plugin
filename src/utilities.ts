@@ -237,11 +237,11 @@ export function sanitizeHostname(wannabeHostname: unknown) {
  *
  * @example
  * const input = "https://example.com,https://google.com";
- * const output = sanitizeURLList(input);
+ * const output = sanitizeHostnameList(input);
  * console.log(output); // "https://example.com,https://google.com"
  *
  * const invalidInput = "https://example.com,invalid-url";
- * const invalidOutput = sanitizeURLList(invalidInput);
+ * const invalidOutput = sanitizeHostnameList(invalidInput);
  * console.log(invalidOutput); // false
  */
 export function sanitizeHostnameList(wannabeHostnameList: unknown) {
@@ -249,7 +249,7 @@ export function sanitizeHostnameList(wannabeHostnameList: unknown) {
   const urlList = wannabeHostnameList.split(",");
   let allUrlsAreValid = true;
   urlList.forEach((url?: string) => {
-    allUrlsAreValid = allUrlsAreValid && !!sanitizeURL(url);
+    allUrlsAreValid = allUrlsAreValid && !!sanitizeHostname(url);
   });
   return allUrlsAreValid ? wannabeHostnameList : false;
 }
