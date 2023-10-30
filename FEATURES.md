@@ -71,7 +71,7 @@ By default, the Astro Simple Analytics Plugin does not pollute the console with 
 <SimpleAnalytics debug={true} />
 ```
 
-If you have issues or can't seem to make the plugin work, please refer to the [Troubleshooting section](#troubleshooting).
+If you have issues or can't seem to make the plugin work, please refer to the [Troubleshooting section](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin#user-content--troubleshooting).
 
 ## ✅ Option: Loading Analytics in all environments ♾️
 
@@ -211,7 +211,7 @@ By default, the Astro Simple Analytics Plugin allows tracking for all these comb
 - `utm_content` / `content`
 - `utm_term` / `term`
 
-**WARNING:** If your use [strict UTMs](), you can only use the query parameters that start with `utm_`, so we recommend also setting that option to `false` or removing it from the settings altogether.
+**WARNING:** If your use [strict UTMs](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-strict-utms-), you can only use the query parameters that start with `utm_`, so we recommend also setting that option to `false` or removing it from the settings altogether.
 
 We don't store the rest of the query parameters. But some customers have non-personal data in their query parameters, for example: `product-id` or `article-slug`. We allow collecting those parameters as long as they are specified via our script settings.
 
