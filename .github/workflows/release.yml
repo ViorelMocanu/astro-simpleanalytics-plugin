@@ -10,7 +10,7 @@ jobs:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout V3"
+      - name: "Checkout V3 action"
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
