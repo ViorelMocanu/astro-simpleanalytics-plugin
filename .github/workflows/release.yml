@@ -48,6 +48,23 @@ jobs:
           commit_message: "Version bump in README.md to ${{ env.package_version }} [skip ci]"
           file_pattern: README.md
 
+      - name: "Node.js setup"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Install PNPM"
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: "Install dependencies"
+        run: pnpm install
+
       - name: "NPM Publish"
         uses: JS-DevTools/npm-publish@v1
         id: publish
