@@ -1,4 +1,4 @@
-name: Publish to NPM
+name: Publish plugin to NPM
 
 on:
   push:
