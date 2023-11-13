@@ -66,10 +66,10 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "3.4.4"
+    "astro": "3.5.3"
   },
   "peerDependencies": {
-    "astro": "3.4.4"
+    "astro": "3.5.3"
   },
   "devDependencies": {
     "@commitlint/cli": "18.2.0",
