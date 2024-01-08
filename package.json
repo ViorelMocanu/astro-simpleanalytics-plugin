@@ -70,7 +70,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "18.4.3",
-    "@commitlint/config-conventional": "18.4.3",
+    "@commitlint/config-conventional": "18.4.4",
     "@release-it/keep-a-changelog": "5.0.0",
     "@typescript-eslint/eslint-plugin": "6.16.0",
     "@typescript-eslint/parser": "6.16.0",
