@@ -66,25 +66,25 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "4.0.8"
+    "astro": "4.2.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "18.4.3",
-    "@commitlint/config-conventional": "18.4.3",
+    "@commitlint/cli": "18.5.0",
+    "@commitlint/config-conventional": "18.5.0",
     "@release-it/keep-a-changelog": "5.0.0",
-    "@typescript-eslint/eslint-plugin": "6.16.0",
-    "@typescript-eslint/parser": "6.16.0",
+    "@typescript-eslint/eslint-plugin": "6.19.0",
+    "@typescript-eslint/parser": "6.19.0",
     "eslint": "8.56.0",
-    "eslint-plugin-astro": "0.31.0",
+    "eslint-plugin-astro": "0.31.3",
     "eslint-plugin-jsx-a11y": "6.8.0",
     "husky": "8.0.3",
-    "prettier": "3.1.1",
-    "prettier-plugin-astro": "0.12.3",
+    "prettier": "3.2.4",
+    "prettier-plugin-astro": "0.13.0",
     "release-it": "17.0.1",
     "typescript": "5.3.3"
   },
   "engines": {
-    "node": ">=18",
+    "node": "18.19",
     "pnpm": ">=8"
   },
   "publishConfig": {
