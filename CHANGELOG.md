@@ -34,7 +34,7 @@
 
 ## [0.3.9] - 2024-01-22
 
-## [unreleased]
+## [Unreleased]
 
 ### Added
 
