@@ -40,6 +40,7 @@ These are all the available parameter options for this plugin where you choose t
   ignorePages={undefined}        {/* (undefined | string) */}
   nonUniqueHostnames={undefined} {/* (undefined | string) */}
   ignoreMetrics={undefined}      {/* (undefined | string) */}
+  crossorigin="anonymous"        {/* (undefined | "anonymous" | "use-credentials") */}
 />
 ```
 
@@ -249,6 +250,21 @@ So if, for example, you'd like to ignore `timeonpage` and `scrolled`, you should
 ```
 
 You can add any number of metrics to this list if you want to ignore them.
+
+## ✅ Option: Add crossorigin parameter ♻️
+
+You can specify exactly what you'd like the `crossorigin` parameter to be. The standard options are:
+
+- `anonymous` - to use CORS headers in requests and credential flag is set to `same-origin`.
+- `use-credentials` - to require CORS credentials and the credential flag set to `include` to always include user credentials.
+
+See [more details on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin).
+
+By default, the `crossorigin` sets to `anonymous`, like this:
+
+```Astro
+<SimpleAnalytics crossorigin="anonymous" />
+```
 
 ## 💡 Feature: Embed chart on your site 📈
 
