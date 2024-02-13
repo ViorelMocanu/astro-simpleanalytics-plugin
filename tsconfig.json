@@ -19,6 +19,6 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "verbatimModuleSyntax": true,
-    "outDir": "./dist",
-  },
+    "outDir": "./dist"
+  }
 }

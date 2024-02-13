@@ -1,4 +1,3 @@
-// @ts-expect-error astro:content is not generated
 import { z } from "astro:content";
 
 // sanitization functions
