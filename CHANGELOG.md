@@ -40,11 +40,12 @@
 
 ## [0.3.12] - 2024-02-13
 
+## [0.3.13] - 2024-02-24
+
 ## [Unreleased]
 
 ### Added
 
-[unreleased]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/compare/v0.3.12...main
 [0.0.1]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/commit/5c55c637d837f31694d4da7fdcf32fe8d53224c6
 [0.1.0]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/releases/tag/v0.1.0
 [0.1.1]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/releases/tag/v0.1.1
@@ -64,4 +65,5 @@
 [0.3.9]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/releases/tag/v0.3.9
 [0.3.10]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/releases/tag/v0.3.10
 [0.3.11]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/releases/tag/v0.3.11
-[0.3.12]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/compare/v0.3.11...v0.3.12
+[0.3.12]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/releases/tag/v0.3.12
+[0.3.13]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/compare/v0.3.12...v0.3.13
