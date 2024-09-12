@@ -107,7 +107,7 @@ export function sanitizeURL(wannabeURL: unknown) {
       wannabeURL && typeof wannabeURL === "string" ? new URL(wannabeURL) : "";
     urlString = url.toString();
   } catch (err) {
-    throw new Error("Invalid URL");
+    throw new Error("Invalid URL", err ? err : "");
   }
   return typeof wannabeURL === "string" &&
     z.string().url().safeParse(urlString) &&
@@ -134,7 +134,7 @@ export function sanitizeDate(wannabeDate: unknown) {
     const d = new Date(wannabeDate as string);
     dateString = d.toString();
   } catch (err) {
-    throw new Error("Invalid date");
+    throw new Error("Invalid date", err ? err : "");
   }
   const date = new Date(dateString);
   return typeof wannabeDate === "string" && !isNaN(date.getTime())
@@ -216,7 +216,7 @@ export function sanitizeHostname(wannabeHostname: unknown) {
       host = new URL(`https://${wannabeHostname}`).hostname;
     }
   } catch (err) {
-    throw new Error("Invalid URL");
+    throw new Error("Invalid URL", err ? err : "");
   }
   return typeof wannabeHostname === "string" &&
     z.string().url().safeParse(urlString) &&

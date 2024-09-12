@@ -59,6 +59,7 @@ export default [
       "space-before-blocks": "error",
       "space-in-parens": ["warn", "never"],
       "template-curly-spacing": "warn",
+      "@typescript-eslint/triple-slash-reference": "warn",
     },
   },
   {

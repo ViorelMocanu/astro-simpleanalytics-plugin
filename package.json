@@ -52,7 +52,7 @@
     "test": "pnpm verify",
     "verify": "pnpm lint && pnpm typecheck && pnpm format",
     "verify:fix": "pnpm lint:fix && pnpm typecheck && pnpm format:fix",
-    "prepare": "husky install",
+    "prepare": "husky",
     "release:patch": "pnpm --workspaces --git-tag-version false version patch && pnpm --git-tag-version false version patch",
     "release:minor": "pnpm --workspaces --git-tag-version false version minor && pnpm --git-tag-version false version minor",
     "release:major": "pnpm --workspaces --git-tag-version false version major && pnpm --git-tag-version false version major",
@@ -63,25 +63,26 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "up": "pnpm update --latest --recursive --interactive"
   },
   "dependencies": {
-    "astro": "4.11.5"
+    "astro": "4.15.4"
   },
   "devDependencies": {
-    "@commitlint/cli": "19.3.0",
-    "@commitlint/config-conventional": "19.2.2",
+    "@commitlint/cli": "19.5.0",
+    "@commitlint/config-conventional": "19.5.0",
     "@release-it/keep-a-changelog": "5.0.0",
-    "@typescript-eslint/eslint-plugin": "7.16.0",
-    "@typescript-eslint/parser": "7.16.0",
-    "eslint": "9.7.0",
+    "@typescript-eslint/eslint-plugin": "8.5.0",
+    "@typescript-eslint/parser": "8.5.0",
+    "eslint": "9.10.0",
     "eslint-plugin-astro": "1.2.3",
-    "eslint-plugin-jsx-a11y": "6.9.0",
-    "husky": "9.0.11",
+    "eslint-plugin-jsx-a11y": "6.10.0",
+    "husky": "9.1.6",
     "prettier": "3.3.3",
-    "prettier-plugin-astro": "0.14.0",
+    "prettier-plugin-astro": "0.14.1",
     "release-it": "17.6.0",
-    "typescript": "5.5.3"
+    "typescript": "5.6.2"
   },
   "commitlint": {
     "extends": [
