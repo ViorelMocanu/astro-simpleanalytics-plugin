@@ -50,6 +50,8 @@
 
 ## [0.3.17] - 2024-09-14
 
+## [Unreleased]
+
 ### Added
 
 [0.0.1]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/commit/5c55c637d837f31694d4da7fdcf32fe8d53224c6
