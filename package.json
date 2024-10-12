@@ -67,7 +67,7 @@
     "up": "pnpm update --latest --recursive --interactive"
   },
   "dependencies": {
-    "astro": "4.15.6"
+    "astro": "4.15.12"
   },
   "devDependencies": {
     "@commitlint/cli": "19.5.0",
