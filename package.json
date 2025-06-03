@@ -64,10 +64,10 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "up": "pnpm update --latest --recursive --interactive"
+    "upd": "pnpm update --latest --recursive --interactive --verbose --ignore-scripts=false --include=optional"
   },
   "dependencies": {
-    "astro": "4.16.13"
+    "astro": "5.8.1"
   },
   "devDependencies": {
     "@commitlint/cli": "19.5.0",
