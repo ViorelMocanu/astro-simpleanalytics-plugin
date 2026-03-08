@@ -64,7 +64,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "upd": "pnpm update --latest --recursive --interactive --verbose --ignore-scripts=false --include=optional"
+    "upd": "pnpm update --latest --recursive --interactive --verbose --ignore-scripts=false --include=optional && cd demo && pnpm update --latest --recursive --interactive --verbose --ignore-scripts=false --include=optional && cd .. && pnpm install"
   },
   "dependencies": {
     "astro": "5.18.0"

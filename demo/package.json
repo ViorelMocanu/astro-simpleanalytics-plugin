@@ -11,11 +11,11 @@
 		"upd": "pnpm update --latest --recursive --interactive --verbose --ignore-scripts=false --include=optional"
 	},
 	"dependencies": {
-		"@astrojs/mdx": "^4.3.0",
-		"@astrojs/rss": "^4.0.11",
-		"@astrojs/sitemap": "^3.4.0",
-		"astro": "^5.8.1",
-		"astro-simpleanalytics-plugin": "^0.3.19",
+		"@astrojs/mdx": "^4.3.13",
+		"@astrojs/rss": "^4.0.15",
+		"@astrojs/sitemap": "^3.7.0",
+		"astro": "^5.18.0",
+		"astro-simpleanalytics-plugin": "^0.3.21",
 		"optional": "^0.1.4"
 	}
 }
