@@ -67,21 +67,21 @@
     "upd": "pnpm update --latest --recursive --interactive --verbose --ignore-scripts=false --include=optional"
   },
   "dependencies": {
-    "astro": "5.16.6"
+    "astro": "5.18.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "20.2.0",
-    "@commitlint/config-conventional": "20.2.0",
-    "@release-it/keep-a-changelog": "7.0.0",
-    "@typescript-eslint/eslint-plugin": "8.50.0",
-    "@typescript-eslint/parser": "8.50.0",
-    "eslint": "9.39.2",
-    "eslint-plugin-astro": "1.5.0",
+    "@commitlint/cli": "20.4.3",
+    "@commitlint/config-conventional": "20.4.3",
+    "@release-it/keep-a-changelog": "7.0.1",
+    "@typescript-eslint/eslint-plugin": "8.56.1",
+    "@typescript-eslint/parser": "8.56.1",
+    "eslint": "10.0.3",
+    "eslint-plugin-astro": "1.6.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "husky": "9.1.7",
-    "prettier": "3.7.4",
+    "prettier": "3.8.1",
     "prettier-plugin-astro": "0.14.1",
-    "release-it": "19.1.0",
+    "release-it": "19.2.4",
     "typescript": "5.9.3"
   },
   "commitlint": {
