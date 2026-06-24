@@ -1,5 +1,20 @@
 # Astro Simple Analytics Plugin: Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **BREAKING:** Upgraded the `astro` dependency from `5.18.0` to `7.0.2` and raised the minimum supported Node.js version to `>=22.12.0` (the Astro 7 baseline). Node 18 and 20 are no longer supported.
+
+### Fixed
+
+- `SimpleAnalyticsChart` now types its `id`, `style`, and `loadingText` props as optional to match their built-in defaults, so `<SimpleAnalyticsChart />` with no props type-checks cleanly under `astro check`.
+- Switched the internal Zod import from `astro:content` to `astro/zod`, as required by Astro 6+ (the `z` re-export from `astro:content` was removed).
+
+### Security
+
+- Added `pnpm` overrides pinning patched versions of transitive dependencies; `pnpm audit` now reports no known vulnerabilities.
+
 ## [0.3.22] - 2026-03-09 - 2026-03-09
 
 ### Added
