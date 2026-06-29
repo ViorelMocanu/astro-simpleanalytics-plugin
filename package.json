@@ -70,7 +70,7 @@
     "astro": "7.0.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "20.4.3",
+    "@commitlint/cli": "21.1.0",
     "@commitlint/config-conventional": "20.4.3",
     "@release-it/keep-a-changelog": "7.1.0",
     "@typescript-eslint/eslint-plugin": "8.56.1",
