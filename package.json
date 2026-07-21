@@ -67,7 +67,7 @@
     "upd": "pnpm update --latest --recursive --interactive --verbose --ignore-scripts=false --include=optional && cd demo && pnpm update --latest --recursive --interactive --verbose --ignore-scripts=false --include=optional && cd .. && pnpm install"
   },
   "dependencies": {
-    "astro": "7.0.2"
+    "astro": "7.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "20.4.3",
