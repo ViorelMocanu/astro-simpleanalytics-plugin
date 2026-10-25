@@ -79,7 +79,7 @@
     "eslint-plugin-astro": "1.6.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "husky": "9.1.7",
-    "prettier": "3.8.1",
+    "prettier": "3.9.3",
     "prettier-plugin-astro": "0.14.1",
     "release-it": "20.2.0",
     "typescript": "5.9.3"
