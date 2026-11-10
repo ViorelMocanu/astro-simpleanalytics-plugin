@@ -14,6 +14,10 @@
 - [ ] Add additional features from the Simple Analytics script: [overwrite path](https://docs.simpleanalytics.com/overwrite-path).
 - [ ] (optional) Upgrade to an Astro [Integration](https://docs.astro.build/en/reference/integrations-reference/).
 - [ ] Add additional features: [custom events](https://docs.simpleanalytics.com/events).
-- [ ] Add additional features: [automated events](https://docs.simpleanalytics.com/automated-events).
+- [x] Add additional features: [automated events](https://docs.simpleanalytics.com/automated-events).
+- [x] Add the options of the [embed script v12](https://docs.simpleanalytics.com/script/v12): 404 detection, time on page pings, referrer overwrite.
+- [x] Add a server-side helper for the [Stats API](https://docs.simpleanalytics.com/api/stats) (version 6).
+- [ ] Add additional features from the Simple Analytics script: [SRI version](https://docs.simpleanalytics.com/sri).
+- [ ] Add additional features from the Simple Analytics script: custom namespace, [manual page views](https://docs.simpleanalytics.com/trigger-custom-page-views) and [metadata collector](https://docs.simpleanalytics.com/metadata).
 - [ ] Add additional features: [custom link clicks](https://docs.simpleanalytics.com/events/custom-link-clicks).
 - [ ] See more in the [Issues](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/issues) section.

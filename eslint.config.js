@@ -1,6 +1,7 @@
+// astro-eslint-parser v3 is ESM-only with named exports (no default export).
+import * as astroParser from "astro-eslint-parser";
 import a11y from "eslint-plugin-jsx-a11y";
 import astro from "eslint-plugin-astro";
-import astroParser from "astro-eslint-parser";
 import ts from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 

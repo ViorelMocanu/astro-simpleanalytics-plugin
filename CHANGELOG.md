@@ -1,5 +1,22 @@
 # Astro Simple Analytics Plugin: Changelog
 
+## [Unreleased]
+
+### Added
+
+- Options of the Simple Analytics [embed script v12](https://docs.simpleanalytics.com/script/v12) on `SimpleAnalytics`: `detect404`, `pings` and `referrer`.
+- Automated events (outbound links, emails, downloads and phone numbers) on `SimpleAnalytics` with `autoEvents`, `autoEventsCollect`, `autoEventsExtensions`, `autoEventsUseTitle` and `autoEventsFullUrls`.
+- `getSimpleAnalyticsStats()` and `buildSimpleAnalyticsStatsUrl()`, server-side helpers for version 6 of the [Stats API](https://docs.simpleanalytics.com/api/stats).
+- Documentation for inline events and the `querykeys` metric.
+
+### Changed
+
+- **BREAKING:** Upgraded the `astro` dependency from `7.0.2` to `7.4.10` and raised the minimum supported Node.js version to `>=22.23.4` (the current Astro 7 baseline).
+
+### Security
+
+- Updated all dependencies and replaced the `pnpm` overrides; `pnpm audit` reports no known vulnerabilities.
+
 ## [0.4.0] - 2026-06-24
 
 ### Changed

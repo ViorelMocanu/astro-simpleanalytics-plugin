@@ -1,9 +1,13 @@
 ---
 import {
+  sanitizeAllowedCSV,
   sanitizeBoolean,
   sanitizeCSV,
+  sanitizeExtensions,
   sanitizeHostname,
   sanitizeHostnameList,
+  sanitizePings,
+  sanitizeURL,
 } from "./utilities";
 
 export interface Props {
@@ -20,6 +24,16 @@ export interface Props {
   allowParams?: string | undefined;
   ignoreMetrics?: string | undefined;
   crossorigin?: "anonymous" | "use-credentials" | "" | undefined;
+  // embed script v12 options (https://docs.simpleanalytics.com/script/v12)
+  detect404?: boolean;
+  pings?: string | number[] | undefined;
+  referrer?: string | undefined;
+  // automated events script (https://docs.simpleanalytics.com/automated-events)
+  autoEvents?: boolean;
+  autoEventsCollect?: string | undefined;
+  autoEventsExtensions?: string | undefined;
+  autoEventsUseTitle?: boolean | undefined;
+  autoEventsFullUrls?: boolean | undefined;
 }
 
 const {
@@ -36,6 +50,14 @@ const {
   allowParams = undefined,
   ignoreMetrics = undefined,
   crossorigin = "anonymous",
+  detect404 = false,
+  pings = undefined,
+  referrer = undefined,
+  autoEvents = false,
+  autoEventsCollect = undefined,
+  autoEventsExtensions = undefined,
+  autoEventsUseTitle = undefined,
+  autoEventsFullUrls = undefined,
 } = Astro.props;
 
 // prop sanitization
@@ -51,6 +73,17 @@ const sanitizedDebug = sanitizeBoolean(debug);
 const sanitizedStrictUTMs = sanitizeBoolean(strictUTMs);
 const sanitizedAllowParams = sanitizeCSV(allowParams);
 const sanitizedIgnoreMetrics = sanitizeCSV(ignoreMetrics);
+const sanitizedDetect404 = sanitizeBoolean(detect404);
+const sanitizedPings = sanitizePings(pings);
+const sanitizedReferrer = referrer ? sanitizeURL(referrer) : false;
+const sanitizedAutoEvents = sanitizeBoolean(autoEvents);
+const sanitizedAutoEventsCollect = sanitizeAllowedCSV(autoEventsCollect, [
+  "outbound",
+  "emails",
+  "downloads",
+  "phones",
+]);
+const sanitizedAutoEventsExtensions = sanitizeExtensions(autoEventsExtensions);
 
 // attribute generation
 const realURL = new URL(Astro.url.origin);
@@ -92,6 +125,13 @@ const attrPartytown = sanitizedPartytown
 const attrIgnoreMetrics = sanitizedIgnoreMetrics
   ? { "data-ignore-metrics": sanitizedIgnoreMetrics }
   : false;
+const attrDetect404 = sanitizedDetect404
+  ? { "data-detect-404": "true" }
+  : false;
+const attrPings = sanitizedPings ? { "data-pings": sanitizedPings } : false;
+const attrReferrer = sanitizedReferrer
+  ? { "data-referrer": sanitizedReferrer }
+  : false;
 const attrCrossorigin =
   crossorigin && crossorigin.length > 0
     ? { crossorigin: crossorigin }
@@ -105,7 +145,28 @@ const attrs = {
   ...(attrStrictUTMs ? attrStrictUTMs : {}),
   ...(attrAllowParams ? attrAllowParams : {}),
   ...(attrIgnoreMetrics ? attrIgnoreMetrics : {}),
+  ...(attrDetect404 ? attrDetect404 : {}),
+  ...(attrPings ? attrPings : {}),
+  ...(attrReferrer ? attrReferrer : {}),
   ...(attrCrossorigin ? attrCrossorigin : {}),
+};
+// the automated events script only gets the settings that were explicitly set,
+// so the defaults of the script itself apply otherwise
+const autoEventsAttrs = {
+  ...(sanitizedAutoEventsCollect
+    ? { "data-collect": sanitizedAutoEventsCollect }
+    : {}),
+  ...(sanitizedAutoEventsExtensions
+    ? { "data-extensions": sanitizedAutoEventsExtensions }
+    : {}),
+  ...(typeof autoEventsUseTitle === "boolean"
+    ? { "data-use-title": String(autoEventsUseTitle) }
+    : {}),
+  ...(typeof autoEventsFullUrls === "boolean"
+    ? { "data-full-urls": String(autoEventsFullUrls) }
+    : {}),
+  ...attrPartytown,
+  ...attrCrossorigin,
 };
 
 // string parameter generation
@@ -126,6 +187,7 @@ const specificHostname = specificHost;
 
 // injectable string variable concatenation
 const scriptSrc = `https://${domain}/${scriptfile}`;
+const autoEventsSrc = `https://${domain}/auto-events.js`;
 const imageSrc = `https://queue.simpleanalyticscdn.com/${imagefile}${specificHostname}`;
 
 // render boolean calculation
@@ -140,6 +202,15 @@ if (sanitizedAllEnvironments) {
 const showScripts = show;
 
 if (sanitizedDebug) {
+  const autoEventsDebug: unknown[] = [];
+  if (sanitizedAutoEvents) {
+    autoEventsDebug.push(
+      "\nLoaded automated events script from:",
+      autoEventsSrc,
+      "\nAutomated events attributes:",
+      autoEventsAttrs,
+    );
+  }
   /* eslint-disable no-console */
   console.log(
     "\n\n%cAstro Simple Analytics Plugin%c",
@@ -154,52 +225,49 @@ if (sanitizedDebug) {
     imageSrc,
     "\nAttributes:",
     attrs,
+    ...autoEventsDebug,
   );
   /* eslint-enable no-console */
 }
 ---
 
-<!-- Simple Analytics - 100% privacy-first analytics -->{
-  showScripts && (
-    <div class="SimpleAnalytics">
-      <script is:inline async defer src={scriptSrc} {...attrs} />
-      <noscript>
-        <img
-          src={imageSrc}
-          alt=""
-          referrerpolicy="no-referrer-when-downgrade"
-        />
-      </noscript>
-    </div>
-  )
-}
-{
-  sanitizedDebug && (
-    <div class="SimpleAnalytics" style="display:none;">
-      <p>
-        The Astro Simple Analytics Plugin component finished loading. You can
-        see all the parameters used here and in the console:
-      </p>
-      <pre>{JSON.stringify(Astro.props, null, 2)}</pre>
-      <p>
-        Remember to have a look at our documentation for options regarding{" "}
-        <a
-          href="https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/#-option-bypass-ad-blockers-"
-          target="_blank"
-          rel="external nofollow noreferrer"
-        >
-          circumventing adblocking
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://docs.simpleanalytics.com/csp"
-          target="_blank"
-          rel="external nofollow noreferrer"
-        >
-          using a correct CSP (Content Security Policy)
-        </a>{" "}
-        so your scripts don't trigger console errors.
-      </p>
-    </div>
-  )
-}
+<!-- Simple Analytics - 100% privacy-first analytics -->
+{showScripts && (
+  <div class="SimpleAnalytics">
+    <script is:inline async defer src={scriptSrc} {...attrs} />
+    {sanitizedAutoEvents && (
+      <script is:inline async defer src={autoEventsSrc} {...autoEventsAttrs} />
+    )}
+    <noscript>
+      <img src={imageSrc} alt="" referrerpolicy="no-referrer-when-downgrade" />
+    </noscript>
+  </div>
+)}
+{sanitizedDebug && (
+  <div class="SimpleAnalytics" style="display:none;">
+    <p>
+      The Astro Simple Analytics Plugin component finished loading. You can see
+      all the parameters used here and in the console:
+    </p>
+    <pre>{JSON.stringify(Astro.props, null, 2)}</pre>
+    <p>
+      Remember to have a look at our documentation for options regarding{" "}
+      <a
+        href="https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/#-option-bypass-ad-blockers-"
+        target="_blank"
+        rel="external nofollow noreferrer"
+      >
+        circumventing adblocking
+      </a>{" "}
+      and{" "}
+      <a
+        href="https://docs.simpleanalytics.com/csp"
+        target="_blank"
+        rel="external nofollow noreferrer"
+      >
+        using a correct CSP (Content Security Policy)
+      </a>{" "}
+      so your scripts don't trigger console errors.
+    </p>
+  </div>
+)}

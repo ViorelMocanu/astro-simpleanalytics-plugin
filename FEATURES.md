@@ -14,7 +14,13 @@
   - [✅ Option: Strict UTMs 🔒](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-strict-utms-)
   - [✅ Option: Allow URL parameters 🔓](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-allow-url-parameters-)
   - [✅ Option: Ignore metrics 🚫](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-ignore-metrics-)
+  - [✅ Option: Detect 404 pages](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-detect-404-pages)
+  - [✅ Option: Time on page pings](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-time-on-page-pings)
+  - [✅ Option: Overwrite referrer](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-overwrite-referrer)
+  - [✅ Option: Automated events](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--option-automated-events)
+  - [💡 Feature: Inline events](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--feature-inline-events)
   - [💡 Feature: Embed chart on your site 📈](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--feature-embed-chart-on-your-site-)
+  - [💡 Feature: Stats API helper](https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/blob/main/FEATURES.md#user-content--feature-stats-api-helper)
 
 Once you [install it](README.md#🚀-installation), the Astro Simple Analytics Plugin should be ready to go with zero config.
 
@@ -41,6 +47,14 @@ These are all the available parameter options for this plugin where you choose t
   nonUniqueHostnames={undefined} {/* (undefined | string) */}
   ignoreMetrics={undefined}      {/* (undefined | string) */}
   crossorigin="anonymous"        {/* (undefined | "anonymous" | "use-credentials") */}
+  detect404={false}              {/* (false | true) */}
+  pings={undefined}              {/* (undefined | string | number[]) */}
+  referrer={undefined}           {/* (undefined | string) */}
+  autoEvents={false}             {/* (false | true) */}
+  autoEventsCollect={undefined}  {/* (undefined | string) */}
+  autoEventsExtensions={undefined} {/* (undefined | string) */}
+  autoEventsUseTitle={undefined} {/* (undefined | false | true) */}
+  autoEventsFullUrls={undefined} {/* (undefined | false | true) */}
 />
 ```
 
@@ -240,6 +254,7 @@ The Astro Simple Analytics Plugin only collects non-personal data. If you want t
 | Screen size         | `screensize`   |                                                                                                 |
 | Viewport size       | `viewportsize` |                                                                                                 |
 | Language            | `language`     |                                                                                                 |
+| Query param names   | `querykeys`    |                                                                                                 |
 
 See [page with metric explanations](https://docs.simpleanalytics.com/metrics).
 
@@ -250,6 +265,8 @@ So if, for example, you'd like to ignore `timeonpage` and `scrolled`, you should
 ```
 
 You can add any number of metrics to this list if you want to ignore them.
+
+Since version 12 of the embed script, Simple Analytics also collects the **names** (never the values) of the query parameters in the page URL, for example `gclid` to tell paid from organic traffic. Add `querykeys` to the list if you want to turn this off.
 
 ## ✅ Option: Add crossorigin parameter ♻️
 
@@ -265,6 +282,76 @@ By default, the `crossorigin` sets to `anonymous`, like this:
 ```Astro
 <SimpleAnalytics crossorigin="anonymous" />
 ```
+
+## ✅ Option: Detect 404 pages
+
+Since version 12 of the embed script, Simple Analytics can [send a `page_404` event](https://docs.simpleanalytics.com/events/inline) when a page contains "404" and a request to the same URL confirms the 404 status. Enable it with this component property:
+
+```Astro
+<SimpleAnalytics detect404={true} />
+```
+
+This does not work with the [light version of the script](#-option-light-version-script-).
+
+## ✅ Option: Time on page pings
+
+By default, the time on page is sent when a page gets hidden. Some browsers (mostly on mobile) discard a page before that happens. With [pings](https://docs.simpleanalytics.com/pings), the script also sends the time on page when the visible time passes the thresholds you set, in seconds. You can pass them as an array of numbers or as a CSV string:
+
+```Astro
+<SimpleAnalytics pings={[5, 30, 60]} />
+<SimpleAnalytics pings="5,30,60" />
+```
+
+There are no pings by default. Every threshold adds a request per page view, so only add the ones you need. This does not work with the [light version of the script](#-option-light-version-script-).
+
+## ✅ Option: Overwrite referrer
+
+If the browser doesn't pass the original referrer, but you know where the visitor came from (for example after a redirect through your own server), you can [overwrite the referrer](https://docs.simpleanalytics.com/overwrite-referrer) of the first page view with a full URL:
+
+```Astro
+<SimpleAnalytics referrer="https://example.com/newsletter" />
+```
+
+## ✅ Option: Automated events
+
+The [automated events script](https://docs.simpleanalytics.com/automated-events) collects clicks on outbound links, email addresses, phone numbers (since version 12 of the embed script) and downloads of common files as events, without writing any code. It is a second script, which the plugin loads right after the main one when you enable this component property:
+
+```Astro
+<SimpleAnalytics autoEvents={true} />
+```
+
+You can change its settings with these optional component properties (the values below are the defaults of the script):
+
+```Astro
+<SimpleAnalytics
+  autoEvents={true}
+  autoEventsCollect="outbound,emails,downloads,phones"
+  autoEventsExtensions="pdf,csv,docx,xlsx,zip,doc,xls"
+  autoEventsUseTitle={true}
+  autoEventsFullUrls={false}
+/>
+```
+
+The automated events script loads from the same domain as the main script, so it also uses your [custom domain](#-option-bypass-ad-blockers-) if you set one.
+
+## 💡 Feature: Inline events
+
+Since version 12 of the embed script, you don't need any JavaScript to [send an event](https://docs.simpleanalytics.com/events/inline) when a visitor clicks an element or submits a form. The plugin doesn't need any configuration for this: add a `data-simple-event` attribute to your own markup, and optional `data-simple-event-*` attributes as metadata:
+
+```Astro
+<a href="/pricing" data-simple-event="visit_pricing_page">See pricing</a>
+
+<button data-simple-event="select_plan" data-simple-event-plan="enterprise">
+  Choose Enterprise
+</button>
+
+<form action="/signup" data-simple-event="signup_form">
+  <input name="email" type="email" />
+  <button type="submit">Sign up</button>
+</form>
+```
+
+Inline events need the full script, not the [light version](#-option-light-version-script-).
 
 ## 💡 Feature: Embed chart on your site 📈
 
@@ -320,3 +407,52 @@ We are passing all customization parameters through to the element rendering the
 ```
 
 In order to make this feature work on public pages (where you shouldn't require [header authentication](https://docs.simpleanalytics.com/api/authenticate)), make sure your website has the [Stats API](https://docs.simpleanalytics.com/api/stats) exposed by setting the `Change visibility` option on your specific website settings into `Keep stats public`, inside your website settings page (which can be found by replacing `example.com` with your domain name in the URL: `https://simpleanalytics.com/example.com/settings#visibility`).
+
+## 💡 Feature: Stats API helper
+
+The plugin exports a small helper for the [Stats API](https://docs.simpleanalytics.com/api/stats), which returns the aggregated statistics you see in your dashboard. It requests version 6 of the API by default, which adds hourly histogram buckets and metadata filters.
+
+Use it on the server (in the frontmatter of a page, in an endpoint or in a content loader), so you can render your own numbers and charts at build or request time:
+
+```Astro
+---
+import { getSimpleAnalyticsStats } from 'astro-simpleanalytics-plugin';
+
+const stats = await getSimpleAnalyticsStats({
+  hostname: 'example.com',
+  fields: ['pageviews', 'visitors', 'histogram'],
+  start: 'today-30d',
+  end: 'yesterday',
+  interval: 'week',
+  timezone: 'Europe/Amsterdam',
+});
+---
+
+<p>{stats.visitors} visitors and {stats.pageviews} page views in the last 30 days.</p>
+<ul>
+  {stats.histogram?.map((week) => <li>Week {week.week}: {week.visitors} visitors</li>)}
+</ul>
+```
+
+These are all the available options:
+
+| Option     | Description                                                                                                      |
+| :--------- | :--------------------------------------------------------------------------------------------------------------- |
+| `hostname` | The website as it is named in your dashboard (required).                                                         |
+| `path`     | Only get the data of this path, for example `/contact`.                                                          |
+| `fields`   | A list of fields, for example `['pageviews', 'visitors', 'histogram', 'pages', 'countries', 'referrers']`.       |
+| `start`    | The start date (`YYYY-MM-DD`) or a [placeholder](https://docs.simpleanalytics.com/api/helpers) like `today-30d`. |
+| `end`      | The end date (`YYYY-MM-DD`) or a placeholder like `yesterday`.                                                   |
+| `interval` | The size of the histogram buckets: `hour`, `day`, `week`, `month` or `year`.                                     |
+| `timezone` | A valid time zone like `Europe/Amsterdam`.                                                                       |
+| `limit`    | A limit for the fields (1-1000).                                                                                 |
+| `events`   | A list of event names to count, or `'*'` for all events.                                                         |
+| `filters`  | Filters like `{ pages: '/blog/*', country: 'nl', device_type: 'mobile' }`.                                       |
+| `metadata` | Exact metadata values to filter by, like `{ app_id: 'nl-123' }`.                                                 |
+| `info`     | Adds explanations of the fields to the response (defaults to `false`).                                           |
+| `version`  | The version of the Stats API (defaults to `6`).                                                                  |
+| `apiKey`   | Your API key, which is only needed for private websites.                                                         |
+
+The helper throws an error when the request fails. If you only need the URL of the request, use `buildSimpleAnalyticsStatsUrl()` with the same options.
+
+**WARNING:** Public websites work without credentials. If your website is private, [create an API key](https://docs.simpleanalytics.com/api/authenticate) and read it from a server-only environment variable. Never use your API key in a client-side script, because it would be visible to all your visitors.

@@ -5,3 +5,18 @@
 
 export { default as SimpleAnalytics } from "./src/SimpleAnalytics.astro";
 export { default as SimpleAnalyticsChart } from "./src/SimpleAnalyticsChart.astro";
+export {
+  SIMPLE_ANALYTICS_STATS_API_VERSION,
+  buildSimpleAnalyticsStatsUrl,
+  getSimpleAnalyticsStats,
+} from "./src/stats";
+export type {
+  SimpleAnalyticsStats,
+  SimpleAnalyticsStatsEntry,
+  SimpleAnalyticsStatsEvent,
+  SimpleAnalyticsStatsField,
+  SimpleAnalyticsStatsFilters,
+  SimpleAnalyticsStatsHistogramEntry,
+  SimpleAnalyticsStatsInterval,
+  SimpleAnalyticsStatsOptions,
+} from "./src/stats";

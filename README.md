@@ -76,10 +76,18 @@ These are all the available parameter options for this plugin where you choose t
   nonUniqueHostnames={undefined} {/* (undefined | string) */}
   ignoreMetrics={undefined}      {/* (undefined | string) */}
   crossorigin="anonymous"        {/* (undefined | "anonymous" | "use-credentials") */}
+  detect404={false}              {/* (false | true) */}
+  pings={undefined}              {/* (undefined | string | number[]) */}
+  referrer={undefined}           {/* (undefined | string) */}
+  autoEvents={false}             {/* (false | true) */}
+  autoEventsCollect={undefined}  {/* (undefined | string) */}
+  autoEventsExtensions={undefined} {/* (undefined | string) */}
+  autoEventsUseTitle={undefined} {/* (undefined | false | true) */}
+  autoEventsFullUrls={undefined} {/* (undefined | false | true) */}
 />
 ```
 
-Read more about the available features in the [dedicated features document](FEATURES.md).
+Read more about the available features in the [dedicated features document](FEATURES.md), including the options of the [embed script v12](https://docs.simpleanalytics.com/script/v12) (404 detection, time on page pings, referrer overwrite, inline events, automated events) and a server-side helper for the [Stats API](https://docs.simpleanalytics.com/api/stats).
 
 ## 🐞 Troubleshooting
 

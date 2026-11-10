@@ -252,3 +252,89 @@ export function sanitizeHostnameList(wannabeHostnameList: unknown) {
   });
   return allUrlsAreValid ? wannabeHostnameList : false;
 }
+
+/**
+ * Checks if the input is a list of time on page ping thresholds (in seconds) and returns it as a CSV string.
+ *
+ * @param {unknown} wannabePings - An array of numbers, or a CSV string of numbers, greater than zero.
+ * @returns {string | boolean} The thresholds as a CSV string if all of them are valid. Otherwise, it returns `false`.
+ *
+ * @example
+ * const output1 = sanitizePings([5, 30, 60]);
+ * // output1: "5,30,60"
+ *
+ * const output2 = sanitizePings("5, 60");
+ * // output2: "5,60"
+ *
+ * const output3 = sanitizePings("5,abc");
+ * // output3: false
+ */
+export function sanitizePings(wannabePings: unknown) {
+  let list: unknown[];
+  if (Array.isArray(wannabePings)) {
+    list = wannabePings;
+  } else if (typeof wannabePings === "string") {
+    list = wannabePings.split(",").map((ping) => ping.trim());
+  } else {
+    return false;
+  }
+  const pings = list.map((ping) =>
+    typeof ping === "string" && ping.length > 0 ? Number(ping) : ping,
+  );
+  return pings.length > 0 &&
+    pings.every(
+      (ping) => typeof ping === "number" && Number.isFinite(ping) && ping > 0,
+    )
+    ? pings.join(",")
+    : false;
+}
+
+/**
+ * Checks if the input is a CSV string in which every value is part of a list of allowed values.
+ *
+ * @param {unknown} wannabeList - The CSV string to be checked.
+ * @param {readonly string[]} allowedValues - The values the CSV string is allowed to contain.
+ * @returns {string | boolean} The CSV string (without whitespace) if all values are allowed. Otherwise, it returns `false`.
+ *
+ * @example
+ * const output1 = sanitizeAllowedCSV("outbound, emails", ["outbound", "emails"]);
+ * // output1: "outbound,emails"
+ *
+ * const output2 = sanitizeAllowedCSV("outbound,other", ["outbound", "emails"]);
+ * // output2: false
+ */
+export function sanitizeAllowedCSV(
+  wannabeList: unknown,
+  allowedValues: readonly string[],
+) {
+  if (typeof wannabeList !== "string") return false;
+  const values = wannabeList.split(",").map((value) => value.trim());
+  return values.length > 0 &&
+    values.every((value) => allowedValues.includes(value))
+    ? values.join(",")
+    : false;
+}
+
+/**
+ * Checks if the input is a CSV string of file extensions (letters and numbers only, without the dot).
+ *
+ * @param {unknown} wannabeExtensions - The CSV string to be checked.
+ * @returns {string | boolean} The CSV string (without whitespace) if all extensions are valid. Otherwise, it returns `false`.
+ *
+ * @example
+ * const output1 = sanitizeExtensions("pdf, csv,docx");
+ * // output1: "pdf,csv,docx"
+ *
+ * const output2 = sanitizeExtensions(".pdf");
+ * // output2: false
+ */
+export function sanitizeExtensions(wannabeExtensions: unknown) {
+  if (typeof wannabeExtensions !== "string") return false;
+  const extensions = wannabeExtensions
+    .split(",")
+    .map((extension) => extension.trim());
+  return extensions.length > 0 &&
+    extensions.every((extension) => /^[a-z0-9]+$/i.test(extension))
+    ? extensions.join(",")
+    : false;
+}
