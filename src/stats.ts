@@ -227,12 +227,8 @@ export async function getSimpleAnalyticsStats(
     ...(options.signal ? { signal: options.signal } : {}),
   });
 
-  let stats: (SimpleAnalyticsStats & { error?: string }) | undefined;
-  try {
-    stats = await response.json();
-  } catch {
-    stats = undefined;
-  }
+  const stats: (SimpleAnalyticsStats & { error?: string }) | undefined =
+    await response.json().catch(() => undefined);
   if (!response.ok || !stats?.ok) {
     throw new Error(
       `Stats API request failed (${response.status}): ${

@@ -274,12 +274,14 @@ export function sanitizePings(wannabePings: unknown) {
   if (Array.isArray(wannabePings)) {
     list = wannabePings;
   } else if (typeof wannabePings === "string") {
-    list = wannabePings.split(",").map((ping) => ping.trim());
+    list = wannabePings.split(",");
   } else {
     return false;
   }
+  // `Number()` ignores surrounding whitespace and turns an empty value into 0,
+  // which the check below rejects
   const pings = list.map((ping) =>
-    typeof ping === "string" && ping.length > 0 ? Number(ping) : ping,
+    typeof ping === "string" ? Number(ping) : ping,
   );
   return pings.length > 0 &&
     pings.every(
@@ -287,6 +289,22 @@ export function sanitizePings(wannabePings: unknown) {
     )
     ? pings.join(",")
     : false;
+}
+
+/**
+ * Checks every value of a CSV string and returns the CSV string without whitespace around its values.
+ *
+ * @param {unknown} wannabeList - The CSV string to be checked.
+ * @param {(value: string) => boolean} isValid - Decides if a single (trimmed) value is valid.
+ * @returns {string | boolean} The CSV string (without whitespace) if all values are valid. Otherwise, it returns `false`.
+ */
+function sanitizeCSVValues(
+  wannabeList: unknown,
+  isValid: (value: string) => boolean,
+) {
+  if (typeof wannabeList !== "string") return false;
+  const values = wannabeList.split(",").map((value) => value.trim());
+  return values.every(isValid) ? values.join(",") : false;
 }
 
 /**
@@ -307,12 +325,9 @@ export function sanitizeAllowedCSV(
   wannabeList: unknown,
   allowedValues: readonly string[],
 ) {
-  if (typeof wannabeList !== "string") return false;
-  const values = wannabeList.split(",").map((value) => value.trim());
-  return values.length > 0 &&
-    values.every((value) => allowedValues.includes(value))
-    ? values.join(",")
-    : false;
+  return sanitizeCSVValues(wannabeList, (value) =>
+    allowedValues.includes(value),
+  );
 }
 
 /**
@@ -329,12 +344,7 @@ export function sanitizeAllowedCSV(
  * // output2: false
  */
 export function sanitizeExtensions(wannabeExtensions: unknown) {
-  if (typeof wannabeExtensions !== "string") return false;
-  const extensions = wannabeExtensions
-    .split(",")
-    .map((extension) => extension.trim());
-  return extensions.length > 0 &&
-    extensions.every((extension) => /^[a-z0-9]+$/i.test(extension))
-    ? extensions.join(",")
-    : false;
+  return sanitizeCSVValues(wannabeExtensions, (extension) =>
+    /^[a-z0-9]+$/i.test(extension),
+  );
 }

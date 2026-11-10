@@ -39,7 +39,7 @@ export default [
     rules: {
       ...ts.configs["eslint-recommended"].rules,
       ...ts.configs["recommended"].rules,
-      indent: ["error", 2, { SwitchCase: 1 }],
+      indent: ["error", 2, { SwitchCase: 1, offsetTernaryExpressions: true }],
       "linebreak-style": ["error", "unix"],
       "brace-style": ["error", "1tbs", { allowSingleLine: true }],
       "sort-imports": "warn",
@@ -80,7 +80,7 @@ export default [
     rules: {
       ...ts.configs["eslint-recommended"].rules,
       ...ts.configs["recommended"].rules,
-      indent: ["error", 2, { SwitchCase: 1 }],
+      indent: ["error", 2, { SwitchCase: 1, offsetTernaryExpressions: true }],
       "linebreak-style": ["error", "unix"],
       "brace-style": ["error", "1tbs", { allowSingleLine: true }],
       "sort-imports": "warn",
@@ -119,7 +119,7 @@ export default [
       a11y,
     },
     rules: {
-      indent: ["error", 2, { SwitchCase: 1 }],
+      indent: ["error", 2, { SwitchCase: 1, offsetTernaryExpressions: true }],
       "linebreak-style": ["error", "unix"],
       "astro/no-conflict-set-directives": "error",
       "astro/no-deprecated-astro-canonicalurl": "error",

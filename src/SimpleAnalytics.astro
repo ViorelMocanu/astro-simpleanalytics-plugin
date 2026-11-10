@@ -75,7 +75,7 @@ const sanitizedAllowParams = sanitizeCSV(allowParams);
 const sanitizedIgnoreMetrics = sanitizeCSV(ignoreMetrics);
 const sanitizedDetect404 = sanitizeBoolean(detect404);
 const sanitizedPings = sanitizePings(pings);
-const sanitizedReferrer = referrer ? sanitizeURL(referrer) : false;
+const sanitizedReferrer = sanitizeURL(referrer);
 const sanitizedAutoEvents = sanitizeBoolean(autoEvents);
 const sanitizedAutoEventsCollect = sanitizeAllowedCSV(autoEventsCollect, [
   "outbound",
@@ -202,15 +202,6 @@ if (sanitizedAllEnvironments) {
 const showScripts = show;
 
 if (sanitizedDebug) {
-  const autoEventsDebug: unknown[] = [];
-  if (sanitizedAutoEvents) {
-    autoEventsDebug.push(
-      "\nLoaded automated events script from:",
-      autoEventsSrc,
-      "\nAutomated events attributes:",
-      autoEventsAttrs,
-    );
-  }
   /* eslint-disable no-console */
   console.log(
     "\n\n%cAstro Simple Analytics Plugin%c",
@@ -225,7 +216,14 @@ if (sanitizedDebug) {
     imageSrc,
     "\nAttributes:",
     attrs,
-    ...autoEventsDebug,
+    ...(sanitizedAutoEvents
+      ? [
+          "\nLoaded automated events script from:",
+          autoEventsSrc,
+          "\nAutomated events attributes:",
+          autoEventsAttrs,
+        ]
+      : []),
   );
   /* eslint-enable no-console */
 }
