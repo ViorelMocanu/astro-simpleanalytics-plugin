@@ -1,6 +1,6 @@
 # Astro Simple Analytics Plugin: Changelog
 
-## [Unreleased]
+## [0.5.0] - 2026-11-10
 
 ### Added
 
@@ -124,7 +124,8 @@
 [0.3.18]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/releases/tag/v0.3.18
 [0.3.19]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/releases/tag/v0.3.19
 [0.3.20]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/releases/tag/v0.3.20
+[0.5.0]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/compare/v0.3.22...v0.4.0
 [0.3.22]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/compare/v0.3.21...v0.3.22
 [0.3.21]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/releases/tag/v0.3.21
-[Unreleased]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/compare/v0.4.0...main
+[Unreleased]: https://github.com/ViorelMocanu/astro-simpleanalytics-plugin/compare/v0.5.0...main
