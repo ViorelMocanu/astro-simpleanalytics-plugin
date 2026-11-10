@@ -291,6 +291,8 @@ Since version 12 of the embed script, Simple Analytics can [send a `page_404` ev
 <SimpleAnalytics detect404={true} />
 ```
 
+The script can only detect a 404 on a page that loads it, so make sure your custom 404 page (`src/pages/404.astro`) uses a layout that includes the `<SimpleAnalytics />` component. The default 404 response of your hosting provider doesn't contain the script, so nothing is sent from there.
+
 This does not work with the [light version of the script](#-option-light-version-script-).
 
 ## ✅ Option: Time on page pings
@@ -333,6 +335,13 @@ You can change its settings with these optional component properties (the values
 ```
 
 The automated events script loads from the same domain as the main script, so it also uses your [custom domain](#-option-bypass-ad-blockers-) if you set one.
+
+**WARNING:** The automated events script only looks for links once, when a page is fully loaded. That means it doesn't collect clicks on:
+
+- links on pages reached through client-side navigation, for example with Astro's [`<ClientRouter />`](https://docs.astro.build/en/guides/view-transitions/) (page views and pings keep working there);
+- links that are added to the page later with JavaScript.
+
+If you need those clicks, use [inline events](#-feature-inline-events) on the links you care about instead.
 
 ## 💡 Feature: Inline events
 

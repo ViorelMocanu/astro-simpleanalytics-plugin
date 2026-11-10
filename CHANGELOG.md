@@ -1,5 +1,11 @@
 # Astro Simple Analytics Plugin: Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Documented that `detect404` needs the component on a custom 404 page, and that `autoEvents` only covers links present on a full page load (not after client-side navigation with `<ClientRouter />`).
+
 ## [0.5.0] - 2026-11-10
 
 ### Added
